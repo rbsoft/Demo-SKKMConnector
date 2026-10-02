@@ -10,9 +10,16 @@ public class ReportXAsync : Sample
 
     public async Task<SkkmConnector> PostReportXAsync()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        await kkm.ReportXAsync();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        await connector.ReportXAsync();
+        if (connector.Ok)
+        {
+            Console.WriteLine($"X-отчёт поставлен в очередь. docId={connector.DocumentId}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

@@ -6,12 +6,18 @@ public class OpenSessionRegistrationKM : Sample
 {
     public const string GroupPath = "Работа с ККМ|Работа с маркировкой";
     public const string Title = "Открыть сессию КМ";
+    public const int SortOrder = 1;
 
     public async Task<SkkmConnector> PostOpenSessionRegistrationKM()
     {
-        kkm.DeviceName = deviceName;
-        await kkm.OpenSessionRegistrationKM();
+        connector.DeviceName = deviceName;
+        await connector.OpenSessionRegistrationKM();
 
-        return kkm;
+        if (connector.Ok)
+            Console.WriteLine("Выполнено успешно.");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

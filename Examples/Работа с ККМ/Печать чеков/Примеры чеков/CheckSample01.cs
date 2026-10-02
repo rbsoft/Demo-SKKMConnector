@@ -9,44 +9,39 @@ public class CheckSample01 : Sample
 
     public async Task<SkkmConnector> PostCheckSample01()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ЕНВД;
-        kkm.Customer = new Customer
-        {
-            Info = "ООО 'Рога и Копыта'",
-            Vatin = "500100732259",
-            Email = "kuznicov@mail.ru"
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Бутылка с водой 1л.",
-            Quantity = 1m,
-            Price = 30m,
-            Sum = 30m,
-            DiscountSum = 0m,
-            Department = 1,
-            Tax = "20",
-            TaxSum = 5m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasurementUnit = "11",
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 30m,
-            ElectronicPayment = 0m,
-            AdvancePayment = 0m,
-            Credit = 0m,
-            CashProvision = 0m,
-        };
-        await kkm.PrintCheck();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Envd);
+        connector.NewCheck(CheckType.Sale);
 
-        return kkm;
+        connector.CustomerInfo = "ООО 'Рога и Копыта'";
+        connector.CustomerVatin = "500100732259";
+        connector.CustomerEmail = "kuznicov@mail.ru";
+        var line1 = connector.AddPosition("Бутылка с водой 1л.", 1m, 30m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 30;
+        line1.DiscountSum = 0;
+        line1.Department = 1;
+        line1.TaxSum = 5;
+        line1.MeasurementUnit = "11";
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        connector.Cash = 30; 
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

@@ -8,7 +8,9 @@ public class ExampleItem
 {
     public string[] GroupPath { get; init; } = [];
     public string Title { get; init; } = "";
+    public string MethodName { get; init; } = "";
     public bool NeedDocumentId { get; init; }
+    public bool NeedFilePath { get; init; }
     public int SortOrder { get; init; }
     public Sample Instance { get; init; } = null!;
     public MethodInfo Method { get; init; } = null!;
@@ -153,7 +155,9 @@ public static class Examples
         {
             GroupPath = groupPath.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries),
             Title = Field(type, "Title") as string ?? type.Name,
+            MethodName = ExampleSource.ConnectorMethod(type.Name, type.Name),
             NeedDocumentId = Field(type, "NeedDocumentId") is true,
+            NeedFilePath = Field(type, "NeedFilePath") is true,
             SortOrder = Field(type, "SortOrder") is int order ? order : int.MaxValue,
             Instance = (Sample)Activator.CreateInstance(type)!,
             Method = method
@@ -179,14 +183,14 @@ public static class ExampleRunner
 
     public static void ApplyConnection(Sample sample, ConnectionSettings connection)
     {
-        Session.Host = connection.Host.Trim();
-        Session.Port = connection.Port;
+        Session.Address = connection.Address.Trim();
         Session.Token = connection.Token.Trim();
-        sample.kkm = Session;
+        sample.connector = Session;
         sample.deviceName = connection.Device.Trim();
         sample.cashierName = connection.Cashier.Trim();
         sample.cashierVatin = connection.CashierVatin.Trim();
         sample.documentId = connection.DocumentId.Trim();
+        sample.filePath = connection.FilePath.Trim();
         sample.fromDate = connection.From;
         sample.toDate = connection.To;
         Session.ShiftsFrom = connection.From;

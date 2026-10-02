@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,32 +10,33 @@ public class FiscalizationAsync : Sample
 
     public async Task<SkkmConnector> PostFiscalizationAsync()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.FiscalizationParameters = new FiscalizationParameters
-        {
-            RnNumber = "00031415926",
-            Fn = "0123123123123",
-            CompanyName = "ООО 'Ромашка'",
-            Vatin = "7722345678",
-            SaleAddress = "г.Улан-Удэ, ул.Виноградная, д11А, офис 25",
-            SaleLocation = "Офис",
-            TaxationSystems = "0,1,2,4,5",
-            FfdVersionKkt = "1.2",
-            FfdVersionFn = "1.2",
-            IsEncrypted = false,
-            IsOffline = false,
-            IsBsoSign = true,
-            RegistrationLabelCodes = "3.1",
-            ReasonCode = FiscalizationReasonCode.RequisitesChange,
-            OfdName = "Тестовый ОФД",
-            OfdVatin = "1234554321",
-            FnsUrl = "nalog.ru",
-            SenderEmail = "ivanov@mail.ru",
-            IsMarking = true,
-            IsExcisable = true
-        };
-        await kkm.FiscalizationAsync();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.FiscalizationRnNumber = "00031415926";
+        connector.FiscalizationFn = "0123123123123";
+        connector.FiscalizationCompanyName = "ООО 'Ромашка'";
+        connector.FiscalizationVatin = "7722345678";
+        connector.FiscalizationTaxationSystems =
+            [TaxSystem.Osn, TaxSystem.Usn, TaxSystem.UsnDr, TaxSystem.Esn, TaxSystem.Psn];
+        connector.FiscalizationFfdVersionKkt = "1.2";
+        connector.FiscalizationFfdVersionFn = "1.2";
+        connector.FiscalizationIsEncrypted = false;
+        connector.FiscalizationIsOffline = false;
+        connector.FiscalizationIsBsoSign = true;
+        connector.FiscalizationRegistrationLabelCodes = "3.1";
+        connector.FiscalizationReasonCode = FiscalizationReasonCode.RequisitesChange;
+        connector.FiscalizationOfdName = "Тестовый ОФД";
+        connector.FiscalizationOfdVatin = "1234554321";
+        connector.FiscalizationFnsUrl = "nalog.ru";
+        connector.FiscalizationSenderEmail = "ivanov@mail.ru";
+        connector.FiscalizationIsMarking = true;
+        connector.FiscalizationIsExcisable = true;
+        await connector.FiscalizationAsync();
+        if (connector.Ok)
+            Console.WriteLine($"Фискализация поставлена в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

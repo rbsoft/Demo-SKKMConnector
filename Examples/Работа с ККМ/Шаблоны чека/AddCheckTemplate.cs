@@ -9,28 +9,17 @@ public class AddCheckTemplate : Sample
 
     public async Task<SkkmConnector> PostAddCheckTemplate()
     {
-        kkm.NewRequest();
-        kkm.CheckTemplateParameters = new CheckTemplateParameters
-        {
-            Name = "sale_template_01",
-            Document = new CheckTemplateDocument
-            {
-                PaymentType = CheckType.Sale,
-                TaxVariant = TaxSystem.ОСН,
-                Payments = new Payments { Cash = 101 }
-            }
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Товар",
-            Quantity = 1,
-            Price = 101,
-            Sum = 101,
-            Tax = "0",
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ
-        });
-        await kkm.AddCheckTemplate();
-        return kkm;
+        connector.NewCheckTemplate("sale_template_01", CheckType.Sale);
+        connector.AddPosition("Товар", 1, 101, TaxRate.Vat0,
+            SignCalculationObject.ТМ, SignMethodCalculation.FullPayment);
+        connector.Cash = 101;
+
+        await connector.AddCheckTemplate();
+        if (connector.Ok)
+            Console.WriteLine($"Шаблон чека сохранён: {connector.TemplateName}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

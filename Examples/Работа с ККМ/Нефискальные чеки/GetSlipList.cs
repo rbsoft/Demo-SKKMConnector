@@ -10,8 +10,20 @@ public class GetSlipList : Sample
 
     public async Task<SkkmConnector> GetGetSlipList()
     {
-        kkm.DeviceName = deviceName;
-        await kkm.GetSlipList();
-        return kkm;
+        connector.DeviceName = deviceName;
+        await connector.GetSlipList();
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Слипов: {connector.Slips.Count}");
+            foreach (var c in connector.Slips)
+                Console.WriteLine(
+                    $"  docId={c.DocId}, дата={c.Date:dd.MM.yyyy HH:mm}, тип={c.TaskType}\n" +
+                    $"    касса={c.DeviceName}, пул={c.PoolId}, терминал={c.TerminalId}\n" +
+                    $"    обработан={c.IsProcessed}, код={c.ResultCode} {c.ResultDescription}, строк={c.LinesCount}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

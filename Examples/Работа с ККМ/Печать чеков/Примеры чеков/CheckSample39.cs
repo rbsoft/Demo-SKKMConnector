@@ -9,70 +9,59 @@ public class CheckSample39 : Sample
 
     public async Task<SkkmConnector> PostCheckSample39()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.TimeZone = CheckTimeZone.Msk;
-        kkm.Electronically = true;
-        kkm.OperationOnline = true;
-        kkm.SenderEmail = "ivanov@mail.ru";
-        kkm.SaleAddress = "г. Москва, ул. Ленина, д. 1";
-        kkm.SaleLocation = "https://shop.ru";
-        kkm.AdditionalAttribute = "6702704322";
-        kkm.TextBefore = "Текст до товаров";
-        kkm.TextAfter = "Текст после товаров";
-        kkm.Customer = new Customer
-        {
-            Info = "Иванов И. И.",
-            Vatin = "500100732259",
-            Email = "ivanov@mail.ru",
-            Phone = "+79001234567",
-            DateOfBirth = "01.01.1990",
-            Citizenship = "643",
-            DocumentTypeCode = "21",
-            DocumentData = "4509 123456",
-            Address = "г. Москва, ул. Ленина, д. 1"
-        };
-        kkm.IndustryAttribute = new Industry
-        {
-            IdentifierFoiv = "030",
-            DocumentDate = "21.11.2023",
-            DocumentNumber = "1944",
-            AttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410",
-        };
-        kkm.UserAttribute = new UserAttribute
-        {
-            Name = "НомерЗаказа",
-            Value = "42",
-        };
-        kkm.OperationalAttribute = new OperationalAttribute
-        {
-            DateTime = "03.07.2026",
-            OperationId = 1,
-            OperationData = "Оплата по договору",
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Услуга",
-            Quantity = 1m,
-            Price = 250m,
-            Sum = 250.0m,
-            Tax = "20",
-            TaxSum = 41.67m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Service,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 250.0m,
-        };
-        await kkm.PrintCheck();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        connector.TimeZone = CheckTimeZone.Msk;
+        connector.IsElectronically = true;
+        connector.IsOperationOnline = true;
+        connector.SenderEmail = "ivanov@mail.ru";
+        connector.SaleAddress = "г. Москва, ул. Ленина, д. 1";
+        connector.SaleLocation = "https://shop.ru";
+        connector.AdditionalAttribute = "6702704322";
+        connector.TextBefore = "Текст до товаров";
+        connector.TextAfter = "Текст после товаров";
+        connector.CustomerInfo = "Иванов И. И.";
+        connector.CustomerVatin = "500100732259";
+        connector.CustomerEmail = "ivanov@mail.ru";
+        connector.CustomerPhone = "+79001234567";
+        connector.CustomerDateOfBirth = "01.01.1990";
+        connector.CustomerCitizenship = "643";
+        connector.CustomerDocumentTypeCode = "21";
+        connector.CustomerDocumentData = "4509 123456";
+        connector.CustomerAddress = "г. Москва, ул. Ленина, д. 1";
+        connector.IndustryIdentifierFoiv = "030";
+        connector.IndustryAttributeDocumentDate = "21.11.2023";
+        connector.IndustryAttributeDocumentNumber = "1944";
+        connector.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
+        connector.UserAttributeName = "НомерЗаказа";
+        connector.UserAttributeValue = "42";
+        connector.OperationalAttributeDateTime = "03.07.2026";
+        connector.OperationalAttributeOperationId = 1;
+        connector.OperationalAttributeData = "Оплата по договору";
+        var line1 = connector.AddPosition("Услуга", 1m, 250.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Service, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 250m;
+        line1.TaxSum = 41.67m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        connector.Cash = 250.0m;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
 
-        return kkm;
+        return connector;
     }
 }

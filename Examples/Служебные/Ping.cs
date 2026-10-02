@@ -10,7 +10,15 @@ public class Ping : Sample
 
     public async Task<SkkmConnector> GetPing()
     {
-        await kkm.Ping();
-        return kkm;
+        await connector.Ping();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Сервер доступен.\n" +
+                $"Продукт: {connector.ServerProduct}\n" +
+                $"Версия сервера ККМ: {connector.ServerVersion}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

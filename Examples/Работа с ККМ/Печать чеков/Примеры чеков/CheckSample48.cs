@@ -9,38 +9,36 @@ public class CheckSample48 : Sample
 
     public async Task<SkkmConnector> PostCheckSample48()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Вода 1л.",
-            Quantity = 1m,
-            Price = 90m,
-            Sum = 90.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            Vendor = new Vendor
-            {
-                Name = "ООО Ромашка",
-                Phones = new[] { "+79001234567" },
-                Vatin = "7701234560",
-            },
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 90.0m,
-        };
-        await kkm.PrintCheck();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 90.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 90m;
+        line1.TaxSum = 0m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line1.AgentSign = AgentType.Agent;
+        connector.VendorName = "ООО Ромашка";
+        connector.VendorPhones = new[] { "+79001234567" };
+        connector.VendorVatin = "7701234560";
+        connector.Cash = 90;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
 
-        return kkm;
+        return connector;
     }
 }

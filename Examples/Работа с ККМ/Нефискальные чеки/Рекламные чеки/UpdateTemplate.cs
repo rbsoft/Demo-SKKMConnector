@@ -10,79 +10,20 @@ public class UpdateTemplate : Sample
 
     public async Task<SkkmConnector> PutUpdateTemplate()
     {
-        kkm.TemplateParameters = new TemplateParameters
-        {
-            Name = "name120",
-            Type = PrintTemplateType.Advertisement,
-            TemplateItems =
-            {
-                new TemplateItem
-                {
-                    PrintLine = new PrintLine
-                    {
-                        Type = PrintLineType.Text,
-                        Line = "Текс222т",
-                        LineRight = "",
-                        Alignment = PrintAlignment.Center,
-                        Font = PrintFont.H1,
-                        Wrap = true
-                    }
-                },
-                new TemplateItem
-                {
-                    PrintLine = new PrintLine
-                    {
-                        Type = PrintLineType.Text,
-                        Line = "Сумма",
-                        LineRight = "1 250,00",
-                        Alignment = PrintAlignment.Left,
-                        Font = PrintFont.Normal,
-                        Wrap = false
-                    }
-                },
-                new TemplateItem
-                {
-                    PrintLine = new PrintLine
-                    {
-                        Type = PrintLineType.Separator,
-                        SeparatorLine = new SeparatorLine { LineStyle = LineStyle.Solid }
-                    }
-                },
-                new TemplateItem
-                {
-                    PrintLine = new PrintLine
-                    {
-                        Type = PrintLineType.Barcode,
-                        Alignment = PrintAlignment.Center,
-                        Barcode = new PrintFormBarcode
-                        {
-                            Type = BarcodeType.QR,
-                            Value = "https://www.rbsoft.ru/",
-                            PrintText = BarcodePrintText.None,
-                            Height = 30,
-                            BarWidth = 6
-                        }
-                    }
-                },
-                new TemplateItem
-                {
-                    PrintLine = new PrintLine
-                    {
-                        Type = PrintLineType.Picture,
-                        Alignment = PrintAlignment.Center,
-                        Scale = 100,
-                        Picture = new Picture
-                        {
-                            PictureBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
-                            Alignment = PictureAlignment.Center,
-                            Width = 200,
-                            Height = 80
-                        }
-                    }
-                }
-            }
-        };
-        await kkm.UpdateTemplate();
-        return kkm;
+        connector.NewTemplate("Template32", PrintTemplateType.Advertisement);
+
+        connector.AddText("Текс222т", PrintFont.H1, PrintAlignment.Center);
+        connector.AddText("Сумма", "1 250,00");
+        connector.AddSeparatorLine();
+        connector.AddBarcode(BarcodeType.QR, "https://www.rbsoft.ru/", PrintAlignment.Center, height: 30, barWidth: 6);
+        connector.AddPicture(filePath, PictureAlignment.Center, 200, 80);
+
+        await connector.UpdateTemplate();
+        if (connector.Ok)
+            Console.WriteLine($"Шаблон обновлён: {connector.TemplateName}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

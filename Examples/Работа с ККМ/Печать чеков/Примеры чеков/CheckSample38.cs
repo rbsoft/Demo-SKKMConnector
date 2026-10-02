@@ -9,43 +9,42 @@ public class CheckSample38 : Sample
 
     public async Task<SkkmConnector> PostCheckSample38()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 60m,
-            PaymentMethod = ElectronicPaymentMethod.FullPayment,
-            Identifiers = "RRN=123456789012",
-            AdditionalInformation = "Карта *1234",
-        });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 40m,
-            PaymentMethod = ElectronicPaymentMethod.FullPayment,
-            Identifiers = "RRN=987654321000",
-            AdditionalInformation = "СБП",
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Вода 1л.",
-            Quantity = 1m,
-            Price = 100m,
-            Sum = 100.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Payments = new Payments
-        {
-            ElectronicPayment = 100m,
-        };
-        await kkm.PrintCheck();
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        connector.ElectronicPaymentAmount = 60;
+        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.FullPayment;
+        connector.ElectronicPaymentIdentifiers = "RRN=123456789012";
+        connector.ElectronicPaymentAdditionalInformation = "Карта *1234";
 
-        return kkm;
+        connector.ElectronicPaymentAmount = 40m;
+        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.FullPayment;
+        connector.ElectronicPaymentIdentifiers = "RRN=987654321000";
+        connector.ElectronicPaymentAdditionalInformation = "СБП";
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 100.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 100m;
+        line1.TaxSum = 0m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        connector.ElectronicPayment = 100m;
+        await connector.PrintCheck();
+
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

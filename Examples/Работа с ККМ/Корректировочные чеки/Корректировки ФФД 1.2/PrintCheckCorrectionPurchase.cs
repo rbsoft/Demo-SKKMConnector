@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -9,30 +9,31 @@ public class PrintCheckCorrectionPurchase : Sample
 
     public async Task<SkkmConnector> PostPrintCheckCorrectionPurchase()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.CorrectionPurchase;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.CorrectionData = new CorrectionData
-        {
-            Type = CorrectionTypes.Самостоятельно,
-            Description = "Коррекция расхода",
-            Date = DateTime.Today
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Товар по коррекции расхода",
-            Quantity = 1,
-            Price = 100,
-            Sum = 100,
-            Tax = "20"
-        });
-        kkm.Payments = new Payments { Cash = 100 };
-        await kkm.PrintCheckCorrection120();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
 
-        return kkm;
+        connector.NewCheckCorrection(cashierName, CheckType.CorrectionPurchase, TaxSystem.Osn,
+            CorrectionTypes.Самостоятельно, "Коррекция расхода", DateTime.Today);
+        var line1 = connector.AddPosition("Товар по коррекции расхода", 1, 100, TaxRate.Vat20);
+        line1.Price = 100;
+        connector.Cash = 100;
+        await connector.PrintCheckCorrection120();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек коррекции пробит.\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}\n" +
+                $"Время ККТ: {connector.DeviceDateTime}\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

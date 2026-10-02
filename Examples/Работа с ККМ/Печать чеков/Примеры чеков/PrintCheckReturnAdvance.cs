@@ -9,40 +9,37 @@ public class PrintCheckReturnAdvance : Sample
 
     public async Task<SkkmConnector> PostPrintCheckReturnAdvance()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.Electronically = false;
-        kkm.PaymentType = CheckType.SaleReturn;
-        kkm.TaxVariant = TaxSystem.УСНД_Р;
-        kkm.Customer = new Customer
-        {
-            Info = "ООО 'Рога и Копыта'",
-            Vatin = "500100732259",
-            Email = "kuznicov@mail.ru"
-        };
-        kkm.Payments = new Payments
-        {
-            AdvancePayment = 10,
-            Cash = 0,
-            CashProvision = 0,
-            Credit = 0,
-            ElectronicPayment = 0
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Бутылка с водой 1л.",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10,
-            DiscountSum = 0,
-            Department = 2,
-            Tax = "120",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.Advance,
-            SignCalculationObject = SignCalculationObject.Advance
-        });
-        await kkm.PrintCheck();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.UsnDr);
+        connector.NewCheck(CheckType.SaleReturn);
+        connector.IsElectronically = false;
+        connector.CustomerInfo = "ООО 'Рога и Копыта'";
+        connector.CustomerVatin = "500100732259";
+        connector.CustomerEmail = "kuznicov@mail.ru";
+        var line1 = connector.AddPosition("Бутылка с водой 1л.", 1, 10, TaxRate.Vat20_120, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.Advance);
+        line1.Price = 10;
+        line1.DiscountSum = 0;
+        line1.Department = 2;
+        line1.TaxSum = 0;
+        connector.AdvancePayment = 10;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

@@ -10,7 +10,16 @@ public class GetTemplateList : Sample
 
     public async Task<SkkmConnector> GetGetTemplateList()
     {
-        await kkm.GetTemplateList();
-        return kkm;
+        await connector.GetTemplateList();
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Шаблонов печати: {connector.Templates.Length}");
+            foreach (var name in connector.Templates)
+                Console.WriteLine($"  {name}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

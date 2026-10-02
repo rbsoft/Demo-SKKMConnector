@@ -10,9 +10,20 @@ public class PictureList : Sample
 
     public async Task<SkkmConnector> GetPictureList()
     {
-        kkm.DeviceName = deviceName;
-        await kkm.GetPictureList();
+        connector.DeviceName = deviceName;
+        await connector.GetPictureList();
 
-        return kkm;
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Картинок: {connector.Pictures.Count}");
+            foreach (var p in connector.Pictures)
+                Console.WriteLine(
+                    $"  {p.PictureName} ({p.Width}x{p.Height}), выравнивание={p.Alignment}, " +
+                    $"строки {p.StartLineNumber}–{p.EndLineNumber}, загружена={p.IsUploaded}, перезапись={p.Override}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

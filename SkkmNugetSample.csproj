@@ -10,7 +10,6 @@
     <AssemblyTitle>Демо SkkmConnector</AssemblyTitle>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <ApplicationIcon>Assets\skkmconnector-cs-icon.ico</ApplicationIcon>
-    <!-- Копировать XML-документацию коннектора в вывод — для тултипов <summary> в демо -->
     <CopyDocumentationFilesFromPackages>true</CopyDocumentationFilesFromPackages>
   </PropertyGroup>
 
@@ -19,7 +18,7 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
-    <PackageReference Include="SkkmConnector" Version="1.27.0" />
+    <PackageReference Include="SkkmConnector" Version="1.30.13" />
   </ItemGroup>
 
   <ItemGroup>

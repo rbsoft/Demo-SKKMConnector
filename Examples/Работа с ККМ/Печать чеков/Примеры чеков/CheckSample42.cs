@@ -9,71 +9,46 @@ public class CheckSample42 : Sample
 
     public async Task<SkkmConnector> PostCheckSample42()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Positions.Add(new TextLine
-        {
-            Text = "Заголовок чека",
-            Font = "H1",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Solid });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Вода 1л.",
-            Quantity = 1m,
-            Price = 50m,
-            Sum = 50.0m,
-            Tax = "20",
-            TaxSum = 8.33m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Positions.Add(new TextLine
-        {
-            Text = "Спасибо за покупку",
-            Font = "Small",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "QR",
-            Barcode = "https://shop.ru/loyalty",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "EAN13",
-            Barcode = "4601234567890",
-            Alignment = "left",
-        });
-        kkm.Positions.Add(new PictureLine
-        {
-            Value = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
-            Alignment = PictureAlignment.Center,
-            Width = 1,
-            Height = 1,
-        });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Bold });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Dashed });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Dotted });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Double });
-        kkm.Positions.Add(new TextLine
-        {
-            Text = "https://nalog.gov.ru",
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 50.0m,
-        };
-        await kkm.PrintCheck();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.Clear();
+        connector.PaymentType = CheckType.Sale;
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.AddText("Заголовок чека", PrintFont.H1, PrintAlignment.Center);
+        connector.AddSeparatorLine(LineStyle.Solid);
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 50.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 50m;
+        line1.TaxSum = 8.33m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        connector.AddText("Спасибо за покупку", PrintFont.Small, PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.QR, "https://shop.ru/loyalty", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.EAN13, "4601234567890", PrintAlignment.Left);
+        var line12 = connector.AddPicture(filePath, PictureAlignment.Center);
+        line12.Width = 1;
+        line12.Height = 1;
+        connector.AddSeparatorLine(LineStyle.Bold);
+        connector.AddSeparatorLine(LineStyle.Dashed);
+        connector.AddSeparatorLine(LineStyle.Dotted);
+        connector.AddSeparatorLine(LineStyle.Double);
+        connector.AddText("https://nalog.gov.ru");
+        connector.Cash = 50.0m;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
 
-        return kkm;
+        return connector;
     }
 }

@@ -10,56 +10,34 @@ public class PrintCheckAsync : Sample
 
     public async Task<SkkmConnector> PostPrintCheckAsync()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ЕНВД;
-        kkm.Electronically = false;
-        kkm.Customer = new Customer
-        {
-            Info = "ООО 'Рога и Копыта'",
-            Vatin = "500100732259",
-            Email = "kuznicov@mail.ru"
-        };
-        kkm.Payments = new Payments
-        {
-            Cash = 30,
-            ElectronicPayment = 0,
-            AdvancePayment = 0,
-            Credit = 0,
-            CashProvision = 0
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Бутылка с водой 1л.",
-            Quantity = 1,
-            Price = 30,
-            Sum = 30,
-            DiscountSum = 0,
-            Department = 1,
-            Tax = "0",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Service,
-            MeasurementUnit = "0"
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Бутылка с крышкой (пустая) 4л.",
-            Quantity = 1,
-            Price = 30,
-            Sum = 30,
-            DiscountSum = 0,
-            Department = 1,
-            Tax = "20",
-            TaxSum = 5,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasurementUnit = "11",
-            MeasureOfQuantity = MeasureOfQuantity.Piece
-        });
-        await kkm.PrintCheckAsync();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.NewCheck(CheckType.Sale);
+        connector.SetTaxType(TaxSystem.Envd);
+        connector.IsElectronically = false;
+        connector.CustomerInfo = "ООО 'Рога и Копыта'";
+        connector.CustomerVatin = "500100732259";
+        connector.CustomerEmail = "kuznicov@mail.ru";
+        connector.Cash = 30;
+        var line1 = connector.AddPosition("Бутылка с водой 1л.", 1, 30, TaxRate.Vat0, signCalculationObject: SignCalculationObject.Service, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 30;
+        line1.DiscountSum = 0;
+        line1.Department = 1;
+        line1.TaxSum = 0;
+        line1.MeasurementUnit = "0";
+        var line2 = connector.AddPosition("Бутылка с крышкой (пустая) 4л.", 1, 30, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line2.Price = 30;
+        line2.DiscountSum = 0;
+        line2.Department = 1;
+        line2.TaxSum = 5;
+        line2.MeasurementUnit = "11";
+        line2.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        await connector.PrintCheckAsync();
+        if (connector.Ok)
+            Console.WriteLine($"Чек поставлен в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

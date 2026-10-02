@@ -9,65 +9,45 @@ public class CheckSample46 : Sample
 
     public async Task<SkkmConnector> PostCheckSample46()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Вода 1л.",
-            Quantity = 3m,
-            Price = 0.01m,
-            Sum = 0.04m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Хлеб",
-            Quantity = 1.7m,
-            Price = 0.03m,
-            Sum = 0.05m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 0.333m,
-            Price = 0.3m,
-            Sum = 0.1m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Сок 1л.",
-            Quantity = 11m,
-            Price = 0.09m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 1.19m,
-        };
-        await kkm.PrintCheck();
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        var line1 = connector.AddPosition("Вода 1л.", 3m, 0.04m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 0.01m;
+        line1.TaxSum = 0m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        var line2 = connector.AddPosition("Хлеб", 1.7m, 0.05m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line2.Price = 0.03m;
+        line2.TaxSum = 0m;
+        line2.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        var line3 = connector.AddPosition("Молоко 1л.", 0.333m, 0.1m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line3.Price = 0.3m;
+        line3.TaxSum = 0m;
+        line3.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        var line4 = connector.AddPosition("Сок 1л.", 11m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line4.Price = 0.09m;
+        line4.TaxSum = 0m;
+        line4.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        connector.Cash = 1.19m;
+        await connector.PrintCheck();
 
-        return kkm;
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

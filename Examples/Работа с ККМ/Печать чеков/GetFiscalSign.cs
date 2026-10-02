@@ -10,12 +10,13 @@ public class GetFiscalSign : Sample
 
     public async Task<SkkmConnector> GetFiscalSignByDocNumber()
     {
-        kkm.DeviceName = deviceName;
-        kkm.CheckNumber = 1;
-        await kkm.GetFiscalSign();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        await connector.GetFiscalSign(1);
+        if (connector.Ok)
+            Console.WriteLine($"ФП: {connector.FiscalSign}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
 
-        return kkm;
+        return connector;
     }
 }

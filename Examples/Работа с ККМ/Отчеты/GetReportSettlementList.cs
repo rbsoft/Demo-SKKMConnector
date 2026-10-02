@@ -10,13 +10,18 @@ public class GetReportSettlementList : Sample
 
     public async Task<SkkmConnector> GetReportSettlementListByPeriod()
     {
-        kkm.DeviceName = deviceName;
-        kkm.ShiftsFrom = fromDate;
-        kkm.ShiftsTo = toDate;
-        await kkm.GetReportSettlementList();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.FromTo(fromDate, toDate);
+        await connector.GetReportSettlementList();
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Отчётов о расчётах: {connector.Shifts.Length}");
+            foreach (var s in connector.Shifts)
+                Console.WriteLine($"  смена {s.ShiftNumber}, docId={s.DocId}, дата={s.Date:dd.MM.yyyy HH:mm}, касса={s.DeviceName}, терминал={s.TerminalId}, код={s.ResultCode} {s.ResultDescription}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
 
-        return kkm;
+        return connector;
     }
 }

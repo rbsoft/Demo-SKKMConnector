@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,9 +10,14 @@ public class OpenShiftAsync : Sample
 
     public async Task<SkkmConnector> PostOpenShiftAsync()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        await kkm.OpenShiftAsync();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        await connector.OpenShiftAsync();
+        if (connector.Ok)
+            Console.WriteLine($"Открытие смены поставлено в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

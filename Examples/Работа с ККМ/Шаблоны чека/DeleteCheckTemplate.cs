@@ -9,8 +9,12 @@ public class DeleteCheckTemplate : Sample
 
     public async Task<SkkmConnector> DeleteDeleteCheckTemplate()
     {
-        kkm.TemplateName = "sale_template_01";
-        await kkm.DeleteCheckTemplate();
-        return kkm;
+        await connector.DeleteCheckTemplate("sale_template_01");
+        if (connector.Ok)
+            Console.WriteLine("Выполнено успешно.");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

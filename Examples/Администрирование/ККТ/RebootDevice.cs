@@ -10,8 +10,13 @@ public class RebootDevice : Sample
 
     public async Task<SkkmConnector> PostRebootDevice()
     {
-        kkm.DeviceName = deviceName;
-        await kkm.RebootDevice();
-        return kkm;
+        connector.DeviceName = deviceName;
+        await connector.RebootDevice();
+        if (connector.Ok)
+            Console.WriteLine("Выполнено успешно.");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

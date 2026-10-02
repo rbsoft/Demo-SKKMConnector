@@ -9,103 +9,45 @@ public class CheckSample40 : Sample
 
     public async Task<SkkmConnector> PostCheckSample40()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Вода 1л.",
-            Quantity = 1m,
-            Price = 10m,
-            Sum = 10.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasurementUnit = "шт",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "QR",
-            Barcode = "https://shop.ru/check",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "EAN13",
-            Barcode = "4601234567893",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "EAN8",
-            Barcode = "96385074",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "CODE128",
-            Barcode = "ABC-12345",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "CODE39",
-            Barcode = "CODE39-TEST",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "CODE93",
-            Barcode = "CODE93",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "PDF417",
-            Barcode = "pdf417-payload",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "UPCA",
-            Barcode = "012345678905",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "UPCE",
-            Barcode = "04252614",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "ITF",
-            Barcode = "1234567890",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "CODABAR",
-            Barcode = "A123456A",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "CODE32",
-            Barcode = "01234567",
-            Alignment = "center",
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 10.0m,
-        };
-        await kkm.PrintCheck();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.Clear();
+        connector.PaymentType = CheckType.Sale;
+        connector.SetTaxType(TaxSystem.Osn);
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 10.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 10m;
+        line1.TaxSum = 0m;
+        line1.MeasurementUnit = "шт";
+        connector.AddBarcode(BarcodeType.QR, "https://shop.ru/check", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.EAN13, "4601234567893", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.EAN8, "96385074", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.CODE128, "ABC-12345", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.CODE39, "CODE39-TEST", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.CODE93, "CODE93", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.PDF417, "pdf417-payload", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.UPCA, "012345678905", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.UPCE, "04252614", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.ITF, "1234567890", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.CODABAR, "A123456A", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.CODE32, "01234567", PrintAlignment.Center);
+        connector.Cash = 10.0m;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
 
-        return kkm;
+        return connector;
     }
 }

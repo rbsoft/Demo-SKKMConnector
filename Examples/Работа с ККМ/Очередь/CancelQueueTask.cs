@@ -10,8 +10,13 @@ public class CancelQueueTask : Sample
 
     public async Task<SkkmConnector> DeleteCancelQueueTask()
     {
-        kkm.QueueTaskId = documentId;
-        await kkm.CancelQueueTask();
-        return kkm;
+        connector.QueueTaskId = documentId;
+        await connector.CancelQueueTask();
+        if (connector.Ok)
+            Console.WriteLine("Выполнено успешно.");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

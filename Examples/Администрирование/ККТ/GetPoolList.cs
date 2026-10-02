@@ -10,7 +10,16 @@ public class GetPoolList : Sample
 
     public async Task<SkkmConnector> GetGetPoolList()
     {
-        await kkm.GetPoolList();
-        return kkm;
+        await connector.GetPoolList();
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Пулов: {connector.Pools.Length}");
+            foreach (var p in connector.Pools)
+                Console.WriteLine($"  {p}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

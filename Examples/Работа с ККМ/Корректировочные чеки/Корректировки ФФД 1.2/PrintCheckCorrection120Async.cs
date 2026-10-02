@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -9,30 +9,20 @@ public class PrintCheckCorrection120Async : Sample
 
     public async Task<SkkmConnector> PostPrintCheckCorrection120Async()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.CorrectionSale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.CorrectionData = new CorrectionData
-        {
-            Type = CorrectionTypes.Самостоятельно,
-            Description = "Коррекция расчёта",
-            Date = DateTime.Today
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Товар по коррекции",
-            Quantity = 1,
-            Price = 100,
-            Sum = 100,
-            Tax = "20"
-        });
-        kkm.Payments = new Payments { Cash = 100 };
-        await kkm.PrintCheckCorrection120Async();
-        if (!kkm.Ok)
-            throw new InvalidOperationException(kkm.ErrorDescription);
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
 
-        return kkm;
+        connector.NewCheckCorrection(cashierName, CheckType.CorrectionSale, TaxSystem.Osn,
+            CorrectionTypes.Самостоятельно, "Коррекция расчёта", DateTime.Today);
+        var line1 = connector.AddPosition("Товар по коррекции", 1, 100, TaxRate.Vat20);
+        line1.Price = 100;
+        connector.Cash = 100;
+        await connector.PrintCheckCorrection120Async();
+        if (connector.Ok)
+            Console.WriteLine($"Чек коррекции поставлен в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

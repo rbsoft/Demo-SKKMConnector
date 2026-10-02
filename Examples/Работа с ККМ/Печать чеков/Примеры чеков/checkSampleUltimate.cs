@@ -12,108 +12,94 @@ public class checkSampleUltimate : Sample
 
     public async Task<SkkmConnector> PostComplexCheck()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = "Иванов И. И.", Vatin = "500100732259" };
-        kkm.NewRequest();
-        kkm.DocumentId = "a7c4e2b1-9d58-4f06-8c3a-1b2e4d6f8091";
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.TimeZone = CheckTimeZone.MskPlus5;
-        kkm.SenderEmail = "ivanov@mail.ru";
-        kkm.SaleAddress = "г. Москва, ул. Ленина, д. 1";
-        kkm.SaleLocation = "https://shop.ru";
-        kkm.TextBefore = "Текст 1";
-        kkm.TextAfter = "Текст 2";
+        connector.DeviceName = deviceName;
+        connector.SetCashier("Иванов И. И.", "500100732259");
+        connector.Clear();
+        connector.DocumentId = "a7c4e2b1-9d58-4f06-8c3a-1b2e4d6f8091";
+        connector.PaymentType = CheckType.Sale;
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.TimeZone = CheckTimeZone.MskPlus5;
+        connector.SenderEmail = "ivanov@mail.ru";
+        connector.SaleAddress = "г. Москва, ул. Ленина, д. 1";
+        connector.SaleLocation = "https://shop.ru";
+        connector.TextBefore = "Текст 1";
+        connector.TextAfter = "Текст 2";
 
-        kkm.Customer = new Customer
-        {
-            Info = "ООО Ромашка",
-            Vatin = "7701234560",
-            Email = "ivanov@mail.ru",
-            Phone = "+79001234567",
-            DateOfBirth = "01.01.1990",
-            Citizenship = "643",
-            DocumentTypeCode = "21",
-            DocumentData = "4509 123456",
-            Address = "г. Москва, ул. Ленина, д. 1",
-        };
+        connector.CustomerInfo = "ООО Ромашка";
+        connector.CustomerVatin = "7701234560";
+        connector.CustomerEmail = "ivanov@mail.ru";
+        connector.CustomerPhone = "+79001234567";
+        connector.CustomerDateOfBirth = "01.01.1990";
+        connector.CustomerCitizenship = "643";
+        connector.CustomerDocumentTypeCode = "21";
+        connector.CustomerDocumentData = "4509 123456";
+        connector.CustomerAddress = "г. Москва, ул. Ленина, д. 1";
 
-        kkm.AgentSign = AgentType.Agent;
-        kkm.Agent = new Agent
-        {
-            PayingAgentOperation = "Приём платежей",
-            PayingAgentPhone = ["+79001234567"],
-            ReceivePaymentsOperatorPhone = ["+79001234567"],
-            MoneyTransferOperatorPhone = ["+79001234567"],
-            MoneyTransferOperatorName = "ООО Рога и копыта",
-            MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1",
-            MoneyTransferOperatorVatin = "7701234560",
-        };
-        kkm.Vendor = new Vendor
-        {
-            Name = "ООО Ромашка",
-            Vatin = "7701234560",
-            Phones = ["+79001234567", "+79007654321"],
-        };
+        connector.AgentSign = AgentType.Agent;
+        connector.PayingAgentOperation = "Приём платежей";
+        connector.PayingAgentPhone = ["+79001234567"];
+        connector.ReceivePaymentsOperatorPhone = ["+79001234567"];
+        connector.MoneyTransferOperatorPhone = ["+79001234567"];
+        connector.MoneyTransferOperatorName = "ООО Рога и копыта";
+        connector.MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1";
+        connector.MoneyTransferOperatorVatin = "7701234560";
+        connector.VendorName = "ООО Ромашка";
+        connector.VendorVatin = "7701234560";
+        connector.VendorPhones = ["+79001234567", "+79007654321"];
 
-        kkm.UserAttribute = new UserAttribute { Name = "НомерЗаказа", Value = "42" };
-        kkm.OperationalAttribute = new OperationalAttribute
-        {
-            DateTime = "03.09.2026",
-            OperationId = 42,
-            OperationData = "Оплата по договору",
-        };
-        kkm.IndustryAttribute = new Industry
-        {
-            IdentifierFoiv = "030",
-            DocumentDate = "21.11.2023",
-            DocumentNumber = "1944",
-            AttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410",
-        };
+        connector.UserAttributeName = "НомерЗаказа";
+        connector.UserAttributeValue = "42";
+        connector.OperationalAttributeDateTime = "03.09.2026";
+        connector.OperationalAttributeOperationId = 42;
+        connector.OperationalAttributeData = "Оплата по договору";
+        connector.IndustryIdentifierFoiv = "030";
+        connector.IndustryAttributeDocumentDate = "21.11.2023";
+        connector.IndustryAttributeDocumentNumber = "1944";
+        connector.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
 
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.FullPrepayment,
             Identifiers = "M=0",
             AdditionalInformation = "Не определено",
         });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.PartialPrepayment,
             Identifiers = "M=1",
             AdditionalInformation = "Банковская карта",
         });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.Advance,
             Identifiers = "M=2",
             AdditionalInformation = "СБП",
         });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.FullPayment,
             Identifiers = "RRN=123456789012",
             AdditionalInformation = "Карта *1234",
         });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.PartialPaymentAndCredit,
             Identifiers = "M=4",
             AdditionalInformation = "Перевод с банка",
         });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.CreditTransfer,
             Identifiers = "M=5",
             AdditionalInformation = "Эл. кошелёк",
         });
-        kkm.ElectronicPayments.Add(new ElectronicPayment
+        connector.ElectronicPayments.Add(new ElectronicPayment
         {
             Amount = 10,
             PaymentMethod = ElectronicPaymentMethod.CreditPayment,
@@ -121,573 +107,277 @@ public class checkSampleUltimate : Sample
             AdditionalInformation = "Иной безнал",
         });
 
-        kkm.Positions.Add(new TextLine
-        {
-            Text = "[center]Комплексный чек: объекты, НДС, агент, маркировка",
-            Alignment = "center",
-            Font = "Big",
-        });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Dotted });
+        connector.AddText("[center]Комплексный чек: объекты, НДС, агент, маркировка", PrintFont.Big, PrintAlignment.Center);
+        connector.AddSeparatorLine(LineStyle.Dotted);
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Товар",
-            Quantity = 2,
-            Price = 6,
-            Sum = 10.0m,
-            DiscountSum = 2,
-            Tax = "none",
-            TaxSum = 0,
-            Department = 1,
-            ProductCode = "2208 20 290 0",
-            AdditionalAttribute = "Доп. реквизит товара",
-            SignMethodCalculation = SignMethodCalculation.FullPrepayment,
-            SignCalculationObject = SignCalculationObject.Goods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Agent = new Agent
-            {
-                PayingAgentOperation = "Приём платежей",
-                PayingAgentPhone = ["+79001234567"],
-                ReceivePaymentsOperatorPhone = ["+79001234567"],
-                MoneyTransferOperatorPhone = ["+79001234567"],
-                MoneyTransferOperatorName = "ООО Рога и копыта",
-                MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1",
-                MoneyTransferOperatorVatin = "7701234560",
-            },
-            Vendor = new Vendor
-            {
-                Name = "ООО Ромашка",
-                Vatin = "7701234560",
-                Phones = ["+79001234567", "+79007654321"],
-            },
-        });
+        var line1 = connector.AddPosition("Товар", 2, 10.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPrepayment);
+        line1.Price = 6;
+        line1.DiscountSum = 2;
+        line1.TaxSum = 0;
+        line1.Department = 1;
+        line1.ProductCode = "2208 20 290 0";
+        line1.AdditionalAttribute = "Доп. реквизит товара";
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line1.PayingAgentOperation = "Приём платежей";
+        line1.PayingAgentPhone = ["+79001234567"];
+        line1.ReceivePaymentsOperatorPhone = ["+79001234567"];
+        line1.MoneyTransferOperatorPhone = ["+79001234567"];
+        line1.MoneyTransferOperatorName = "ООО Рога и копыта";
+        line1.MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1";
+        line1.MoneyTransferOperatorVatin = "7701234560";
+        line1.VendorName = "ООО Ромашка";
+        line1.VendorVatin = "7701234560";
+        line1.VendorPhones = ["+79001234567", "+79007654321"];
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Подакцизный товар",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            DiscountSum = 0,
-            Tax = "20",
-            TaxSum = 1.67m,
-            Department = 2,
-            ProductCode = "2402 20 900 0",
-            AdditionalAttribute = "Подакциз",
-            ExciseAmount = 5.5m,
-            CountryOfOrigin = "643",
-            CustomsDeclaration = "10009100/220211/0001122",
-            SignMethodCalculation = SignMethodCalculation.PartialPrepayment,
-            SignCalculationObject = SignCalculationObject.ExcisableGoods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            Agent = new Agent
-            {
-                PayingAgentOperation = "Приём платежей",
-                PayingAgentPhone = ["+79001234567"],
-                ReceivePaymentsOperatorPhone = ["+79001234567"],
-                MoneyTransferOperatorPhone = ["+79001234567"],
-                MoneyTransferOperatorName = "ООО Рога и копыта",
-                MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1",
-                MoneyTransferOperatorVatin = "7701234560",
-            },
-        });
+        var line2 = connector.AddPosition("Подакцизный товар", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.ExcisableGoods, signMethodCalculation: SignMethodCalculation.PartialPrepayment);
+        line2.Price = 10;
+        line2.DiscountSum = 0;
+        line2.TaxSum = 1.67m;
+        line2.Department = 2;
+        line2.ProductCode = "2402 20 900 0";
+        line2.AdditionalAttribute = "Подакциз";
+        line2.ExciseAmount = 5.5m;
+        line2.CountryOfOrigin = "643";
+        line2.CustomsDeclaration = "10009100/220211/0001122";
+        line2.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line2.AgentSign = AgentType.Agent;
+        line2.PayingAgentOperation = "Приём платежей";
+        line2.PayingAgentPhone = ["+79001234567"];
+        line2.ReceivePaymentsOperatorPhone = ["+79001234567"];
+        line2.MoneyTransferOperatorPhone = ["+79001234567"];
+        line2.MoneyTransferOperatorName = "ООО Рога и копыта";
+        line2.MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1";
+        line2.MoneyTransferOperatorVatin = "7701234560";
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Работа",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "5",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.Advance,
-            SignCalculationObject = SignCalculationObject.Work,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            Vendor = new Vendor
-            {
-                Name = "ООО Ромашка",
-                Vatin = "7701234560",
-                Phones = ["+79001234567", "+79007654321"],
-            },
-        });
+        var line3 = connector.AddPosition("Работа", 1, 10.0m, TaxRate.Vat5, signCalculationObject: SignCalculationObject.Work, signMethodCalculation: SignMethodCalculation.Advance);
+        line3.Price = 10;
+        line3.TaxSum = 0;
+        line3.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line3.AgentSign = AgentType.Agent;
+        line3.VendorName = "ООО Ромашка";
+        line3.VendorVatin = "7701234560";
+        line3.VendorPhones = ["+79001234567", "+79007654321"];
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Услуга",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "5/105",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Service,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            Agent = new Agent
-            {
-                PayingAgentOperation = "Приём платежей",
-                PayingAgentPhone = ["+79001234567"],
-                ReceivePaymentsOperatorPhone = ["+79001234567"],
-                MoneyTransferOperatorPhone = ["+79001234567"],
-                MoneyTransferOperatorName = "ООО Рога и копыта",
-                MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1",
-                MoneyTransferOperatorVatin = "7701234560",
-            },
-            Vendor = new Vendor
-            {
-                Name = "ООО Ромашка",
-                Vatin = "7701234560",
-                Phones = ["+79001234567", "+79007654321"],
-            },
-        });
+        var line4 = connector.AddPosition("Услуга", 1, 10.0m, TaxRate.Vat5_105, signCalculationObject: SignCalculationObject.Service, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line4.Price = 10;
+        line4.TaxSum = 0;
+        line4.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line4.AgentSign = AgentType.Agent;
+        line4.PayingAgentOperation = "Приём платежей";
+        line4.PayingAgentPhone = ["+79001234567"];
+        line4.ReceivePaymentsOperatorPhone = ["+79001234567"];
+        line4.MoneyTransferOperatorPhone = ["+79001234567"];
+        line4.MoneyTransferOperatorName = "ООО Рога и копыта";
+        line4.MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, д. 1";
+        line4.MoneyTransferOperatorVatin = "7701234560";
+        line4.VendorName = "ООО Ромашка";
+        line4.VendorVatin = "7701234560";
+        line4.VendorPhones = ["+79001234567", "+79007654321"];
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Ставка азартной игры",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "7",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPaymentAndCredit,
-            SignCalculationObject = SignCalculationObject.GamblingStake,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Выигрыш азартной игры",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "7/107",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditTransfer,
-            SignCalculationObject = SignCalculationObject.GamblingPrize,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Лотерейный билет",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "10",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditPayment,
-            SignCalculationObject = SignCalculationObject.LotteryTicket,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Выигрыш лотереи",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "10/110",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPrepayment,
-            SignCalculationObject = SignCalculationObject.LotteryPrize,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Предоставление РИД",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "18",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPrepayment,
-            SignCalculationObject = SignCalculationObject.IntellectualProperty,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Платёж",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "18/118",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.Advance,
-            SignCalculationObject = SignCalculationObject.Advance,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Агентское вознаграждение",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "20",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.AgentFee,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Составной предмет расчёта",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "20/120",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPaymentAndCredit,
-            SignCalculationObject = SignCalculationObject.Payout,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Иной предмет расчёта",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "22",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditTransfer,
-            SignCalculationObject = SignCalculationObject.Other,
-            MeasureOfQuantity = MeasureOfQuantity.Other,
-            MeasurementUnit = "255",
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Имущественное право",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "22/122",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditPayment,
-            SignCalculationObject = SignCalculationObject.PropertyRight,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Внереализационный доход",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "none",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPrepayment,
-            SignCalculationObject = SignCalculationObject.NonOperatingIncome,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Страховые взносы",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "0",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPrepayment,
-            SignCalculationObject = SignCalculationObject.OtherPayments,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Торговый сбор",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "5",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.Advance,
-            SignCalculationObject = SignCalculationObject.TradeFee,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Курортный сбор",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "5/105",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.TouristTax,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Залог",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "7",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPaymentAndCredit,
-            SignCalculationObject = SignCalculationObject.Deposit,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Расход",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "7/107",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditTransfer,
-            SignCalculationObject = SignCalculationObject.Expense,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Взносы на ОПС ИП",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "10",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditPayment,
-            SignCalculationObject = SignCalculationObject.PensionContributionIp,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Взносы на ОПС",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "10/110",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPrepayment,
-            SignCalculationObject = SignCalculationObject.PensionContribution,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Взносы на ОМС ИП",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "18",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPrepayment,
-            SignCalculationObject = SignCalculationObject.MedicalContributionIp,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Взносы на ОМС",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "18/118",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.Advance,
-            SignCalculationObject = SignCalculationObject.MedicalContribution,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Взносы на ОСС",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "20",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.SocialContribution,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Платёж казино",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "20/120",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.PartialPaymentAndCredit,
-            SignCalculationObject = SignCalculationObject.CasinoPayment,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Выдача денежных средств",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "22",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.CreditTransfer,
-            SignCalculationObject = SignCalculationObject.CashWithdrawalByAgent,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-        });
+        var line5 = connector.AddPosition("Ставка азартной игры", 1, 10.0m, TaxRate.Vat7, signCalculationObject: SignCalculationObject.GamblingStake, signMethodCalculation: SignMethodCalculation.PartialPaymentAndCredit);
+        line5.Price = 10;
+        line5.TaxSum = 0;
+        line5.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line5.AgentSign = AgentType.Agent;
+        var line6 = connector.AddPosition("Выигрыш азартной игры", 1, 10.0m, TaxRate.Vat7_107, signCalculationObject: SignCalculationObject.GamblingPrize, signMethodCalculation: SignMethodCalculation.CreditTransfer);
+        line6.Price = 10;
+        line6.TaxSum = 0;
+        line6.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line6.AgentSign = AgentType.Agent;
+        var line7 = connector.AddPosition("Лотерейный билет", 1, 10.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.LotteryTicket, signMethodCalculation: SignMethodCalculation.CreditPayment);
+        line7.Price = 10;
+        line7.TaxSum = 0;
+        line7.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line7.AgentSign = AgentType.Agent;
+        var line8 = connector.AddPosition("Выигрыш лотереи", 1, 10.0m, TaxRate.Vat10_110, signCalculationObject: SignCalculationObject.LotteryPrize, signMethodCalculation: SignMethodCalculation.FullPrepayment);
+        line8.Price = 10;
+        line8.TaxSum = 0;
+        line8.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line8.AgentSign = AgentType.Agent;
+        var line9 = connector.AddPosition("Предоставление РИД", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.IntellectualProperty, signMethodCalculation: SignMethodCalculation.PartialPrepayment);
+        line9.Price = 10;
+        line9.TaxSum = 0;
+        line9.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line9.AgentSign = AgentType.Agent;
+        var line10 = connector.AddPosition("Платёж", 1, 10.0m, TaxRate.Vat20_120, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.Advance);
+        line10.Price = 10;
+        line10.TaxSum = 0;
+        line10.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line10.AgentSign = AgentType.Agent;
+        var line11 = connector.AddPosition("Агентское вознаграждение", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.AgentFee, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line11.Price = 10;
+        line11.TaxSum = 0;
+        line11.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line11.AgentSign = AgentType.Agent;
+        var line12 = connector.AddPosition("Составной предмет расчёта", 1, 10.0m, TaxRate.Vat20_120, signCalculationObject: SignCalculationObject.Payout, signMethodCalculation: SignMethodCalculation.PartialPaymentAndCredit);
+        line12.Price = 10;
+        line12.TaxSum = 0;
+        line12.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line12.AgentSign = AgentType.Agent;
+        var line13 = connector.AddPosition("Иной предмет расчёта", 1, 10.0m, TaxRate.Vat22, signCalculationObject: SignCalculationObject.Other, signMethodCalculation: SignMethodCalculation.CreditTransfer);
+        line13.Price = 10;
+        line13.TaxSum = 0;
+        line13.MeasureOfQuantity = MeasureOfQuantity.Other;
+        line13.MeasurementUnit = "255";
+        line13.AgentSign = AgentType.Agent;
+        var line14 = connector.AddPosition("Имущественное право", 1, 10.0m, TaxRate.Vat22_122, signCalculationObject: SignCalculationObject.PropertyRight, signMethodCalculation: SignMethodCalculation.CreditPayment);
+        line14.Price = 10;
+        line14.TaxSum = 0;
+        line14.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line14.AgentSign = AgentType.Agent;
+        var line15 = connector.AddPosition("Внереализационный доход", 1, 10.0m, TaxRate.None, signCalculationObject: SignCalculationObject.NonOperatingIncome, signMethodCalculation: SignMethodCalculation.FullPrepayment);
+        line15.Price = 10;
+        line15.TaxSum = 0;
+        line15.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line15.AgentSign = AgentType.Agent;
+        var line16 = connector.AddPosition("Страховые взносы", 1, 10.0m, TaxRate.Vat0, signCalculationObject: SignCalculationObject.OtherPayments, signMethodCalculation: SignMethodCalculation.PartialPrepayment);
+        line16.Price = 10;
+        line16.TaxSum = 0;
+        line16.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line16.AgentSign = AgentType.Agent;
+        var line17 = connector.AddPosition("Торговый сбор", 1, 10.0m, TaxRate.Vat5, signCalculationObject: SignCalculationObject.TradeFee, signMethodCalculation: SignMethodCalculation.Advance);
+        line17.Price = 10;
+        line17.TaxSum = 0;
+        line17.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line17.AgentSign = AgentType.Agent;
+        var line18 = connector.AddPosition("Курортный сбор", 1, 10.0m, TaxRate.Vat5_105, signCalculationObject: SignCalculationObject.TouristTax, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line18.Price = 10;
+        line18.TaxSum = 0;
+        line18.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line18.AgentSign = AgentType.Agent;
+        var line19 = connector.AddPosition("Залог", 1, 10.0m, TaxRate.Vat7, signCalculationObject: SignCalculationObject.Deposit, signMethodCalculation: SignMethodCalculation.PartialPaymentAndCredit);
+        line19.Price = 10;
+        line19.TaxSum = 0;
+        line19.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line19.AgentSign = AgentType.Agent;
+        var line20 = connector.AddPosition("Расход", 1, 10.0m, TaxRate.Vat7_107, signCalculationObject: SignCalculationObject.Expense, signMethodCalculation: SignMethodCalculation.CreditTransfer);
+        line20.Price = 10;
+        line20.TaxSum = 0;
+        line20.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line20.AgentSign = AgentType.Agent;
+        var line21 = connector.AddPosition("Взносы на ОПС ИП", 1, 10.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.PensionContributionIp, signMethodCalculation: SignMethodCalculation.CreditPayment);
+        line21.Price = 10;
+        line21.TaxSum = 0;
+        line21.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line21.AgentSign = AgentType.Agent;
+        var line22 = connector.AddPosition("Взносы на ОПС", 1, 10.0m, TaxRate.Vat10_110, signCalculationObject: SignCalculationObject.PensionContribution, signMethodCalculation: SignMethodCalculation.FullPrepayment);
+        line22.Price = 10;
+        line22.TaxSum = 0;
+        line22.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line22.AgentSign = AgentType.Agent;
+        var line23 = connector.AddPosition("Взносы на ОМС ИП", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.MedicalContributionIp, signMethodCalculation: SignMethodCalculation.PartialPrepayment);
+        line23.Price = 10;
+        line23.TaxSum = 0;
+        line23.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line23.AgentSign = AgentType.Agent;
+        var line24 = connector.AddPosition("Взносы на ОМС", 1, 10.0m, TaxRate.Vat20_120, signCalculationObject: SignCalculationObject.MedicalContribution, signMethodCalculation: SignMethodCalculation.Advance);
+        line24.Price = 10;
+        line24.TaxSum = 0;
+        line24.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line24.AgentSign = AgentType.Agent;
+        var line25 = connector.AddPosition("Взносы на ОСС", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.SocialContribution, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line25.Price = 10;
+        line25.TaxSum = 0;
+        line25.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line25.AgentSign = AgentType.Agent;
+        var line26 = connector.AddPosition("Платёж казино", 1, 10.0m, TaxRate.Vat20_120, signCalculationObject: SignCalculationObject.CasinoPayment, signMethodCalculation: SignMethodCalculation.PartialPaymentAndCredit);
+        line26.Price = 10;
+        line26.TaxSum = 0;
+        line26.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line26.AgentSign = AgentType.Agent;
+        var line27 = connector.AddPosition("Выдача денежных средств", 1, 10.0m, TaxRate.Vat22, signCalculationObject: SignCalculationObject.CashWithdrawalByAgent, signMethodCalculation: SignMethodCalculation.CreditTransfer);
+        line27.Price = 10;
+        line27.TaxSum = 0;
+        line27.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line27.AgentSign = AgentType.Agent;
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "АТНМ",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "20",
-            TaxSum = 1.67m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.АТНМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            ExciseAmount = 12.3m,
-            CountryOfOrigin = "276",
-            CustomsDeclaration = "10009100/140923/0001122",
-            ProductCode = "2208 20 290 0",
-        });
+        var line28 = connector.AddPosition("АТНМ", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.АТНМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line28.Price = 10;
+        line28.TaxSum = 1.67m;
+        line28.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line28.AgentSign = AgentType.Agent;
+        line28.ExciseAmount = 12.3m;
+        line28.CountryOfOrigin = "276";
+        line28.CustomsDeclaration = "10009100/140923/0001122";
+        line28.ProductCode = "2208 20 290 0";
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "АТМ",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "20",
-            TaxSum = 1.67m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.АТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            ExciseAmount = 185.4m,
-            CountryOfOrigin = "276",
-            CustomsDeclaration = "10009100/140923/0001122",
-            ProductCode = "2208 20 290 0",
-            AdditionalAttribute = "Импорт АТМ",
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMTkwNzAwMjgwNTIxNUR0RDJReUlCSjVrYR05MUYwMTMdOTJnajR4alVwdzlCZHVLUXZhT3pNYmFyeGhkVFRqWmp1cFR0RkFZOTl0WmhVPQ==",
-                Gtin = "04601907002805",
-                StampType = "05",
-                SerialNumber = "DtD2QyIBJ5ka",
-            },
-            Industry = new Industry
-            {
-                IdentifierFoiv = "030",
-                DocumentDate = "21.11.2023",
-                DocumentNumber = "1944",
-                AttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410",
-            },
-        });
+        var line29 = connector.AddPosition("АТМ", 1, 10.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.АТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line29.Price = 10;
+        line29.TaxSum = 1.67m;
+        line29.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line29.AgentSign = AgentType.Agent;
+        line29.ExciseAmount = 185.4m;
+        line29.CountryOfOrigin = "276";
+        line29.CustomsDeclaration = "10009100/140923/0001122";
+        line29.ProductCode = "2208 20 290 0";
+        line29.AdditionalAttribute = "Импорт АТМ";
+        line29.Marking = "MDEwNDYwMTkwNzAwMjgwNTIxNUR0RDJReUlCSjVrYR05MUYwMTMdOTJnajR4alVwdzlCZHVLUXZhT3pNYmFyeGhkVFRqWmp1cFR0RkFZOTl0WmhVPQ==";
+        line29.GoodCodeGtin = "04601907002805";
+        line29.IndustryIdentifierFoiv = "030";
+        line29.IndustryAttributeDocumentDate = "21.11.2023";
+        line29.IndustryAttributeDocumentNumber = "1944";
+        line29.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "ТНМ",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "10",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТНМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            ProductCode = "0402 10 190 0",
-        });
+        var line30 = connector.AddPosition("ТНМ", 1, 10.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.ТНМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line30.Price = 10;
+        line30.TaxSum = 0;
+        line30.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line30.AgentSign = AgentType.Agent;
+        line30.ProductCode = "0402 10 190 0";
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "ТМ",
-            Quantity = 1,
-            Price = 10,
-            Sum = 10.0m,
-            Tax = "10",
-            TaxSum = 0.91m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            AgentSign = AgentType.Agent,
-            MarkingCode = "MDEwNDYwNzAxMDM1MDI0NjIxNURzPkpSak5FIWpaIR05M2RHVno=",
-            Fractional = new FractionalQuantity { Numerator = 1, Denominator = 4 },
-            Industry = new Industry
-            {
-                IdentifierFoiv = "030",
-                DocumentDate = "21.11.2023",
-                DocumentNumber = "1944",
-                AttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410",
-            },
-        });
+        var line31 = connector.AddPosition("ТМ", 1, 10.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line31.Price = 10;
+        line31.TaxSum = 0.91m;
+        line31.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line31.AgentSign = AgentType.Agent;
+        line31.Marking = "MDEwNDYwNzAxMDM1MDI0NjIxNURzPkpSak5FIWpaIR05M2RHVno=";
+        line31.FractionalQuantityNumerator = 1;
+        line31.FractionalQuantityDenominator = 4;
+        line31.IndustryIdentifierFoiv = "030";
+        line31.IndustryAttributeDocumentDate = "21.11.2023";
+        line31.IndustryAttributeDocumentNumber = "1944";
+        line31.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
 
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Сыр",
-            Quantity = 0.5m,
-            Price = 20,
-            Sum = 10.0m,
-            Tax = "10",
-            TaxSum = 0.91m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Kilogram,
-            MeasurementUnit = "11",
-            AgentSign = AgentType.Agent,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=",
-            },
-            Industry = new Industry
-            {
-                IdentifierFoiv = "030",
-                DocumentDate = "21.11.2023",
-                DocumentNumber = "1944",
-                AttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410",
-            },
-        });
+        var line32 = connector.AddPosition("Сыр", 0.5m, 10.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line32.Price = 20;
+        line32.TaxSum = 0.91m;
+        line32.MeasureOfQuantity = MeasureOfQuantity.Kilogram;
+        line32.MeasurementUnit = "11";
+        line32.AgentSign = AgentType.Agent;
+        line32.Marking = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=";
+        line32.IndustryIdentifierFoiv = "030";
+        line32.IndustryAttributeDocumentDate = "21.11.2023";
+        line32.IndustryAttributeDocumentNumber = "1944";
+        line32.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
 
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "CODE128",
-            Barcode = "ABC-12345",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new BarcodeLine
-        {
-            Type = "QR",
-            Barcode = "https://shop.ru",
-            Alignment = "center",
-        });
-        kkm.Positions.Add(new PictureLine
-        {
-            Value = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
-            Alignment = PictureAlignment.Right,
-        });
-        kkm.Positions.Add(new SeparatorLine { LineStyle = LineStyle.Dotted });
+        connector.AddBarcode(BarcodeType.CODE128, "ABC-12345", PrintAlignment.Center);
+        connector.AddBarcode(BarcodeType.QR, "https://shop.ru", PrintAlignment.Center);
+        connector.AddPicture(filePath, PictureAlignment.Right);
+        connector.AddSeparatorLine(LineStyle.Dotted);
 
-        kkm.Payments = new Payments
-        {
-            Cash = 50,
-            ElectronicPayment = 70,
-            AdvancePayment = 70,
-            Credit = 70,
-            CashProvision = 60,
-        };
+        connector.Cash = 50;
+        connector.ElectronicPayment = 70;
+        connector.AdvancePayment = 70;
+        connector.Credit = 70;
+        connector.CashProvision = 60;
 
-        await kkm.PrintCheck();
-        return kkm;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

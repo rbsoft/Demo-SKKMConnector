@@ -50,14 +50,14 @@
 
 ## Запуск
 
-Приложение ссылается на NuGet-пакет `SkkmConnector` **1.27.0** и ищет его в локальной
+Приложение ссылается на NuGet-пакет `SkkmConnector` **1.28.10** и ищет его в локальной
 папке `packages` рядом с проектом (`nuget.config`):
 
 ```xml
 <add key="local-skkm" value="./packages" />
 ```
 
-1. Положите файл `SkkmConnector.1.27.0.nupkg` в папку `SkkmNugetSample/packages`
+1. Положите файл `SkkmConnector.1.28.10.nupkg` в папку `SkkmNugetSample/packages`
    (если его там ещё нет - соберите пакет коннектора:
 
 ```powershell
@@ -232,7 +232,7 @@ public class MyXReport : Sample
 
 - **Avalonia 11** (`Avalonia`, `Avalonia.Desktop`, `Avalonia.Themes.Fluent`) — интерфейс.
 - **Material.Icons.Avalonia** — иконки.
-- **SkkmConnector 1.27.0** — сам коннектор, подключён из локального NuGet-папки `./packages`.
+- **SkkmConnector 1.28.10** — сам коннектор, подключён из локального NuGet-папки `./packages`.
 - **.NET 6** (`net6.0`).
 
 ## Лицензия

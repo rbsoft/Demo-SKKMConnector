@@ -8,6 +8,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Media.TextFormatting;
+using Avalonia.Platform.Storage;
 using RBSoftSkkm;
 using SkkmNugetSample.Ui;
 
@@ -17,13 +18,13 @@ public partial class MainWindow : Window
 {
     private readonly ConnectionSettings _connection = new();
 
-    private TextBox _host = null!;
-    private TextBox _port = null!;
+    private TextBox _address = null!;
     private TextBox _token = null!;
     private TextBox _device = null!;
     private TextBox _cashier = null!;
     private TextBox _cashierVatin = null!;
     private TextBox _documentId = null!;
+    private TextBox _filePath = null!;
     private TextBox _from = null!;
     private TextBox _to = null!;
     private TreeView _tree = null!;
@@ -33,18 +34,9 @@ public partial class MainWindow : Window
     private SelectableTextBlock _source = null!;
     private Button _copy = null!;
     private SelectableTextBlock _response = null!;
-    private TextBlock _methodBadge = null!;
-    private Border _methodPill = null!;
     private TextBlock _requestTitle = null!;
 
-    private static readonly IBrush GetMethodBrush = new ImmutableSolidColorBrush(Color.Parse("#6BAF5A"));
-    private static readonly IBrush PostMethodBrush = new ImmutableSolidColorBrush(Color.Parse("#D19A66"));
-    private static readonly IBrush PutMethodBrush = new ImmutableSolidColorBrush(Color.Parse("#61AFEF"));
-    private static readonly IBrush DeleteMethodBrush = new ImmutableSolidColorBrush(Color.Parse("#E06C75"));
-    private static readonly IBrush GetPillBrush = new ImmutableSolidColorBrush(Color.Parse("#3F8F53"));
-    private static readonly IBrush PostPillBrush = new ImmutableSolidColorBrush(Color.Parse("#C4703A"));
-    private static readonly IBrush PutPillBrush = new ImmutableSolidColorBrush(Color.Parse("#3A7AB8"));
-    private static readonly IBrush DeletePillBrush = new ImmutableSolidColorBrush(Color.Parse("#B84A52"));
+    private static readonly IBrush DescriptionBrush = new ImmutableSolidColorBrush(Color.Parse("#7E7E86"));
     private static readonly IBrush StatusOkBrush = new ImmutableSolidColorBrush(Color.Parse("#62C073"));
     private static readonly IBrush StatusErrorBrush = new ImmutableSolidColorBrush(Color.Parse("#E06C75"));
     private static readonly IBrush StatusIdleBrush = new ImmutableSolidColorBrush(Color.Parse("#7E7E86"));
@@ -62,13 +54,13 @@ public partial class MainWindow : Window
     {
         AvaloniaXamlLoader.Load(this);
 
-        _host = this.FindControl<TextBox>("HostBox")!;
-        _port = this.FindControl<TextBox>("PortBox")!;
+        _address = this.FindControl<TextBox>("AddressBox")!;
         _token = this.FindControl<TextBox>("TokenBox")!;
         _device = this.FindControl<TextBox>("DeviceBox")!;
         _cashier = this.FindControl<TextBox>("CashierBox")!;
         _cashierVatin = this.FindControl<TextBox>("CashierVatinBox")!;
         _documentId = this.FindControl<TextBox>("DocumentIdBox")!;
+        _filePath = this.FindControl<TextBox>("FilePathBox")!;
         _from = this.FindControl<TextBox>("FromBox")!;
         _to = this.FindControl<TextBox>("ToBox")!;
         _tree = this.FindControl<TreeView>("ExamplesTree")!;
@@ -78,8 +70,6 @@ public partial class MainWindow : Window
         _source = this.FindControl<SelectableTextBlock>("SourceText")!;
         _copy = this.FindControl<Button>("CopyButton")!;
         _response = this.FindControl<SelectableTextBlock>("ResponseBox")!;
-        _methodBadge = this.FindControl<TextBlock>("MethodBadge")!;
-        _methodPill = this.FindControl<Border>("MethodPill")!;
         _requestTitle = this.FindControl<TextBlock>("RequestTitle")!;
         _docTipLayer = this.FindControl<Canvas>("DocTipLayer")!;
         _docTip = this.FindControl<Border>("DocTip")!;
@@ -242,9 +232,7 @@ public partial class MainWindow : Window
         _currentSource = ExampleSource.Read(item);
         HideDocTip();
         ToolTip.SetTip(_copy, "Копировать");
-        _requestTitle.Text = item.Title;
-        _methodBadge.Text = item.HttpMethod;
-        _methodPill.Background = MethodPillBrush(item.HttpMethod);
+        _requestTitle.Text = item.MethodName + "()";
         SetResponse("");
         SetStatus("", StatusIdleBrush);
 
@@ -266,26 +254,21 @@ public partial class MainWindow : Window
     private static Control RequestHeader(ExampleItem item) =>
         new StackPanel
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = 8,
+            Orientation = Orientation.Vertical,
             VerticalAlignment = VerticalAlignment.Center,
             Children =
             {
                 new TextBlock
                 {
-                    Text = item.HttpMethod,
-                    Width = 36,
-                    MinWidth = 36,
-                    FontSize = 11,
-                    FontWeight = FontWeight.SemiBold,
-                    Foreground = MethodTextBrush(item.HttpMethod),
-                    VerticalAlignment = VerticalAlignment.Center
+                    Text = item.MethodName + "()",
+                    TextTrimming = TextTrimming.CharacterEllipsis
                 },
                 new TextBlock
                 {
                     Text = item.Title,
-                    TextTrimming = TextTrimming.CharacterEllipsis,
-                    VerticalAlignment = VerticalAlignment.Center
+                    FontSize = 14,
+                    Foreground = DescriptionBrush,
+                    TextTrimming = TextTrimming.CharacterEllipsis
                 }
             }
         };
@@ -312,7 +295,7 @@ public partial class MainWindow : Window
         }
 
         ReadConnection();
-        if (!_connection.TryRead(_selected.NeedDocumentId, out string error))
+        if (!_connection.TryRead(_selected.NeedDocumentId, _selected.NeedFilePath, out string error))
         {
             SetResponse(error);
             SetStatus("Проверьте подключение", StatusIdleBrush);
@@ -326,8 +309,25 @@ public partial class MainWindow : Window
         try
         {
             ExampleRunner.ApplyConnection(_selected.Instance, _connection);
-            var kkm = await ExampleRunner.Invoke(_selected);
-            SetResponse(ResponseText.Format(kkm));
+
+            // Перехватываем вывод примера (Console.WriteLine), чтобы показать в панели
+            // именно то, что напечатал код примера.
+            var originalOut = Console.Out;
+            var printed = new StringWriter();
+            Console.SetOut(printed);
+            SkkmConnector kkm;
+            try
+            {
+                kkm = await ExampleRunner.Invoke(_selected);
+            }
+            finally
+            {
+                Console.SetOut(originalOut);
+            }
+
+            // Показываем только то, что напечатал сам пример (Console.WriteLine).
+            // Если пример ничего не печатает — панель пустая.
+            SetResponse(printed.ToString().TrimEnd());
             if (kkm.ErrorCode == -3)
                 SetStatus("Отменено", StatusIdleBrush);
             else
@@ -350,34 +350,37 @@ public partial class MainWindow : Window
         ExampleRunner.Session.Cancel();
     }
 
+    private async void OnBrowseFileClick(object? sender, RoutedEventArgs e)
+    {
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Выберите картинку (BMP/PNG)",
+            AllowMultiple = false,
+            FileTypeFilter =
+            [
+                new FilePickerFileType("Картинки (BMP, PNG)")
+                {
+                    Patterns = ["*.bmp", "*.png"]
+                }
+            ]
+        });
+
+        if (files.Count > 0)
+            _filePath.Text = files[0].TryGetLocalPath() ?? files[0].Path.LocalPath;
+    }
+
     private void ReadConnection()
     {
-        _connection.Host = _host.Text ?? "";
-        _connection.Port = int.TryParse(_port.Text, out var port) ? port : 0;
+        _connection.Address = _address.Text ?? "";
         _connection.Token = _token.Text ?? "";
         _connection.Device = _device.Text ?? "";
         _connection.Cashier = _cashier.Text ?? "";
         _connection.CashierVatin = _cashierVatin.Text ?? "";
         _connection.DocumentId = _documentId.Text ?? "";
+        _connection.FilePath = _filePath.Text ?? "";
         _connection.FromText = _from.Text ?? "";
         _connection.ToText = _to.Text ?? "";
     }
-
-    private static IBrush MethodTextBrush(string method) => method switch
-    {
-        "GET" => GetMethodBrush,
-        "PUT" => PutMethodBrush,
-        "DELETE" => DeleteMethodBrush,
-        _ => PostMethodBrush
-    };
-
-    private static IBrush MethodPillBrush(string method) => method switch
-    {
-        "GET" => GetPillBrush,
-        "PUT" => PutPillBrush,
-        "DELETE" => DeletePillBrush,
-        _ => PostPillBrush
-    };
 
     private void SetResponse(string text)
     {

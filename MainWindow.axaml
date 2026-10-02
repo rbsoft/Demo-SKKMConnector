@@ -69,10 +69,7 @@
       <DockPanel>
         <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,10">
           <TextBlock Text="ПОДКЛЮЧЕНИЕ" Classes="section" />
-          <DockPanel>
-            <TextBox DockPanel.Dock="Right" x:Name="PortBox" Watermark="Порт" Width="88" Margin="6,0,0,0" />
-            <TextBox x:Name="HostBox" Watermark="Хост, напр. localhost" />
-          </DockPanel>
+          <TextBox x:Name="AddressBox" Watermark="Адрес сервера, напр. localhost:4398" />
           <TextBox x:Name="TokenBox" Watermark="Токен (api_key)" />
           <TextBox x:Name="DeviceBox" Watermark="Имя ККМ, напр. Emu" />
           <DockPanel>
@@ -83,6 +80,12 @@
           <DockPanel>
             <TextBox DockPanel.Dock="Right" x:Name="ToBox" Watermark="По (yyyy-MM-dd)" Width="140" Margin="6,0,0,0" />
             <TextBox x:Name="FromBox" Watermark="С (yyyy-MM-dd)" />
+          </DockPanel>
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Обзор…" Padding="10,0" Margin="6,0,0,0"
+                    VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center" Click="OnBrowseFileClick" />
+            <TextBox x:Name="FilePathBox" Watermark="Картинка (BMP/PNG)" IsReadOnly="True" />
           </DockPanel>
           <TextBlock Text="КОЛЛЕКЦИЯ" Classes="section" Margin="0,8,0,0" />
         </StackPanel>
@@ -114,11 +117,8 @@
                   Padding="18,7" VerticalAlignment="Center" Click="OnRunClick" />
           <TextBlock DockPanel.Dock="Right" x:Name="StatusText" VerticalAlignment="Center"
                      FontWeight="Bold" MinWidth="48" Margin="0,0,14,0" />
-          <Border DockPanel.Dock="Left" x:Name="MethodPill" Background="#3F8F53" CornerRadius="4"
-                  Padding="8,3" Margin="0,0,12,0" VerticalAlignment="Center">
-            <TextBlock x:Name="MethodBadge" Foreground="#FFFFFF" FontWeight="Bold" FontSize="12" />
-          </Border>
-          <TextBlock x:Name="RequestTitle" Text="Выберите запрос" FontWeight="SemiBold" Foreground="#E6E6EA"
+          <TextBlock DockPanel.Dock="Left" x:Name="RequestTitle" Text="Выберите запрос" FontWeight="SemiBold"
+                     Foreground="#E6E6EA"
                      TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
         </DockPanel>
       </Border>

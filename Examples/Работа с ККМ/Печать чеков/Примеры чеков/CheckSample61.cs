@@ -9,1617 +9,529 @@ public class CheckSample61 : Sample
 
     public async Task<SkkmConnector> PostCheckSample61()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwMTIxUzAwMDAwMR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwMjIxUzAwMDAwMh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwMzIxUzAwMDAwMx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwNDIxUzAwMDAwNB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwNTIxUzAwMDAwNR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwNjIxUzAwMDAwNh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwNzIxUzAwMDAwNx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwODIxUzAwMDAwOB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAwOTIxUzAwMDAwOR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxMDIxUzAwMDAxMB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxMTIxUzAwMDAxMR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxMjIxUzAwMDAxMh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxMzIxUzAwMDAxMx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxNDIxUzAwMDAxNB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxNTIxUzAwMDAxNR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxNjIxUzAwMDAxNh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxNzIxUzAwMDAxNx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxODIxUzAwMDAxOB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAxOTIxUzAwMDAxOR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyMDIxUzAwMDAyMB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyMTIxUzAwMDAyMR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyMjIxUzAwMDAyMh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyMzIxUzAwMDAyMx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyNDIxUzAwMDAyNB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyNTIxUzAwMDAyNR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyNjIxUzAwMDAyNh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyNzIxUzAwMDAyNx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyODIxUzAwMDAyOB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAyOTIxUzAwMDAyOR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzMDIxUzAwMDAzMB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzMTIxUzAwMDAzMR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzMjIxUzAwMDAzMh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzMzIxUzAwMDAzMx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzNDIxUzAwMDAzNB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzNTIxUzAwMDAzNR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzNjIxUzAwMDAzNh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzNzIxUzAwMDAzNx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzODIxUzAwMDAzOB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDAzOTIxUzAwMDAzOR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0MDIxUzAwMDA0MB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0MTIxUzAwMDA0MR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0MjIxUzAwMDA0Mh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0MzIxUzAwMDA0Mx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0NDIxUzAwMDA0NB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0NTIxUzAwMDA0NR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0NjIxUzAwMDA0Nh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0NzIxUzAwMDA0Nx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0ODIxUzAwMDA0OB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA0OTIxUzAwMDA0OR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1MDIxUzAwMDA1MB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1MTIxUzAwMDA1MR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1MjIxUzAwMDA1Mh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1MzIxUzAwMDA1Mx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1NDIxUzAwMDA1NB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1NTIxUzAwMDA1NR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1NjIxUzAwMDA1Nh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1NzIxUzAwMDA1Nx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1ODIxUzAwMDA1OB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA1OTIxUzAwMDA1OR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2MDIxUzAwMDA2MB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2MTIxUzAwMDA2MR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2MjIxUzAwMDA2Mh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2MzIxUzAwMDA2Mx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2NDIxUzAwMDA2NB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2NTIxUzAwMDA2NR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2NjIxUzAwMDA2Nh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2NzIxUzAwMDA2Nx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2ODIxUzAwMDA2OB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA2OTIxUzAwMDA2OR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3MDIxUzAwMDA3MB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3MTIxUzAwMDA3MR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3MjIxUzAwMDA3Mh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3MzIxUzAwMDA3Mx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3NDIxUzAwMDA3NB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3NTIxUzAwMDA3NR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3NjIxUzAwMDA3Nh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3NzIxUzAwMDA3Nx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3ODIxUzAwMDA3OB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA3OTIxUzAwMDA3OR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4MDIxUzAwMDA4MB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4MTIxUzAwMDA4MR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4MjIxUzAwMDA4Mh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4MzIxUzAwMDA4Mx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4NDIxUzAwMDA4NB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4NTIxUzAwMDA4NR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4NjIxUzAwMDA4Nh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4NzIxUzAwMDA4Nx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4ODIxUzAwMDA4OB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA4OTIxUzAwMDA4OR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5MDIxUzAwMDA5MB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5MTIxUzAwMDA5MR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5MjIxUzAwMDA5Mh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5MzIxUzAwMDA5Mx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5NDIxUzAwMDA5NB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5NTIxUzAwMDA5NR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5NjIxUzAwMDA5Nh05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5NzIxUzAwMDA5Nx05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5ODIxUzAwMDA5OB05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDA5OTIxUzAwMDA5OR05M1RFU1Q=",
-            },
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Молоко 1л.",
-            Quantity = 1m,
-            Price = 1m,
-            Sum = 1.0m,
-            Tax = "none",
-            TaxSum = 0m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ТМ,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            Marking = new Marking
-            {
-                Code = "MDEwNDYwMDAwMDAwMDEwMDIxUzAwMDEwMB05M1RFU1Q=",
-            },
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 100.0m,
-        };
-        await kkm.PrintCheck();
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        var line1 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 1m;
+        line1.TaxSum = 0m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line1.Marking = "MDEwNDYwMDAwMDAwMDAwMTIxUzAwMDAwMR05M1RFU1Q=";
+        var line2 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line2.Price = 1m;
+        line2.TaxSum = 0m;
+        line2.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line2.Marking = "MDEwNDYwMDAwMDAwMDAwMjIxUzAwMDAwMh05M1RFU1Q=";
+        var line3 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line3.Price = 1m;
+        line3.TaxSum = 0m;
+        line3.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line3.Marking = "MDEwNDYwMDAwMDAwMDAwMzIxUzAwMDAwMx05M1RFU1Q=";
+        var line4 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line4.Price = 1m;
+        line4.TaxSum = 0m;
+        line4.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line4.Marking = "MDEwNDYwMDAwMDAwMDAwNDIxUzAwMDAwNB05M1RFU1Q=";
+        var line5 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line5.Price = 1m;
+        line5.TaxSum = 0m;
+        line5.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line5.Marking = "MDEwNDYwMDAwMDAwMDAwNTIxUzAwMDAwNR05M1RFU1Q=";
+        var line6 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line6.Price = 1m;
+        line6.TaxSum = 0m;
+        line6.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line6.Marking = "MDEwNDYwMDAwMDAwMDAwNjIxUzAwMDAwNh05M1RFU1Q=";
+        var line7 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line7.Price = 1m;
+        line7.TaxSum = 0m;
+        line7.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line7.Marking = "MDEwNDYwMDAwMDAwMDAwNzIxUzAwMDAwNx05M1RFU1Q=";
+        var line8 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line8.Price = 1m;
+        line8.TaxSum = 0m;
+        line8.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line8.Marking = "MDEwNDYwMDAwMDAwMDAwODIxUzAwMDAwOB05M1RFU1Q=";
+        var line9 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line9.Price = 1m;
+        line9.TaxSum = 0m;
+        line9.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line9.Marking = "MDEwNDYwMDAwMDAwMDAwOTIxUzAwMDAwOR05M1RFU1Q=";
+        var line10 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line10.Price = 1m;
+        line10.TaxSum = 0m;
+        line10.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line10.Marking = "MDEwNDYwMDAwMDAwMDAxMDIxUzAwMDAxMB05M1RFU1Q=";
+        var line11 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line11.Price = 1m;
+        line11.TaxSum = 0m;
+        line11.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line11.Marking = "MDEwNDYwMDAwMDAwMDAxMTIxUzAwMDAxMR05M1RFU1Q=";
+        var line12 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line12.Price = 1m;
+        line12.TaxSum = 0m;
+        line12.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line12.Marking = "MDEwNDYwMDAwMDAwMDAxMjIxUzAwMDAxMh05M1RFU1Q=";
+        var line13 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line13.Price = 1m;
+        line13.TaxSum = 0m;
+        line13.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line13.Marking = "MDEwNDYwMDAwMDAwMDAxMzIxUzAwMDAxMx05M1RFU1Q=";
+        var line14 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line14.Price = 1m;
+        line14.TaxSum = 0m;
+        line14.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line14.Marking = "MDEwNDYwMDAwMDAwMDAxNDIxUzAwMDAxNB05M1RFU1Q=";
+        var line15 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line15.Price = 1m;
+        line15.TaxSum = 0m;
+        line15.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line15.Marking = "MDEwNDYwMDAwMDAwMDAxNTIxUzAwMDAxNR05M1RFU1Q=";
+        var line16 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line16.Price = 1m;
+        line16.TaxSum = 0m;
+        line16.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line16.Marking = "MDEwNDYwMDAwMDAwMDAxNjIxUzAwMDAxNh05M1RFU1Q=";
+        var line17 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line17.Price = 1m;
+        line17.TaxSum = 0m;
+        line17.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line17.Marking = "MDEwNDYwMDAwMDAwMDAxNzIxUzAwMDAxNx05M1RFU1Q=";
+        var line18 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line18.Price = 1m;
+        line18.TaxSum = 0m;
+        line18.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line18.Marking = "MDEwNDYwMDAwMDAwMDAxODIxUzAwMDAxOB05M1RFU1Q=";
+        var line19 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line19.Price = 1m;
+        line19.TaxSum = 0m;
+        line19.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line19.Marking = "MDEwNDYwMDAwMDAwMDAxOTIxUzAwMDAxOR05M1RFU1Q=";
+        var line20 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line20.Price = 1m;
+        line20.TaxSum = 0m;
+        line20.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line20.Marking = "MDEwNDYwMDAwMDAwMDAyMDIxUzAwMDAyMB05M1RFU1Q=";
+        var line21 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line21.Price = 1m;
+        line21.TaxSum = 0m;
+        line21.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line21.Marking = "MDEwNDYwMDAwMDAwMDAyMTIxUzAwMDAyMR05M1RFU1Q=";
+        var line22 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line22.Price = 1m;
+        line22.TaxSum = 0m;
+        line22.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line22.Marking = "MDEwNDYwMDAwMDAwMDAyMjIxUzAwMDAyMh05M1RFU1Q=";
+        var line23 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line23.Price = 1m;
+        line23.TaxSum = 0m;
+        line23.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line23.Marking = "MDEwNDYwMDAwMDAwMDAyMzIxUzAwMDAyMx05M1RFU1Q=";
+        var line24 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line24.Price = 1m;
+        line24.TaxSum = 0m;
+        line24.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line24.Marking = "MDEwNDYwMDAwMDAwMDAyNDIxUzAwMDAyNB05M1RFU1Q=";
+        var line25 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line25.Price = 1m;
+        line25.TaxSum = 0m;
+        line25.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line25.Marking = "MDEwNDYwMDAwMDAwMDAyNTIxUzAwMDAyNR05M1RFU1Q=";
+        var line26 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line26.Price = 1m;
+        line26.TaxSum = 0m;
+        line26.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line26.Marking = "MDEwNDYwMDAwMDAwMDAyNjIxUzAwMDAyNh05M1RFU1Q=";
+        var line27 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line27.Price = 1m;
+        line27.TaxSum = 0m;
+        line27.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line27.Marking = "MDEwNDYwMDAwMDAwMDAyNzIxUzAwMDAyNx05M1RFU1Q=";
+        var line28 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line28.Price = 1m;
+        line28.TaxSum = 0m;
+        line28.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line28.Marking = "MDEwNDYwMDAwMDAwMDAyODIxUzAwMDAyOB05M1RFU1Q=";
+        var line29 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line29.Price = 1m;
+        line29.TaxSum = 0m;
+        line29.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line29.Marking = "MDEwNDYwMDAwMDAwMDAyOTIxUzAwMDAyOR05M1RFU1Q=";
+        var line30 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line30.Price = 1m;
+        line30.TaxSum = 0m;
+        line30.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line30.Marking = "MDEwNDYwMDAwMDAwMDAzMDIxUzAwMDAzMB05M1RFU1Q=";
+        var line31 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line31.Price = 1m;
+        line31.TaxSum = 0m;
+        line31.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line31.Marking = "MDEwNDYwMDAwMDAwMDAzMTIxUzAwMDAzMR05M1RFU1Q=";
+        var line32 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line32.Price = 1m;
+        line32.TaxSum = 0m;
+        line32.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line32.Marking = "MDEwNDYwMDAwMDAwMDAzMjIxUzAwMDAzMh05M1RFU1Q=";
+        var line33 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line33.Price = 1m;
+        line33.TaxSum = 0m;
+        line33.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line33.Marking = "MDEwNDYwMDAwMDAwMDAzMzIxUzAwMDAzMx05M1RFU1Q=";
+        var line34 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line34.Price = 1m;
+        line34.TaxSum = 0m;
+        line34.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line34.Marking = "MDEwNDYwMDAwMDAwMDAzNDIxUzAwMDAzNB05M1RFU1Q=";
+        var line35 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line35.Price = 1m;
+        line35.TaxSum = 0m;
+        line35.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line35.Marking = "MDEwNDYwMDAwMDAwMDAzNTIxUzAwMDAzNR05M1RFU1Q=";
+        var line36 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line36.Price = 1m;
+        line36.TaxSum = 0m;
+        line36.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line36.Marking = "MDEwNDYwMDAwMDAwMDAzNjIxUzAwMDAzNh05M1RFU1Q=";
+        var line37 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line37.Price = 1m;
+        line37.TaxSum = 0m;
+        line37.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line37.Marking = "MDEwNDYwMDAwMDAwMDAzNzIxUzAwMDAzNx05M1RFU1Q=";
+        var line38 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line38.Price = 1m;
+        line38.TaxSum = 0m;
+        line38.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line38.Marking = "MDEwNDYwMDAwMDAwMDAzODIxUzAwMDAzOB05M1RFU1Q=";
+        var line39 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line39.Price = 1m;
+        line39.TaxSum = 0m;
+        line39.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line39.Marking = "MDEwNDYwMDAwMDAwMDAzOTIxUzAwMDAzOR05M1RFU1Q=";
+        var line40 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line40.Price = 1m;
+        line40.TaxSum = 0m;
+        line40.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line40.Marking = "MDEwNDYwMDAwMDAwMDA0MDIxUzAwMDA0MB05M1RFU1Q=";
+        var line41 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line41.Price = 1m;
+        line41.TaxSum = 0m;
+        line41.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line41.Marking = "MDEwNDYwMDAwMDAwMDA0MTIxUzAwMDA0MR05M1RFU1Q=";
+        var line42 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line42.Price = 1m;
+        line42.TaxSum = 0m;
+        line42.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line42.Marking = "MDEwNDYwMDAwMDAwMDA0MjIxUzAwMDA0Mh05M1RFU1Q=";
+        var line43 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line43.Price = 1m;
+        line43.TaxSum = 0m;
+        line43.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line43.Marking = "MDEwNDYwMDAwMDAwMDA0MzIxUzAwMDA0Mx05M1RFU1Q=";
+        var line44 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line44.Price = 1m;
+        line44.TaxSum = 0m;
+        line44.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line44.Marking = "MDEwNDYwMDAwMDAwMDA0NDIxUzAwMDA0NB05M1RFU1Q=";
+        var line45 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line45.Price = 1m;
+        line45.TaxSum = 0m;
+        line45.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line45.Marking = "MDEwNDYwMDAwMDAwMDA0NTIxUzAwMDA0NR05M1RFU1Q=";
+        var line46 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line46.Price = 1m;
+        line46.TaxSum = 0m;
+        line46.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line46.Marking = "MDEwNDYwMDAwMDAwMDA0NjIxUzAwMDA0Nh05M1RFU1Q=";
+        var line47 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line47.Price = 1m;
+        line47.TaxSum = 0m;
+        line47.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line47.Marking = "MDEwNDYwMDAwMDAwMDA0NzIxUzAwMDA0Nx05M1RFU1Q=";
+        var line48 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line48.Price = 1m;
+        line48.TaxSum = 0m;
+        line48.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line48.Marking = "MDEwNDYwMDAwMDAwMDA0ODIxUzAwMDA0OB05M1RFU1Q=";
+        var line49 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line49.Price = 1m;
+        line49.TaxSum = 0m;
+        line49.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line49.Marking = "MDEwNDYwMDAwMDAwMDA0OTIxUzAwMDA0OR05M1RFU1Q=";
+        var line50 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line50.Price = 1m;
+        line50.TaxSum = 0m;
+        line50.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line50.Marking = "MDEwNDYwMDAwMDAwMDA1MDIxUzAwMDA1MB05M1RFU1Q=";
+        var line51 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line51.Price = 1m;
+        line51.TaxSum = 0m;
+        line51.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line51.Marking = "MDEwNDYwMDAwMDAwMDA1MTIxUzAwMDA1MR05M1RFU1Q=";
+        var line52 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line52.Price = 1m;
+        line52.TaxSum = 0m;
+        line52.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line52.Marking = "MDEwNDYwMDAwMDAwMDA1MjIxUzAwMDA1Mh05M1RFU1Q=";
+        var line53 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line53.Price = 1m;
+        line53.TaxSum = 0m;
+        line53.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line53.Marking = "MDEwNDYwMDAwMDAwMDA1MzIxUzAwMDA1Mx05M1RFU1Q=";
+        var line54 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line54.Price = 1m;
+        line54.TaxSum = 0m;
+        line54.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line54.Marking = "MDEwNDYwMDAwMDAwMDA1NDIxUzAwMDA1NB05M1RFU1Q=";
+        var line55 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line55.Price = 1m;
+        line55.TaxSum = 0m;
+        line55.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line55.Marking = "MDEwNDYwMDAwMDAwMDA1NTIxUzAwMDA1NR05M1RFU1Q=";
+        var line56 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line56.Price = 1m;
+        line56.TaxSum = 0m;
+        line56.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line56.Marking = "MDEwNDYwMDAwMDAwMDA1NjIxUzAwMDA1Nh05M1RFU1Q=";
+        var line57 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line57.Price = 1m;
+        line57.TaxSum = 0m;
+        line57.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line57.Marking = "MDEwNDYwMDAwMDAwMDA1NzIxUzAwMDA1Nx05M1RFU1Q=";
+        var line58 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line58.Price = 1m;
+        line58.TaxSum = 0m;
+        line58.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line58.Marking = "MDEwNDYwMDAwMDAwMDA1ODIxUzAwMDA1OB05M1RFU1Q=";
+        var line59 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line59.Price = 1m;
+        line59.TaxSum = 0m;
+        line59.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line59.Marking = "MDEwNDYwMDAwMDAwMDA1OTIxUzAwMDA1OR05M1RFU1Q=";
+        var line60 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line60.Price = 1m;
+        line60.TaxSum = 0m;
+        line60.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line60.Marking = "MDEwNDYwMDAwMDAwMDA2MDIxUzAwMDA2MB05M1RFU1Q=";
+        var line61 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line61.Price = 1m;
+        line61.TaxSum = 0m;
+        line61.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line61.Marking = "MDEwNDYwMDAwMDAwMDA2MTIxUzAwMDA2MR05M1RFU1Q=";
+        var line62 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line62.Price = 1m;
+        line62.TaxSum = 0m;
+        line62.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line62.Marking = "MDEwNDYwMDAwMDAwMDA2MjIxUzAwMDA2Mh05M1RFU1Q=";
+        var line63 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line63.Price = 1m;
+        line63.TaxSum = 0m;
+        line63.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line63.Marking = "MDEwNDYwMDAwMDAwMDA2MzIxUzAwMDA2Mx05M1RFU1Q=";
+        var line64 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line64.Price = 1m;
+        line64.TaxSum = 0m;
+        line64.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line64.Marking = "MDEwNDYwMDAwMDAwMDA2NDIxUzAwMDA2NB05M1RFU1Q=";
+        var line65 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line65.Price = 1m;
+        line65.TaxSum = 0m;
+        line65.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line65.Marking = "MDEwNDYwMDAwMDAwMDA2NTIxUzAwMDA2NR05M1RFU1Q=";
+        var line66 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line66.Price = 1m;
+        line66.TaxSum = 0m;
+        line66.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line66.Marking = "MDEwNDYwMDAwMDAwMDA2NjIxUzAwMDA2Nh05M1RFU1Q=";
+        var line67 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line67.Price = 1m;
+        line67.TaxSum = 0m;
+        line67.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line67.Marking = "MDEwNDYwMDAwMDAwMDA2NzIxUzAwMDA2Nx05M1RFU1Q=";
+        var line68 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line68.Price = 1m;
+        line68.TaxSum = 0m;
+        line68.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line68.Marking = "MDEwNDYwMDAwMDAwMDA2ODIxUzAwMDA2OB05M1RFU1Q=";
+        var line69 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line69.Price = 1m;
+        line69.TaxSum = 0m;
+        line69.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line69.Marking = "MDEwNDYwMDAwMDAwMDA2OTIxUzAwMDA2OR05M1RFU1Q=";
+        var line70 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line70.Price = 1m;
+        line70.TaxSum = 0m;
+        line70.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line70.Marking = "MDEwNDYwMDAwMDAwMDA3MDIxUzAwMDA3MB05M1RFU1Q=";
+        var line71 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line71.Price = 1m;
+        line71.TaxSum = 0m;
+        line71.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line71.Marking = "MDEwNDYwMDAwMDAwMDA3MTIxUzAwMDA3MR05M1RFU1Q=";
+        var line72 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line72.Price = 1m;
+        line72.TaxSum = 0m;
+        line72.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line72.Marking = "MDEwNDYwMDAwMDAwMDA3MjIxUzAwMDA3Mh05M1RFU1Q=";
+        var line73 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line73.Price = 1m;
+        line73.TaxSum = 0m;
+        line73.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line73.Marking = "MDEwNDYwMDAwMDAwMDA3MzIxUzAwMDA3Mx05M1RFU1Q=";
+        var line74 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line74.Price = 1m;
+        line74.TaxSum = 0m;
+        line74.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line74.Marking = "MDEwNDYwMDAwMDAwMDA3NDIxUzAwMDA3NB05M1RFU1Q=";
+        var line75 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line75.Price = 1m;
+        line75.TaxSum = 0m;
+        line75.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line75.Marking = "MDEwNDYwMDAwMDAwMDA3NTIxUzAwMDA3NR05M1RFU1Q=";
+        var line76 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line76.Price = 1m;
+        line76.TaxSum = 0m;
+        line76.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line76.Marking = "MDEwNDYwMDAwMDAwMDA3NjIxUzAwMDA3Nh05M1RFU1Q=";
+        var line77 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line77.Price = 1m;
+        line77.TaxSum = 0m;
+        line77.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line77.Marking = "MDEwNDYwMDAwMDAwMDA3NzIxUzAwMDA3Nx05M1RFU1Q=";
+        var line78 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line78.Price = 1m;
+        line78.TaxSum = 0m;
+        line78.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line78.Marking = "MDEwNDYwMDAwMDAwMDA3ODIxUzAwMDA3OB05M1RFU1Q=";
+        var line79 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line79.Price = 1m;
+        line79.TaxSum = 0m;
+        line79.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line79.Marking = "MDEwNDYwMDAwMDAwMDA3OTIxUzAwMDA3OR05M1RFU1Q=";
+        var line80 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line80.Price = 1m;
+        line80.TaxSum = 0m;
+        line80.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line80.Marking = "MDEwNDYwMDAwMDAwMDA4MDIxUzAwMDA4MB05M1RFU1Q=";
+        var line81 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line81.Price = 1m;
+        line81.TaxSum = 0m;
+        line81.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line81.Marking = "MDEwNDYwMDAwMDAwMDA4MTIxUzAwMDA4MR05M1RFU1Q=";
+        var line82 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line82.Price = 1m;
+        line82.TaxSum = 0m;
+        line82.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line82.Marking = "MDEwNDYwMDAwMDAwMDA4MjIxUzAwMDA4Mh05M1RFU1Q=";
+        var line83 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line83.Price = 1m;
+        line83.TaxSum = 0m;
+        line83.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line83.Marking = "MDEwNDYwMDAwMDAwMDA4MzIxUzAwMDA4Mx05M1RFU1Q=";
+        var line84 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line84.Price = 1m;
+        line84.TaxSum = 0m;
+        line84.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line84.Marking = "MDEwNDYwMDAwMDAwMDA4NDIxUzAwMDA4NB05M1RFU1Q=";
+        var line85 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line85.Price = 1m;
+        line85.TaxSum = 0m;
+        line85.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line85.Marking = "MDEwNDYwMDAwMDAwMDA4NTIxUzAwMDA4NR05M1RFU1Q=";
+        var line86 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line86.Price = 1m;
+        line86.TaxSum = 0m;
+        line86.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line86.Marking = "MDEwNDYwMDAwMDAwMDA4NjIxUzAwMDA4Nh05M1RFU1Q=";
+        var line87 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line87.Price = 1m;
+        line87.TaxSum = 0m;
+        line87.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line87.Marking = "MDEwNDYwMDAwMDAwMDA4NzIxUzAwMDA4Nx05M1RFU1Q=";
+        var line88 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line88.Price = 1m;
+        line88.TaxSum = 0m;
+        line88.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line88.Marking = "MDEwNDYwMDAwMDAwMDA4ODIxUzAwMDA4OB05M1RFU1Q=";
+        var line89 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line89.Price = 1m;
+        line89.TaxSum = 0m;
+        line89.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line89.Marking = "MDEwNDYwMDAwMDAwMDA4OTIxUzAwMDA4OR05M1RFU1Q=";
+        var line90 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line90.Price = 1m;
+        line90.TaxSum = 0m;
+        line90.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line90.Marking = "MDEwNDYwMDAwMDAwMDA5MDIxUzAwMDA5MB05M1RFU1Q=";
+        var line91 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line91.Price = 1m;
+        line91.TaxSum = 0m;
+        line91.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line91.Marking = "MDEwNDYwMDAwMDAwMDA5MTIxUzAwMDA5MR05M1RFU1Q=";
+        var line92 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line92.Price = 1m;
+        line92.TaxSum = 0m;
+        line92.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line92.Marking = "MDEwNDYwMDAwMDAwMDA5MjIxUzAwMDA5Mh05M1RFU1Q=";
+        var line93 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line93.Price = 1m;
+        line93.TaxSum = 0m;
+        line93.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line93.Marking = "MDEwNDYwMDAwMDAwMDA5MzIxUzAwMDA5Mx05M1RFU1Q=";
+        var line94 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line94.Price = 1m;
+        line94.TaxSum = 0m;
+        line94.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line94.Marking = "MDEwNDYwMDAwMDAwMDA5NDIxUzAwMDA5NB05M1RFU1Q=";
+        var line95 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line95.Price = 1m;
+        line95.TaxSum = 0m;
+        line95.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line95.Marking = "MDEwNDYwMDAwMDAwMDA5NTIxUzAwMDA5NR05M1RFU1Q=";
+        var line96 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line96.Price = 1m;
+        line96.TaxSum = 0m;
+        line96.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line96.Marking = "MDEwNDYwMDAwMDAwMDA5NjIxUzAwMDA5Nh05M1RFU1Q=";
+        var line97 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line97.Price = 1m;
+        line97.TaxSum = 0m;
+        line97.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line97.Marking = "MDEwNDYwMDAwMDAwMDA5NzIxUzAwMDA5Nx05M1RFU1Q=";
+        var line98 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line98.Price = 1m;
+        line98.TaxSum = 0m;
+        line98.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line98.Marking = "MDEwNDYwMDAwMDAwMDA5ODIxUzAwMDA5OB05M1RFU1Q=";
+        var line99 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line99.Price = 1m;
+        line99.TaxSum = 0m;
+        line99.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line99.Marking = "MDEwNDYwMDAwMDAwMDA5OTIxUzAwMDA5OR05M1RFU1Q=";
+        var line100 = connector.AddPosition("Молоко 1л.", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line100.Price = 1m;
+        line100.TaxSum = 0m;
+        line100.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line100.Marking = "MDEwNDYwMDAwMDAwMDEwMDIxUzAwMDEwMB05M1RFU1Q=";
+        connector.Cash = 100.0m;
+        await connector.PrintCheck();
 
-        return kkm;
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

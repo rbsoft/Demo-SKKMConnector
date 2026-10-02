@@ -6,42 +6,42 @@ namespace SkkmNugetSample;
 public class ConnectionSettings
 {
     public const string DateFormat = "yyyy-MM-dd";
-    public const string HintHost = "localhost";
-    public const string HintPort = "4398";
+    public const string HintAddress = "localhost:4398";
     public const string HintToken = "api_key";
     public const string HintDevice = "Emu";
     public const string HintCashier = "Иванов А.И.";
     public const string HintCashierVatin = "7722345678";
+    public const string HintFilePath = @"Путь к картинке, напр. C:\logo.png";
 
-    public string Host { get; set; } = "";
-    public int Port { get; set; }
+    public string Address { get; set; } = "";
     public string Token { get; set; } = "";
     public string Device { get; set; } = "";
     public string Cashier { get; set; } = "";
     public string CashierVatin { get; set; } = "";
     public string DocumentId { get; set; } = "";
+    public string FilePath { get; set; } = "";
     public string FromText { get; set; } = "";
     public string ToText { get; set; } = "";
     public DateTime From { get; private set; } = DateTime.Today.AddDays(-7);
     public DateTime To { get; private set; } = DateTime.Today;
 
-    public bool TryRead(bool needDocumentId, out string error)
+    public bool TryRead(bool needDocumentId, bool needFilePath, out string error)
     {
-        if (Host.Trim().Length == 0)
+        if (Address.Trim().Length == 0)
         {
-            error = "Укажите хост сервера ККМ.";
-            return false;
-        }
-
-        if (Port is < 1 or > 65535)
-        {
-            error = "Укажите порт сервера ККМ.";
+            error = "Укажите адрес сервера ККМ (хост:порт).";
             return false;
         }
 
         if (needDocumentId && DocumentId.Trim().Length == 0)
         {
             error = "Укажите Id документа.";
+            return false;
+        }
+
+        if (needFilePath && FilePath.Trim().Length == 0)
+        {
+            error = "Укажите путь к файлу картинки (BMP/PNG).";
             return false;
         }
 

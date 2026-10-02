@@ -7,19 +7,49 @@ public static class ExampleSource
 {
     public static string Read(ExampleItem example)
     {
-        string fileName = example.Instance.GetType().Name + ".cs";
+        var raw = RawText(example.Instance.GetType().Name);
+        return raw == null ? "" : FormatForDisplay(raw);
+    }
+
+    // Индекс файлов примеров (имя файла -> полный путь) строится один раз:
+    // папка Examples сканируется единожды, а не на каждый пример.
+    private static readonly Lazy<IReadOnlyDictionary<string, string>> FileIndex = new(BuildFileIndex);
+
+    private static IReadOnlyDictionary<string, string> BuildFileIndex()
+    {
+        var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var root in Roots())
         {
             string examplesDir = Path.Combine(root, "Examples");
             if (!Directory.Exists(examplesDir))
                 continue;
 
-            // Ищем файл примера в Examples и во всех подпапках (например «Пример печати с чеков»).
-            var match = Directory.GetFiles(examplesDir, fileName, SearchOption.AllDirectories).FirstOrDefault();
-            if (match != null)
-                return FormatForDisplay(File.ReadAllText(match));
+            foreach (var file in Directory.EnumerateFiles(examplesDir, "*.cs", SearchOption.AllDirectories))
+            {
+                string name = Path.GetFileName(file);
+                // Первый корень (папка вывода) имеет приоритет — как и раньше.
+                map.TryAdd(name, file);
+            }
         }
-        return "";
+        return map;
+    }
+
+    /// <summary>
+    /// Сырой текст файла примера по имени класса (или null, если файл не найден).
+    /// </summary>
+    public static string? RawText(string className)
+        => FileIndex.Value.TryGetValue(className + ".cs", out var path) ? File.ReadAllText(path) : null;
+
+    /// <summary>
+    /// Имя вызываемого метода коннектора (последний <c>await kkm.X(</c>) — для показа в дереве и заголовке.
+    /// </summary>
+    public static string ConnectorMethod(string className, string fallback)
+    {
+        var raw = RawText(className);
+        if (raw == null)
+            return fallback;
+        var matches = Regex.Matches(raw, @"await (?:kkm|connector)\.([A-Za-z0-9]+)\(");
+        return matches.Count > 0 ? matches[^1].Groups[1].Value : fallback;
     }
 
     // Как в реальном клиентском коде: using + создание коннектора + тело запроса.
@@ -53,10 +83,10 @@ public static class ExampleSource
             return text.Trim();
 
         string body = Unindent(text[(brace + 1)..end].TrimEnd());
-        body = Regex.Replace(body, @"\r?\nreturn kkm;\s*$", "", RegexOptions.Multiline);
+        body = Regex.Replace(body, @"\r?\nreturn connector;\s*$", "", RegexOptions.Multiline);
         body = body.TrimEnd();
 
-        return "using RBSoftSkkm;\n\nusing var kkm = new SkkmConnector();\n" + body + "\n";
+        return "using RBSoftSkkm;\n\nusing var connector = new SkkmConnector();\n" + body + "\n";
     }
 
     private static string Unindent(string text)

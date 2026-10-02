@@ -9,47 +9,43 @@ public class PrintCheckReturn : Sample
 
     public async Task<SkkmConnector> PostPrintCheckReturn()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.SaleReturn;
-        kkm.TaxVariant = TaxSystem.УСН;
-        kkm.Customer = new Customer
-        {
-            Info = "ООО 'Рога и Копыта'",
-            Email = "kuznicov@mail.ru",
-            Vatin = "500100732259"
-        };
-        kkm.Payments = new Payments { Cash = 90 };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Бутылка с водой 1л.",
-            Quantity = 1,
-            MeasurementUnit = "шт",
-            Price = 60,
-            Sum = 60,
-            DiscountSum = 0,
-            Department = 1,
-            Tax = "20",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPrepayment,
-            SignCalculationObject = SignCalculationObject.Advance
-        });
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "SIMTEK манжета переходная D50х32",
-            Quantity = 1,
-            MeasurementUnit = "шт",
-            Price = 21.85m,
-            Sum = 21.85m,
-            DiscountSum = 0,
-            Department = 1,
-            Tax = "none",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPrepayment,
-            SignCalculationObject = SignCalculationObject.Advance
-        });
-        await kkm.PrintCheck();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Usn);
+        connector.NewCheck(CheckType.Sale);
+        connector.CustomerInfo = "ООО 'Рога и Копыта'";
+        connector.CustomerEmail = "kuznicov@mail.ru";
+        connector.CustomerVatin = "500100732259";
+        connector.Cash = 90;
+        var line1 = connector.AddPosition("Бутылка с водой 1л.", 1, 60, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.FullPrepayment);
+        line1.MeasurementUnit = "шт";
+        line1.Price = 60;
+        line1.DiscountSum = 0;
+        line1.Department = 1;
+        line1.TaxSum = 0;
+        var line2 = connector.AddPosition("SIMTEK манжета переходная D50х32", 1, 21.85m, TaxRate.None, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.FullPrepayment);
+        line2.MeasurementUnit = "шт";
+        line2.Price = 21.85m;
+        line2.DiscountSum = 0;
+        line2.Department = 1;
+        line2.TaxSum = 0;
+        await connector.PrintCheck();
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

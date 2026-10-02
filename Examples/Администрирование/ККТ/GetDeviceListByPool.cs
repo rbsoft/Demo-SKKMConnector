@@ -10,8 +10,17 @@ public class GetDeviceListByPool : Sample
 
     public async Task<SkkmConnector> GetGetDeviceListByPool()
     {
-        kkm.PoolName = "pool";
-        await kkm.GetDeviceListByPool();
-        return kkm;
+        connector.PoolName = "pool";
+        await connector.GetDeviceListByPool();
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Устройств в пуле: {connector.Devices.Length}");
+            foreach (var d in connector.Devices)
+                Console.WriteLine($"  {d.DeviceName} [{d.Driver}], пул={d.Pool}, {d.DeviceStatusDescription}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

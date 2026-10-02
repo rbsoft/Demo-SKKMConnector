@@ -9,41 +9,27 @@ public class PrintCheckReturnByFpAsync : Sample
 
     public async Task<SkkmConnector> PostPrintCheckReturnByFpAsync()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.SaleReturn;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Electronically = false;
-        kkm.AdditionalAttribute = "1775661887";
-        kkm.Customer = new Customer
-        {
-            Info = "ООО 'Рога и Копыта'",
-            Email = "kuznicov@mail.ru",
-            Vatin = "500100732259"
-        };
-        kkm.Payments = new Payments
-        {
-            Cash = 90,
-            ElectronicPayment = 0,
-            AdvancePayment = 0,
-            Credit = 0,
-            CashProvision = 0
-        };
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Бутылка с водой 1л.",
-            Quantity = 1,
-            Price = 73.18m,
-            Sum = 73.18m,
-            DiscountSum = 0,
-            Department = 1,
-            Tax = "20",
-            TaxSum = 0,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.Service
-        });
-        await kkm.PrintCheckAsync();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        connector.IsElectronically = false;
+        connector.AdditionalAttribute = "1775661887";
+        connector.CustomerInfo = "ООО 'Рога и Копыта'";
+        connector.CustomerEmail = "kuznicov@mail.ru";
+        connector.CustomerVatin = "500100732259";
+        var line1 = connector.AddPosition("Бутылка с водой 1л.", 1, 73.18m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Service, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 73.18m;
+        line1.DiscountSum = 0;
+        line1.Department = 1;
+        line1.TaxSum = 0;
+        connector.Cash = 90;
+        await connector.PrintCheckAsync();
+        if (connector.Ok)
+            Console.WriteLine($"Чек поставлен в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

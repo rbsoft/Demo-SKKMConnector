@@ -9,30 +9,34 @@ public class CheckSample49 : Sample
 
     public async Task<SkkmConnector> PostCheckSample49()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.NewRequest();
-        kkm.PaymentType = CheckType.Sale;
-        kkm.TaxVariant = TaxSystem.ОСН;
-        kkm.Positions.Add(new FiscalLine
-        {
-            Name = "Сигареты",
-            Quantity = 1m,
-            Price = 200m,
-            Sum = 200.0m,
-            Tax = "20",
-            TaxSum = 33.33m,
-            SignMethodCalculation = SignMethodCalculation.FullPayment,
-            SignCalculationObject = SignCalculationObject.ExcisableGoods,
-            MeasureOfQuantity = MeasureOfQuantity.Piece,
-            ExciseAmount = 48.5m,
-        });
-        kkm.Payments = new Payments
-        {
-            Cash = 200.0m,
-        };
-        await kkm.PrintCheck();
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
+        var line1 = connector.AddPosition("Сигареты", 1m, 200.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.ExcisableGoods, signMethodCalculation: SignMethodCalculation.FullPayment);
+        line1.Price = 200m;
+        line1.TaxSum = 33.33m;
+        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
+        line1.ExciseAmount = 48.5m;
+        connector.Cash = 200.0m;
+        await connector.PrintCheck();
 
-        return kkm;
+        if (connector.Ok)
+            Console.WriteLine(
+                "Чек пробит.\n" +
+                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
+                $"Имя устройства: {connector.DeviceName}\n" +
+                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
+                $"Фискальный признак документа: {connector.FiscalSign}\n" +
+                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
+                $"Номер смены: {connector.ShiftNumber}\n" +
+                $"Номер ФН: {connector.FnNumber}\n" +
+                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
+                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
+                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

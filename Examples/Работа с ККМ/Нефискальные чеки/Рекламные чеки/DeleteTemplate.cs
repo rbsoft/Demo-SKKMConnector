@@ -10,8 +10,13 @@ public class DeleteTemplate : Sample
 
     public async Task<SkkmConnector> DeleteDeleteTemplate()
     {
-        kkm.TemplateName = "name1221212121220";
-        await kkm.DeleteTemplate();
-        return kkm;
+        connector.TemplateName = "name1221212121220";
+        await connector.DeleteTemplate();
+        if (connector.Ok)
+            Console.WriteLine("Выполнено успешно.");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

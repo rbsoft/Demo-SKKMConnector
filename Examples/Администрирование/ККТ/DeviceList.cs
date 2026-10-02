@@ -10,8 +10,17 @@ public class DeviceList : Sample
 
     public async Task<SkkmConnector> GetDeviceList()
     {
-        await kkm.GetDeviceList();
+        await connector.GetDeviceList();
 
-        return kkm;
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Устройств: {connector.Devices.Length}");
+            foreach (var d in connector.Devices)
+                Console.WriteLine($"  {d.DeviceName} [{d.Driver}], пул={d.Pool}, {d.DeviceStatusDescription}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

@@ -10,17 +10,24 @@ public class PrintSlipAsync : Sample
 
     public async Task<SkkmConnector> PostPrintSlipAsync()
     {
-        kkm.DeviceName = deviceName;
-        kkm.Cashier = new Cashier { Name = cashierName, Vatin = cashierVatin };
-        kkm.TextForPrint =
+        connector.DeviceName = deviceName;
+        connector.SetCashier(cashierName, cashierVatin);
+        connector.TextForPrint =
             "[center,bold]РБ-Софт: Сервер ККМ\n" +
             "[center]Нефискальный документ\n" +
             "[line]\n" +
             "Обычная строка текста\n" +
             "[QR,center]https://www.rbsoft.ru\n" +
             "[center,small]Спасибо за покупку!";
-        await kkm.PrintSlipAsync();
+        await connector.PrintSlipAsync();
 
-        return kkm;
+        if (connector.Ok)
+        {
+            Console.WriteLine($"Слип поставлен в очередь. docId={connector.DocumentId}");
+        }
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

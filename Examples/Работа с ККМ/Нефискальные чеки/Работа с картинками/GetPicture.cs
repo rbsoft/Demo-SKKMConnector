@@ -10,9 +10,17 @@ public class GetPicture : Sample
 
     public async Task<SkkmConnector> GetGetPicture()
     {
-        kkm.DeviceName = deviceName;
-        kkm.PictureId = "demo.bmp";
-        await kkm.GetPicture();
-        return kkm;
+        connector.DeviceName = deviceName;
+        await connector.GetPicture("demo.bmp");
+        if (connector.Ok)
+            Console.WriteLine(
+                "Картинка получена.\n" +
+                $"Имя: {connector.PictureId}\n" +
+                $"Размер Base64: {connector.PictureBase64Result.Length} симв.\n" +
+                $"Base64: {connector.PictureBase64Result}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

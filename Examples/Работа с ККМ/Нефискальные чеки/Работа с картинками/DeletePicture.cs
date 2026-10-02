@@ -10,9 +10,14 @@ public class DeletePicture : Sample
 
     public async Task<SkkmConnector> DeleteDeletePicture()
     {
-        kkm.DeviceName = deviceName;
-        kkm.PictureId = "demo.bmp";
-        await kkm.DeletePicture();
-        return kkm;
+        connector.DeviceName = deviceName;
+        connector.PictureId = "demo.bmp";
+        await connector.DeletePicture();
+        if (connector.Ok)
+            Console.WriteLine("Выполнено успешно.");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }

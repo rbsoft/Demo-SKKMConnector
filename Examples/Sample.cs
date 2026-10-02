@@ -3,12 +3,11 @@ using RBSoftSkkm;
 namespace SkkmNugetSample.Examples;
 
 /// <summary>
-/// Environment запроса (как переменные Bruno слева). Хост, порт и токен
-/// подставляются в сессию; касса и кассир — в тело запроса в коде примера.
+/// Хост, порт и токен подставляются в сессию; имя касса и кассир — в тело запроса в коде примера.
 /// </summary>
 public class Sample
 {
-    public SkkmConnector kkm { get; set; } = null!;
+    public SkkmConnector connector { get; set; } = null!;
 
     /// <summary>Имя ККМ, {{SKKMDEVICE}}.</summary>
     public string deviceName = "";
@@ -27,4 +26,7 @@ public class Sample
 
     /// <summary>Конец периода (to) из панели подключения.</summary>
     public DateTime toDate;
+
+    /// <summary>Путь к файлу картинки (BMP/PNG) из панели подключения. Проверку формата делает коннектор.</summary>
+    public string filePath = "";
 }

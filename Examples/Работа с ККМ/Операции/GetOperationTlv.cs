@@ -11,8 +11,12 @@ public class GetOperationTlv : Sample
 
     public async Task<SkkmConnector> GetGetOperationTlv()
     {
-        kkm.DocumentId = documentId;
-        await kkm.GetOperationTlv();
-        return kkm;
+        await connector.GetOperationTlv(documentId);
+        if (connector.Ok)
+            Console.WriteLine($"TLV: {connector.OperationTlv}");
+        else
+            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+
+        return connector;
     }
 }
