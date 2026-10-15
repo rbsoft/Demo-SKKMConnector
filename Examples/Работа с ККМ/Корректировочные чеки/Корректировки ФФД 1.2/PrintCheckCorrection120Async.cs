@@ -11,10 +11,12 @@ public class PrintCheckCorrection120Async : Sample
     {
         connector.DeviceName = deviceName;
         connector.SetCashier(cashierName, cashierVatin);
-
-        connector.NewCheckCorrection(cashierName, CheckType.CorrectionSale, TaxSystem.Osn,
-            CorrectionTypes.Самостоятельно, "Коррекция расчёта", DateTime.Today);
-        var line1 = connector.AddPosition("Товар по коррекции", 1, 100, TaxRate.Vat20);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.CorrectionSale);
+        connector.CorrectionType = CorrectionTypes.Самостоятельно;
+        connector.CorrectionDescription = "Коррекция расчёта";
+        connector.CorrectionDate = DateTime.Today;
+        var line1 = connector.AddPosition("Товар по коррекции", 1, 100, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
         line1.Price = 100;
         connector.Cash = 100;
         await connector.PrintCheckCorrection120Async();

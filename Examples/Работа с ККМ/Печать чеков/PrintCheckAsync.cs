@@ -24,13 +24,11 @@ public class PrintCheckAsync : Sample
         line1.DiscountSum = 0;
         line1.Department = 1;
         line1.TaxSum = 0;
-        line1.MeasurementUnit = "0";
         var line2 = connector.AddPosition("Бутылка с крышкой (пустая) 4л.", 1, 30, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
         line2.Price = 30;
         line2.DiscountSum = 0;
         line2.Department = 1;
         line2.TaxSum = 5;
-        line2.MeasurementUnit = "11";
         line2.MeasureOfQuantity = MeasureOfQuantity.Piece;
         await connector.PrintCheckAsync();
         if (connector.Ok)

@@ -14,10 +14,8 @@ public class checkSampleUltimate : Sample
     {
         connector.DeviceName = deviceName;
         connector.SetCashier("Иванов И. И.", "500100732259");
-        connector.Clear();
-        connector.DocumentId = "a7c4e2b1-9d58-4f06-8c3a-1b2e4d6f8091";
-        connector.PaymentType = CheckType.Sale;
         connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
         connector.TimeZone = CheckTimeZone.MskPlus5;
         connector.SenderEmail = "ivanov@mail.ru";
         connector.SaleAddress = "г. Москва, ул. Ленина, д. 1";
@@ -57,55 +55,13 @@ public class checkSampleUltimate : Sample
         connector.IndustryAttributeDocumentNumber = "1944";
         connector.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
 
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.FullPrepayment,
-            Identifiers = "M=0",
-            AdditionalInformation = "Не определено",
-        });
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.PartialPrepayment,
-            Identifiers = "M=1",
-            AdditionalInformation = "Банковская карта",
-        });
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.Advance,
-            Identifiers = "M=2",
-            AdditionalInformation = "СБП",
-        });
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.FullPayment,
-            Identifiers = "RRN=123456789012",
-            AdditionalInformation = "Карта *1234",
-        });
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.PartialPaymentAndCredit,
-            Identifiers = "M=4",
-            AdditionalInformation = "Перевод с банка",
-        });
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.CreditTransfer,
-            Identifiers = "M=5",
-            AdditionalInformation = "Эл. кошелёк",
-        });
-        connector.ElectronicPayments.Add(new ElectronicPayment
-        {
-            Amount = 10,
-            PaymentMethod = ElectronicPaymentMethod.CreditPayment,
-            Identifiers = "M=6",
-            AdditionalInformation = "Иной безнал",
-        });
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.FullPrepayment, "M=0", "Не определено");
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.PartialPrepayment, "M=1", "Банковская карта");
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.Advance, "M=2", "СБП");
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.FullPayment, "RRN=123456789012", "Карта *1234");
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.PartialPaymentAndCredit, "M=4", "Перевод с банка");
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.CreditTransfer, "M=5", "Эл. кошелёк");
+        connector.AddElectronicPayment(10, ElectronicPaymentMethod.CreditPayment, "M=6", "Иной безнал");
 
         connector.AddText("[center]Комплексный чек: объекты, НДС, агент, маркировка", PrintFont.Big, PrintAlignment.Center);
         connector.AddSeparatorLine(LineStyle.Dotted);
@@ -218,7 +174,6 @@ public class checkSampleUltimate : Sample
         line13.Price = 10;
         line13.TaxSum = 0;
         line13.MeasureOfQuantity = MeasureOfQuantity.Other;
-        line13.MeasurementUnit = "255";
         line13.AgentSign = AgentType.Agent;
         var line14 = connector.AddPosition("Имущественное право", 1, 10.0m, TaxRate.Vat22_122, signCalculationObject: SignCalculationObject.PropertyRight, signMethodCalculation: SignMethodCalculation.CreditPayment);
         line14.Price = 10;
@@ -342,7 +297,6 @@ public class checkSampleUltimate : Sample
         line32.Price = 20;
         line32.TaxSum = 0.91m;
         line32.MeasureOfQuantity = MeasureOfQuantity.Kilogram;
-        line32.MeasurementUnit = "11";
         line32.AgentSign = AgentType.Agent;
         line32.Marking = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=";
         line32.IndustryIdentifierFoiv = "030";

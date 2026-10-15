@@ -22,7 +22,6 @@ public class CheckSample01 : Sample
         line1.DiscountSum = 0;
         line1.Department = 1;
         line1.TaxSum = 5;
-        line1.MeasurementUnit = "11";
         line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
         connector.Cash = 30; 
         await connector.PrintCheck();

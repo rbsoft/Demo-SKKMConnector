@@ -16,7 +16,7 @@ public class CheckSample67 : Sample
         var line1 = connector.AddPosition("Сыр", 0.353m, 70.6m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
         line1.Price = 200m;
         line1.TaxSum = 0m;
-        line1.MeasurementUnit = "11";
+        line1.MeasureOfQuantity = MeasureOfQuantity.Kilogram;
         line1.Marking = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=";
         connector.Cash = 70.6m;
         await connector.PrintCheck();

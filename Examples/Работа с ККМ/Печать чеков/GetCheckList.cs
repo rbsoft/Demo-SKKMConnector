@@ -13,7 +13,7 @@ public class GetCheckList : Sample
         connector.DeviceName = deviceName;
         connector.FromTo(fromDate, toDate);
 
-        await connector.GetCheckList(23);
+        await connector.GetCheckList(54);
 
         if (connector.Ok)
         {

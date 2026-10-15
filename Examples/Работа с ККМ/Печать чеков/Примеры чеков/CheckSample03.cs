@@ -22,7 +22,7 @@ public class CheckSample03 : Sample
         line1.Price = 50m;
         line1.Department = 0;
         line1.TaxSum = 0m;
-        line1.MeasurementUnit = "50";
+        line1.MeasureOfQuantity = MeasureOfQuantity.KilowattHour;
         connector.Cash = 50m;
         connector.ElectronicPayment = 90.00m;
         await connector.PrintCheck();

@@ -11,9 +11,8 @@ public class CheckSample42 : Sample
     {
         connector.DeviceName = deviceName;
         connector.SetCashier(cashierName, cashierVatin);
-        connector.Clear();
-        connector.PaymentType = CheckType.Sale;
         connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
         connector.AddText("Заголовок чека", PrintFont.H1, PrintAlignment.Center);
         connector.AddSeparatorLine(LineStyle.Solid);
         var line1 = connector.AddPosition("Вода 1л.", 1m, 50.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);

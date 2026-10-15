@@ -16,13 +16,11 @@ public class CheckSample58 : Sample
         var line1 = connector.AddPosition("Сыр", 0.2m, 60.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
         line1.Price = 300m;
         line1.TaxSum = 0m;
-        line1.MeasurementUnit = "11";
         line1.MeasureOfQuantity = MeasureOfQuantity.Kilogram;
         line1.Marking = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=";
         var line2 = connector.AddPosition("Сыр", 0.15m, 45.0m, TaxRate.Vat10, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
         line2.Price = 300m;
         line2.TaxSum = 0m;
-        line2.MeasurementUnit = "11";
         line2.MeasureOfQuantity = MeasureOfQuantity.Kilogram;
         line2.Marking = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=";
         connector.Cash = 105.0m;

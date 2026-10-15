@@ -13,40 +13,13 @@ public class CheckSample47 : Sample
         connector.SetCashier(cashierName, cashierVatin);
         connector.SetTaxType(TaxSystem.Osn);
         connector.NewCheck(CheckType.Sale);
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.FullPrepayment;
-        connector.ElectronicPaymentIdentifiers = "M=0";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 0";
-
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.PartialPrepayment;
-        connector.ElectronicPaymentIdentifiers = "M=1";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 1";
-
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.Advance;
-        connector.ElectronicPaymentIdentifiers = "M=2";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 2";
-
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.FullPayment;
-        connector.ElectronicPaymentIdentifiers = "M=3";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 3";
-
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.PartialPaymentAndCredit;
-        connector.ElectronicPaymentIdentifiers = "M=4";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 4";
-
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.CreditTransfer;
-        connector.ElectronicPaymentIdentifiers = "M=5";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 5";
-
-        connector.ElectronicPaymentAmount = 10m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.CreditPayment;
-        connector.ElectronicPaymentIdentifiers = "M=6";
-        connector.ElectronicPaymentAdditionalInformation = "Способ 6";
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.FullPrepayment, "M=0", "Способ 0");
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.PartialPrepayment, "M=1", "Способ 1");
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.Advance, "M=2", "Способ 2");
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.FullPayment, "M=3", "Способ 3");
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.PartialPaymentAndCredit, "M=4", "Способ 4");
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.CreditTransfer, "M=5", "Способ 5");
+        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.CreditPayment, "M=6", "Способ 6");
 
         var line1 = connector.AddPosition("Вода 1л.", 1m, 70.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
         line1.Price = 70m;

@@ -22,6 +22,7 @@ public class PrintCheckAgent : Sample
         connector.AgentSign = AgentType.PaymentAgent;
         connector.PayingAgentOperation = "Приём платежей";
         connector.PayingAgentPhone = new[] { "+74951234567" };
+        connector.ReceivePaymentsOperatorPhone = new[] { "+74951234567" };
         connector.MoneyTransferOperatorName = "НКО \"Оператор\"";
         connector.MoneyTransferOperatorPhone = new[] { "+74957654321" };
         connector.MoneyTransferOperatorAddress = "г. Москва, ул. Ленина, 1";

@@ -18,9 +18,9 @@ public class CheckSample48 : Sample
         line1.TaxSum = 0m;
         line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
         line1.AgentSign = AgentType.Agent;
-        connector.VendorName = "ООО Ромашка";
-        connector.VendorPhones = new[] { "+79001234567" };
-        connector.VendorVatin = "7701234560";
+        line1.VendorName = "ООО Ромашка";
+        line1.VendorPhones = new[] { "+79001234567" };
+        line1.VendorVatin = "7701234560";
         connector.Cash = 90;
         await connector.PrintCheck();
         if (connector.Ok)

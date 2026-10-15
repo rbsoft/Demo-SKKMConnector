@@ -13,15 +13,8 @@ public class CheckSample38 : Sample
         connector.SetCashier(cashierName, cashierVatin);
         connector.SetTaxType(TaxSystem.Osn);
         connector.NewCheck(CheckType.Sale);
-        connector.ElectronicPaymentAmount = 60;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.FullPayment;
-        connector.ElectronicPaymentIdentifiers = "RRN=123456789012";
-        connector.ElectronicPaymentAdditionalInformation = "Карта *1234";
-
-        connector.ElectronicPaymentAmount = 40m;
-        connector.ElectronicPaymentMethod = ElectronicPaymentMethod.FullPayment;
-        connector.ElectronicPaymentIdentifiers = "RRN=987654321000";
-        connector.ElectronicPaymentAdditionalInformation = "СБП";
+        connector.AddElectronicPayment(60m, ElectronicPaymentMethod.FullPayment, "RRN=123456789012", "Карта *1234");
+        connector.AddElectronicPayment(40m, ElectronicPaymentMethod.FullPayment, "RRN=987654321000", "СБП");
         var line1 = connector.AddPosition("Вода 1л.", 1m, 100.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
         line1.Price = 100m;
         line1.TaxSum = 0m;

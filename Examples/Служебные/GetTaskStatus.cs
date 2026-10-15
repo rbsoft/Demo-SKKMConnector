@@ -18,7 +18,7 @@ public class GetTaskStatus : Sample
                 "Статус задания получен.\n" +
                 $"docId: {connector.TaskStatusDocId}\n" +
                 $"Имя кассы: {connector.TaskStatusDeviceName}\n" +
-                $"Статус отправки: {connector.TaskStatusSentToPrint} (0 — в очереди, 1 — отправлена, 2 — обработана, −1 — ошибка)\n" +
+                $"Статус отправки: {connector.TaskStatusSentToPrint}\n" +
                 $"Позиция в очереди: {connector.TaskStatusNumberInQueue}\n" +
                 $"Размер очереди: {connector.TaskStatusQueueSize}\n" +
                 $"Номер смены: {connector.TaskStatusShiftNumber}\n" +

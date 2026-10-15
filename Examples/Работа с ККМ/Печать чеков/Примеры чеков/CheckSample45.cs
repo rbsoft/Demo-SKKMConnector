@@ -11,9 +11,8 @@ public class CheckSample45 : Sample
     {
         connector.DeviceName = deviceName;
         connector.SetCashier(cashierName, cashierVatin);
-        connector.Clear();
-        connector.PaymentType = CheckType.Sale;
         connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.Sale);
         var line1 = connector.AddPosition("Вода 1л.", 1m, 10.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
         line1.Price = 10m;
         line1.TaxSum = 0m;

@@ -18,7 +18,6 @@ public class PrintCheckMarking : Sample
 
         var line = connector.AddPosition("Тестовый маркированный товар", 1, 900, TaxRate.Vat20,
             SignCalculationObject.ТМ, SignMethodCalculation.FullPayment);
-        line.MeasurementUnit = "шт";
         line.Marking = "MDEwNDYyOTMwODg3NzA0NDIxRHprY1l0Mh04MDA1MDkwMDAwHTkzZEdWeg==";
 
         connector.Cash = 900;

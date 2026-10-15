@@ -18,13 +18,11 @@ public class PrintCheckReturn : Sample
         connector.CustomerVatin = "500100732259";
         connector.Cash = 90;
         var line1 = connector.AddPosition("Бутылка с водой 1л.", 1, 60, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.FullPrepayment);
-        line1.MeasurementUnit = "шт";
         line1.Price = 60;
         line1.DiscountSum = 0;
         line1.Department = 1;
         line1.TaxSum = 0;
         var line2 = connector.AddPosition("SIMTEK манжета переходная D50х32", 1, 21.85m, TaxRate.None, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.FullPrepayment);
-        line2.MeasurementUnit = "шт";
         line2.Price = 21.85m;
         line2.DiscountSum = 0;
         line2.Department = 1;

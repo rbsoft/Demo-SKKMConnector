@@ -19,20 +19,18 @@ public class CloseShift : Sample
                 "Смена закрыта (Z-отчёт).\n" +
                 $"Идентификатор документа (docId): {connector.DocumentId}\n" +
                 $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер чека за смену: {connector.CheckNumberInShift}\n" +
+                $"Количество чеков за смену: {connector.CheckNumberInShift}\n" +
+                $"Количество ФД за смену: {connector.ShiftDocumentsCount}\n" +
+                $"Номер последнего чека за смену: {connector.ShiftClosingCheckNumber}\n" +
                 $"Остаток наличных: {connector.CashBalance}\n" +
-                "--- Итоги смены ---\n" +
-                $"Остаток в ящике: {connector.ShiftTotalCashDrawerSum} (операций: {connector.ShiftTotalCashDrawerCount})\n" +
-                $"Приход: {connector.ShiftTotalSalesSum} (чеков: {connector.ShiftTotalSalesCount})\n" +
-                $"Возврат прихода: {connector.ShiftTotalSalesReturnSum} (чеков: {connector.ShiftTotalSalesReturnCount})\n" +
-                $"Расход: {connector.ShiftTotalPurchasesSum} (чеков: {connector.ShiftTotalPurchasesCount})\n" +
-                $"Возврат расхода: {connector.ShiftTotalPurchasesReturnSum} (чеков: {connector.ShiftTotalPurchasesReturnCount})\n" +
-                $"Коррекция прихода: {connector.ShiftTotalSalesCorrectionSum} (чеков: {connector.ShiftTotalSalesCorrectionCount})\n" +
-                $"Коррекция возврата прихода: {connector.ShiftTotalSalesReturnCorrectionSum} (чеков: {connector.ShiftTotalSalesReturnCorrectionCount})\n" +
-                $"Коррекция расхода: {connector.ShiftTotalPurchasesCorrectionSum} (чеков: {connector.ShiftTotalPurchasesCorrectionCount})\n" +
-                $"Коррекция возврата расхода: {connector.ShiftTotalPurchasesReturnCorrectionSum} (чеков: {connector.ShiftTotalPurchasesReturnCorrectionCount})\n" +
-                $"Коррекции: {connector.ShiftTotalCorrectionSum} (кол-во: {connector.ShiftTotalCorrectionsNumber})\n" +
-                $"Приход за всё время: {connector.OverallSalesSum} (чеков: {connector.OverallSalesCount})\n" +
+                "--- Необнуляемые итоги (OverallTotals) ---\n" +
+                $"Загружены из ФН: {connector.OverallIsDataLoaded}\n" +
+                $"Остаток в ящике: {connector.OverallCashDrawerSum} (операций: {connector.OverallCashDrawerCount})\n" +
+                $"Приход всего: {connector.OverallSalesSum} (чеков: {connector.OverallSalesCount})\n" +
+                $"Возврат прихода всего: {connector.OverallSalesReturnSum} (чеков: {connector.OverallSalesReturnCount})\n" +
+                $"Расход всего: {connector.OverallPurchasesSum} (чеков: {connector.OverallPurchasesCount})\n" +
+                $"Возврат расхода всего: {connector.OverallPurchasesReturnSum} (чеков: {connector.OverallPurchasesReturnCount})\n" +
+                $"Коррекции всего: {connector.OverallCorrectionSum} (кол-во: {connector.OverallCorrectionsNumber})\n" +
                 $"Номер ФН: {connector.FnNumber}\n" +
                 $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
                 $"Адрес сайта ФНС: {connector.FnsUrl}\n" +

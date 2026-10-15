@@ -20,7 +20,6 @@ public class CheckSample19 : Sample
         line1.Price = 750.0m;
         line1.Department = 2;
         line1.TaxSum = 0m;
-        line1.MeasurementUnit = "0";
         line1.Marking = "MDEwNDYwNzAxMDM1MDI0NjIxNURzPkpSak5FIWpaIR05M2RHVno=";
         line1.FractionalQuantityNumerator = 1;
         line1.FractionalQuantityDenominator = 208;

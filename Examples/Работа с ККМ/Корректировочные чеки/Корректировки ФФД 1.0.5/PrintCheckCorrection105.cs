@@ -11,9 +11,11 @@ public class PrintCheckCorrection105 : Sample
     {
         connector.DeviceName = deviceName;
         connector.SetCashier(cashierName, cashierVatin);
-
-        connector.NewCheckCorrection(cashierName, CheckType.CorrectionSale, TaxSystem.Osn,
-            CorrectionTypes.Самостоятельно, "Основание коррекции", DateTime.Today);
+        connector.SetTaxType(TaxSystem.Osn);
+        connector.NewCheck(CheckType.CorrectionSale);
+        connector.CorrectionType = CorrectionTypes.Самостоятельно;
+        connector.CorrectionDescription = "Основание коррекции";
+        connector.CorrectionDate = DateTime.Today;
         connector.CorrectionSumTax20 = 16.67m;
         var line1 = connector.AddPosition("Товар по коррекции 1.05", 1, 100, TaxRate.Vat20);
         line1.Price = 100;
