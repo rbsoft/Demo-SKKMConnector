@@ -64,7 +64,7 @@
 dotnet pack C:\Users\user\Documents\Connector\SkkmConnector\SkkmConnector.csproj -c Release -o "C:\Users\user\Documents\Connector\SkkmNugetSample\packages"
 ```
 
-   Подробности — в [README коннектора]([READMEConnectorCSharp.md](https://github.com/rbsoft03/SKKMConnector/blob/main/README.md))).
+   Подробности — в [README коннектора]([READMEConnectorCSharp.md](https://github.com/rbsoft/SKKMConnector/blob/main/README.md))).
 2. Восстановите зависимости и запустите:
 
 ```powershell
@@ -224,7 +224,7 @@ public class MyXReport : Sample
 3. В панели «Запрос» будет виден исходный код этого файла, в «Ответ» — результат вызова.
 
 Полное описание методов, полей и типов — в [API.md](API.md) и
-[README коннектора]([READMEConnectorCSharp.md](https://github.com/rbsoft03/SKKMConnector/blob/main/README.md)).
+[README коннектора]([READMEConnectorCSharp.md](https://github.com/rbsoft/SKKMConnector/blob/main/README.md)).
 
 ---
 
@@ -238,7 +238,7 @@ public class MyXReport : Sample
 ## Лицензия
  
 Распространяется свободно по лицензии **MIT** — см.
-[README коннектора]([https://github.com/sodiUmU/SKKMConnector/blob/main/README.md](https://github.com/rbsoft03/SKKMConnector/blob/main/README.md)).
+[README коннектора]([https://github.com/sodiUmU/SKKMConnector/blob/main/README.md](https://github.com/rbsoft/SKKMConnector/blob/main/README.md)).
  
 **Разработчик:** Ершов Евгений / RBSoft · [rbsoft.ru](https://rbsoft.ru) ·
 [online@rbsoft.ru](mailto:online@rbsoft.ru)
