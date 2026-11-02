@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,31 +10,25 @@ public class PrintCheckCorrectionPurchase : Sample
     public async Task<SkkmConnector> PostPrintCheckCorrectionPurchase()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.CorrectionPurchase);
-        connector.CorrectionType = CorrectionTypes.Самостоятельно;
-        connector.CorrectionDescription = "Коррекция расхода";
-        connector.CorrectionDate = DateTime.Today;
-        var line1 = connector.AddPosition("Товар по коррекции расхода", 1, 100, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 100;
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.NewCheck(CheckType.CorrectionPurchase, TaxSystem.Osn);
+        connector.CorrectionDataType = CorrectionTypes.OnOwn;
+        connector.CorrectionDataDescription = "Коррекция расхода";
+        connector.CorrectionDataDate = DateTime.Today;
+        var line1 = connector.AddPosition("Товар по коррекции расхода", 1, 100, 100, TaxRate.Vat20, SignCalculationObject.Goods, SignMethodCalculation.FullPayment);
         connector.Cash = 100;
-        await connector.PrintCheckCorrection120();
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек коррекции пробит.\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}\n" +
-                $"Время ККТ: {connector.DeviceDateTime}\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}");
+        if (await connector.PrintCheckCorrection120())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

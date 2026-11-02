@@ -10,49 +10,62 @@ public class ReportX : Sample
 
     public async Task<SkkmConnector> PostReportX()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        await connector.ReportX();
+        // ФИО и ИНН кассира (ИНН необязателен):
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
 
-        if (connector.Ok)
+        // Печатаем X-отчёт:
+        if (await connector.ReportX())
         {
-            Console.WriteLine(
-                "X-отчёт сформирован.\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Состояние смены: {connector.CurrentShiftState}\n" +
-                $"Количество документов за смену: {connector.ShiftDocumentsCount}\n" +
-                $"Остаток наличных: {connector.CashBalance}\n" +
-                "--- Состояние ФН ---\n" +
-                $"Срок действия ФН: {connector.FnValidityDate}\n" +
-                $"Остаток ресурса ФН (дней): {connector.FnDaysResources}\n" +
-                $"Непереданных в ОФД документов: {connector.BacklogDocumentsCounter}\n" +
-                $"Первый непереданный: №{connector.BacklogDocumentFirstNumber} от {connector.BacklogDocumentFirstDateTime}\n" +
-                $"Критическая ошибка ФН: {connector.FnWarningsIsCriticalError}\n" +
-                $"Память ФН переполнена: {connector.FnWarningsIsMemoryOverflow}\n" +
-                $"Требуется срочная замена ФН: {connector.FnWarningsIsNeedReplacement}\n" +
-                $"Превышено время ожидания ОФД: {connector.FnWarningsIsOfdTimeout}\n" +
-                $"Исчерпан ресурс ФН: {connector.FnWarningsIsResourceExhausted}\n" +
-                "--- Реквизиты ---\n" +
-                $"Организация: {connector.OrganizationInfo}, ИНН: {connector.OrganizationVatin}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"ОФД: {connector.OfdName}, ИНН ОФД: {connector.OfdVatin}\n" +
-                $"Адрес расчётов: {connector.CheckSaleAddress}\n" +
-                $"Место расчётов: {connector.CheckSaleLocation}\n" +
-                $"Версия ФФД: {connector.CheckFfdVersion}\n" +
-                "--- Устройство ---\n" +
-                $"Касса: {connector.CheckDeviceName}, терминал: {connector.CheckTerminalId}\n" +
-                $"Модель: {connector.DeviceModel} (сер. {connector.DeviceSerialNumber}, прошивка {connector.DeviceFirmwareVersion}, конфигурация {connector.DeviceConfigurationVersion})\n" +
-                $"Версия ФФД ККТ: {connector.DeviceFfdVersion}, ФФД ФН: {connector.FnFfdVersion}, тип: {connector.DeviceClass}, часовая зона: {connector.DeviceTimeZone}\n" +
-                $"Фискальный режим: {connector.IsFiscal}, ширина строки: {connector.LineLength} симв. / {connector.LineLengthPixels} пикс.\n" +
-                $"Версия сервера ККМ: {connector.CheckServerVersion}");
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
+            Console.WriteLine($"Серийный номер фискального накопителя: {connector.FnSerialNumber}");
+            Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Версия ФФД: {connector.DeviceFfdVersion}");
+            Console.WriteLine($"Версия ФФД ФН: {connector.DeviceFnFfdVersion}");
+            Console.WriteLine($"Часовая зона: {connector.DeviceTimeZone}");
+            Console.WriteLine($"Фискальный режим: {connector.DeviceIsFiscal}");
+            Console.WriteLine($"Ширина чековой ленты: {connector.DeviceLineLength}");
+            Console.WriteLine($"Ширина чековой ленты в пикселях: {connector.DeviceLineLengthPixels}");
+            Console.WriteLine($"Тип устройства: {connector.DeviceClass}");
+            Console.WriteLine($"Заводской номер ККТ: {connector.DeviceSerialNumber}");
+            Console.WriteLine($"Версия прошивки: {connector.DeviceFirmwareVersion}");
+            Console.WriteLine($"Версия конфигурации прошивки устройства: {connector.DeviceConfigurationVersion}");
+            foreach (var license in connector.KktLicenses)
+            {
+                Console.WriteLine($"Наименование лицензии: {license.Name}");
+                Console.WriteLine($"Номер лицензии: {license.Number}");
+                Console.WriteLine($"Дата начала действия лицензии: {license.ValidFrom}");
+                Console.WriteLine($"Дата окончания действия лицензии: {license.ValidUntil}");
+                Console.WriteLine($"Максимально поддерживаемая конфигурация: {license.UnitVersion}");
+                Console.WriteLine($"Описание последствий окончания лицензии: {license.Description}");
+                Console.WriteLine($"Лицензия действует для текущей прошивки: {license.IsActive}");
+            }
+            foreach (var row in connector.Counter)
+            {
+                Console.WriteLine($"Тип операции: {row.Operation}");
+                Console.WriteLine($"Количество операций: {row.Count}");
+                Console.WriteLine($"Сумма операций: {row.Sum}");
+                Console.WriteLine($"Кол-во коррекций: {row.SalesCorrectionCount}");
+                Console.WriteLine($"Сумма коррекций: {row.SalesCorrectionSum}");
+                Console.WriteLine($"Сумма оплат наличными: {row.Cash}");
+                Console.WriteLine($"Сумма оплат безналичными: {row.Electronically}");
+                Console.WriteLine($"Сумма оплат авансом: {row.Prepaid}");
+                Console.WriteLine($"Сумма оплат в кредит: {row.Credit}");
+                Console.WriteLine($"Сумма оплат встречным предоставлением / бартером: {row.Barter}");
+                Console.WriteLine($"Сумма предоставленных скидок: {row.DiscountSum}");
+                Console.WriteLine($"Кол-во предоставленных скидок: {row.DiscountCount}");
+                Console.WriteLine($"Сумма надбавок: {row.AddingSum}");
+                Console.WriteLine($"Кол-во надбавок: {row.AddingCount}");
+            }
+
         }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

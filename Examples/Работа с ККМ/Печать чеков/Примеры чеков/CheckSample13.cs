@@ -10,37 +10,30 @@ public class CheckSample13 : Sample
     public async Task<SkkmConnector> PostCheckSample13()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.Sale);
-        var line1 = connector.AddPosition("Вода 1л.", 1m, 120.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 120m;
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 120m, 120.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line1.TaxSum = 0m;
-        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        line1.AgentSign = AgentType.Agent;
+        line1.SignSubjectCalculationAgent = AgentType.Agent;
         line1.PayingAgentOperation = "Приём платежей";
         line1.PayingAgentPhone = new[] { "+79001234567" };
         line1.ReceivePaymentsOperatorPhone = new[] { "+79001234567" };
-        line1.VendorName = "ООО Ромашка";
-        line1.VendorPhones = new[] { "+79001234567" };
-        line1.VendorVatin = "7701234560";
+        line1.VendorDataName = "ООО Ромашка";
+        line1.VendorDataPhones = new[] { "+79001234567" };
+        line1.VendorDataVatin = "7701234560";
         connector.Cash = 120;
-        await connector.PrintCheck();
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек пробит.\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
-                $"Имя устройства: {connector.DeviceName}\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        if (await connector.PrintCheck())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

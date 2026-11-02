@@ -11,19 +11,18 @@ public class ShiftStatus : Sample
     public async Task<SkkmConnector> GetShiftStatus()
     {
         connector.DeviceName = deviceName;
-        await connector.GetShiftStatus();
+        if (await connector.GetShiftStatus())
+        {
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Состояние смены: {connector.ShiftState}");
+            Console.WriteLine($"Количество непереданных документов: {connector.BacklogDocumentsCounter}");
+            Console.WriteLine($"Номер первого непереданного чека: {connector.BacklogDocumentFirstNumber}");
+            Console.WriteLine($"Дата первого непереданного чека: {connector.BacklogDocumentFirstDateTime}");
 
-        if (connector.Ok)
-            Console.WriteLine(
-                "Статус смены получен.\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер последнего ФД: {connector.CheckNumber}\n" +
-                $"Состояние смены: {connector.CurrentShiftState}\n" +
-                $"Непереданных в ОФД: {connector.BacklogDocumentsCounter}\n" +
-                $"Номер первого непереданного: {connector.BacklogDocumentFirstNumber}\n" +
-                $"Дата первого непереданного: {connector.BacklogDocumentFirstDateTime:dd.MM.yyyy HH:mm}");
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

@@ -10,123 +10,69 @@ public class CheckSample37 : Sample
     public async Task<SkkmConnector> PostCheckSample37()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.Sale);
-        var line1 = connector.AddPosition("Вода 1л.", 1m, 10.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 10m;
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 10m, 10.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line1.TaxSum = 0m;
-        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line2 = connector.AddPosition("Сахар 500г.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line2.Price = 10m;
+        var line2 = connector.AddPosition("Сахар 500г.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Gram);
         line2.TaxSum = 0m;
-        line2.MeasureOfQuantity = MeasureOfQuantity.Gram;
-        var line3 = connector.AddPosition("Мука 0.5кг.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line3.Price = 10m;
+        var line3 = connector.AddPosition("Мука 0.5кг.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Kilogram);
         line3.TaxSum = 0m;
-        line3.MeasureOfQuantity = MeasureOfQuantity.Kilogram;
-        var line4 = connector.AddPosition("Песок 0.5т.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line4.Price = 10m;
+        var line4 = connector.AddPosition("Песок 0.5т.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Tonne);
         line4.TaxSum = 0m;
-        line4.MeasureOfQuantity = MeasureOfQuantity.Tonne;
-        var line5 = connector.AddPosition("Ткань 0.5см.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line5.Price = 10m;
+        var line5 = connector.AddPosition("Ткань 0.5см.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Centimeter);
         line5.TaxSum = 0m;
-        line5.MeasureOfQuantity = MeasureOfQuantity.Centimeter;
-        var line6 = connector.AddPosition("Ткань 0.5дм.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line6.Price = 10m;
+        var line6 = connector.AddPosition("Ткань 0.5дм.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Decimeter);
         line6.TaxSum = 0m;
-        line6.MeasureOfQuantity = MeasureOfQuantity.Decimeter;
-        var line7 = connector.AddPosition("Ткань 0.5м.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line7.Price = 10m;
+        var line7 = connector.AddPosition("Ткань 0.5м.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Meter);
         line7.TaxSum = 0m;
-        line7.MeasureOfQuantity = MeasureOfQuantity.Meter;
-        var line8 = connector.AddPosition("Плитка 0.5кв.см", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line8.Price = 10m;
+        var line8 = connector.AddPosition("Плитка 0.5кв.см", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.SquareCentimeter);
         line8.TaxSum = 0m;
-        line8.MeasureOfQuantity = MeasureOfQuantity.SquareCentimeter;
-        var line9 = connector.AddPosition("Плитка 0.5кв.дм", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line9.Price = 10m;
+        var line9 = connector.AddPosition("Плитка 0.5кв.дм", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.SquareDecimeter);
         line9.TaxSum = 0m;
-        line9.MeasureOfQuantity = MeasureOfQuantity.SquareDecimeter;
-        var line10 = connector.AddPosition("Плитка 0.5кв.м", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line10.Price = 10m;
+        var line10 = connector.AddPosition("Плитка 0.5кв.м", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.SquareMeter);
         line10.TaxSum = 0m;
-        line10.MeasureOfQuantity = MeasureOfQuantity.SquareMeter;
-        var line11 = connector.AddPosition("Масло 0.5мл.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line11.Price = 10m;
+        var line11 = connector.AddPosition("Масло 0.5мл.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Milliliter);
         line11.TaxSum = 0m;
-        line11.MeasureOfQuantity = MeasureOfQuantity.Milliliter;
-        var line12 = connector.AddPosition("Молоко 0.5л.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line12.Price = 10m;
+        var line12 = connector.AddPosition("Молоко 0.5л.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Liter);
         line12.TaxSum = 0m;
-        line12.MeasureOfQuantity = MeasureOfQuantity.Liter;
-        var line13 = connector.AddPosition("Газ 0.5м3", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line13.Price = 10m;
+        var line13 = connector.AddPosition("Газ 0.5м3", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.CubicMeter);
         line13.TaxSum = 0m;
-        line13.MeasureOfQuantity = MeasureOfQuantity.CubicMeter;
-        var line14 = connector.AddPosition("Электроэнергия", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line14.Price = 10m;
+        var line14 = connector.AddPosition("Электроэнергия", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.KilowattHour);
         line14.TaxSum = 0m;
-        line14.MeasureOfQuantity = MeasureOfQuantity.KilowattHour;
-        var line15 = connector.AddPosition("Тепло", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line15.Price = 10m;
+        var line15 = connector.AddPosition("Тепло", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Gigacalorie);
         line15.TaxSum = 0m;
-        line15.MeasureOfQuantity = MeasureOfQuantity.Gigacalorie;
-        var line16 = connector.AddPosition("Аренда, сутки", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line16.Price = 10m;
+        var line16 = connector.AddPosition("Аренда, сутки", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Day);
         line16.TaxSum = 0m;
-        line16.MeasureOfQuantity = MeasureOfQuantity.Day;
-        var line17 = connector.AddPosition("Аренда, час", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line17.Price = 10m;
+        var line17 = connector.AddPosition("Аренда, час", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Hour);
         line17.TaxSum = 0m;
-        line17.MeasureOfQuantity = MeasureOfQuantity.Hour;
-        var line18 = connector.AddPosition("Аренда, мин.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line18.Price = 10m;
+        var line18 = connector.AddPosition("Аренда, мин.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Minute);
         line18.TaxSum = 0m;
-        line18.MeasureOfQuantity = MeasureOfQuantity.Minute;
-        var line19 = connector.AddPosition("Аренда, сек.", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line19.Price = 10m;
+        var line19 = connector.AddPosition("Аренда, сек.", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Second);
         line19.TaxSum = 0m;
-        line19.MeasureOfQuantity = MeasureOfQuantity.Second;
-        var line20 = connector.AddPosition("Файл, КБ", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line20.Price = 10m;
+        var line20 = connector.AddPosition("Файл, КБ", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Kilobyte);
         line20.TaxSum = 0m;
-        line20.MeasureOfQuantity = MeasureOfQuantity.Kilobyte;
-        var line21 = connector.AddPosition("Файл, МБ", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line21.Price = 10m;
+        var line21 = connector.AddPosition("Файл, МБ", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Megabyte);
         line21.TaxSum = 0m;
-        line21.MeasureOfQuantity = MeasureOfQuantity.Megabyte;
-        var line22 = connector.AddPosition("Файл, ГБ", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line22.Price = 10m;
+        var line22 = connector.AddPosition("Файл, ГБ", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Gigabyte);
         line22.TaxSum = 0m;
-        line22.MeasureOfQuantity = MeasureOfQuantity.Gigabyte;
-        var line23 = connector.AddPosition("Файл, ТБ", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line23.Price = 10m;
+        var line23 = connector.AddPosition("Файл, ТБ", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Terabyte);
         line23.TaxSum = 0m;
-        line23.MeasureOfQuantity = MeasureOfQuantity.Terabyte;
-        var line24 = connector.AddPosition("Прочее", 0.5m, 5.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line24.Price = 10m;
+        var line24 = connector.AddPosition("Прочее", 0.5m, 10m, 5.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Other);
         line24.TaxSum = 0m;
-        line24.MeasureOfQuantity = MeasureOfQuantity.Other;
         connector.Cash = 125.0m;
-        await connector.PrintCheck();
+        if (await connector.PrintCheck())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
 
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек пробит.\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
-                $"Имя устройства: {connector.DeviceName}\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

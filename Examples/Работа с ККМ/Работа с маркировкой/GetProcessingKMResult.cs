@@ -10,20 +10,24 @@ public class GetProcessingKMResult : Sample
 
     public async Task<SkkmConnector> GetGetProcessingKMResult()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        await connector.GetProcessingKMResult();
 
-        if (connector.Ok)
-            Console.WriteLine(
-                "Результат ОИСМ получен.\n" +
-                $"Идентификатор запроса (Guid): {connector.MarkingProcessingGuid}\n" +
-                $"Итог проверки: {connector.MarkingProcessingResult}\n" +
-                $"Код результата (тег 2106): {connector.MarkingProcessingResultCode}\n" +
-                $"Статус информации о КМ (тег 2109): {connector.MarkingProcessingStatusInfo}\n" +
-                $"Код обработки (тег 2105): {connector.MarkingProcessingHandleCode}\n" +
-                $"Статус получения от ОИСМ: {connector.MarkingProcessingRequestStatus} (0 — получен, 1 — ещё нет, 2 — не может быть получен)");
+        // Получаем результат проверки:
+        if (await connector.GetProcessingKMResult())
+        {
+            Console.WriteLine($"Уникальный код запроса: {connector.Guid}");
+            Console.WriteLine($"Итог проверки: {connector.KmResult}");
+            Console.WriteLine($"Код результата проверки: {connector.ResultCode}");
+            Console.WriteLine($"Статус информации о коде: {connector.StatusInfo}");
+            Console.WriteLine($"Код обработки запроса: {connector.HandleCode}");
+            Console.WriteLine($"Статус запроса: {connector.RequestStatus}");
+            RequestKM.PrintCodeMark(connector.CodeMarkInfo);
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
+
 
         return connector;
     }

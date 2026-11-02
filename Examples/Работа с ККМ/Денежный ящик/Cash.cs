@@ -11,12 +11,13 @@ public class Cash : Sample
     public async Task<SkkmConnector> GetCash()
     {
         connector.DeviceName = deviceName;
-        await connector.GetCash();
+        if (await connector.GetCash())
+        {
+            Console.WriteLine($"Остаток наличных в денежном ящике: {connector.CashBalance}");
 
-        if (connector.Ok)
-            Console.WriteLine($"Остаток наличных: {connector.CashBalance}");
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

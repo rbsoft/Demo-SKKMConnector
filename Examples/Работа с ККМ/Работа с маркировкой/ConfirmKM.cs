@@ -11,14 +11,14 @@ public class ConfirmKM : Sample
     public async Task<SkkmConnector> PostConfirmKM()
     {
         connector.DeviceName = deviceName;
-        connector.RequestKmGuid = "guid-из-проверки-КМ";
-        connector.ConfirmationType = KmConfirmationType.Included;
-        await connector.ConfirmKM();
-
-        if (connector.Ok)
+        // Guid из ответа проверки КМ (RequestKM):
+        connector.Guid = guid;
+        // Включён ли код маркировки в документ реализации:
+        connector.ConfirmationType = confirmationType;
+        if (await connector.ConfirmKM())
             Console.WriteLine("Выполнено успешно.");
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

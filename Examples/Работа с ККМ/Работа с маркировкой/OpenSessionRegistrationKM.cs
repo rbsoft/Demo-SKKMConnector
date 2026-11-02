@@ -11,12 +11,10 @@ public class OpenSessionRegistrationKM : Sample
     public async Task<SkkmConnector> PostOpenSessionRegistrationKM()
     {
         connector.DeviceName = deviceName;
-        await connector.OpenSessionRegistrationKM();
-
-        if (connector.Ok)
+        if (await connector.OpenSessionRegistrationKM())
             Console.WriteLine("Выполнено успешно.");
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

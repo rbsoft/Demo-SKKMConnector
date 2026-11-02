@@ -10,151 +10,83 @@ public class CheckSample35 : Sample
     public async Task<SkkmConnector> PostCheckSample35()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.Sale);
-        var line1 = connector.AddPosition("Товар", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 1m;
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
+        var line1 = connector.AddPosition("Товар", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line1.TaxSum = 0m;
-        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line2 = connector.AddPosition("Подакцизный товар", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ExcisableGoods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line2.Price = 1m;
+        var line2 = connector.AddPosition("Подакцизный товар", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.ExcisableGoods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line2.TaxSum = 0m;
-        line2.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line3 = connector.AddPosition("Работа", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Work, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line3.Price = 1m;
+        var line3 = connector.AddPosition("Работа", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Work, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line3.TaxSum = 0m;
-        line3.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line4 = connector.AddPosition("Услуга", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Service, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line4.Price = 1m;
+        var line4 = connector.AddPosition("Услуга", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Service, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line4.TaxSum = 0m;
-        line4.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line5 = connector.AddPosition("Ставка азартной игры", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.GamblingStake, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line5.Price = 1m;
+        var line5 = connector.AddPosition("Ставка азартной игры", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.GamblingStake, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line5.TaxSum = 0m;
-        line5.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line6 = connector.AddPosition("Выигрыш азартной игры", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.GamblingPrize, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line6.Price = 1m;
+        var line6 = connector.AddPosition("Выигрыш азартной игры", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.GamblingPrize, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line6.TaxSum = 0m;
-        line6.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line7 = connector.AddPosition("Лотерейный билет", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.LotteryTicket, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line7.Price = 1m;
+        var line7 = connector.AddPosition("Лотерейный билет", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.LotteryTicket, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line7.TaxSum = 0m;
-        line7.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line8 = connector.AddPosition("Выигрыш лотереи", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.LotteryPrize, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line8.Price = 1m;
+        var line8 = connector.AddPosition("Выигрыш лотереи", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.LotteryPrize, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line8.TaxSum = 0m;
-        line8.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line9 = connector.AddPosition("Предоставление РИД", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.IntellectualProperty, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line9.Price = 1m;
+        var line9 = connector.AddPosition("Предоставление РИД", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.IntellectualProperty, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line9.TaxSum = 0m;
-        line9.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line10 = connector.AddPosition("Платёж", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Advance, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line10.Price = 1m;
+        var line10 = connector.AddPosition("Платёж", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Advance, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line10.TaxSum = 0m;
-        line10.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line11 = connector.AddPosition("Агентское вознаграждение", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.AgentFee, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line11.Price = 1m;
+        var line11 = connector.AddPosition("Агентское вознаграждение", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.AgentFee, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line11.TaxSum = 0m;
-        line11.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line12 = connector.AddPosition("Составной предмет расчёта", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Payout, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line12.Price = 1m;
+        var line12 = connector.AddPosition("Составной предмет расчёта", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Payout, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line12.TaxSum = 0m;
-        line12.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line13 = connector.AddPosition("Иной предмет расчёта", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Other, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line13.Price = 1m;
+        var line13 = connector.AddPosition("Иной предмет расчёта", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Other, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line13.TaxSum = 0m;
-        line13.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line14 = connector.AddPosition("Имущественное право", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.PropertyRight, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line14.Price = 1m;
+        var line14 = connector.AddPosition("Имущественное право", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.PropertyRight, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line14.TaxSum = 0m;
-        line14.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line15 = connector.AddPosition("Внереализационный доход", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.NonOperatingIncome, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line15.Price = 1m;
+        var line15 = connector.AddPosition("Внереализационный доход", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.NonOperatingIncome, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line15.TaxSum = 0m;
-        line15.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line16 = connector.AddPosition("Страховые взносы", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.OtherPayments, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line16.Price = 1m;
+        var line16 = connector.AddPosition("Страховые взносы", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.OtherPayments, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line16.TaxSum = 0m;
-        line16.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line17 = connector.AddPosition("Торговый сбор", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.TradeFee, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line17.Price = 1m;
+        var line17 = connector.AddPosition("Торговый сбор", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.TradeFee, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line17.TaxSum = 0m;
-        line17.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line18 = connector.AddPosition("Курортный сбор", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.TouristTax, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line18.Price = 1m;
+        var line18 = connector.AddPosition("Курортный сбор", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.TouristTax, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line18.TaxSum = 0m;
-        line18.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line19 = connector.AddPosition("Залог", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Deposit, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line19.Price = 1m;
+        var line19 = connector.AddPosition("Залог", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Deposit, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line19.TaxSum = 0m;
-        line19.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line20 = connector.AddPosition("Расход", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Expense, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line20.Price = 1m;
+        var line20 = connector.AddPosition("Расход", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.Expense, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line20.TaxSum = 0m;
-        line20.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line21 = connector.AddPosition("Взносы на ОПС ИП", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.PensionContributionIp, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line21.Price = 1m;
+        var line21 = connector.AddPosition("Взносы на ОПС ИП", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.PensionContributionIp, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line21.TaxSum = 0m;
-        line21.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line22 = connector.AddPosition("Взносы на ОПС", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.PensionContribution, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line22.Price = 1m;
+        var line22 = connector.AddPosition("Взносы на ОПС", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.PensionContribution, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line22.TaxSum = 0m;
-        line22.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line23 = connector.AddPosition("Взносы на ОМС ИП", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.MedicalContributionIp, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line23.Price = 1m;
+        var line23 = connector.AddPosition("Взносы на ОМС ИП", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.MedicalContributionIp, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line23.TaxSum = 0m;
-        line23.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line24 = connector.AddPosition("Взносы на ОМС", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.MedicalContribution, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line24.Price = 1m;
+        var line24 = connector.AddPosition("Взносы на ОМС", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.MedicalContribution, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line24.TaxSum = 0m;
-        line24.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line25 = connector.AddPosition("Взносы на ОСС", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.SocialContribution, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line25.Price = 1m;
+        var line25 = connector.AddPosition("Взносы на ОСС", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.SocialContribution, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line25.TaxSum = 0m;
-        line25.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line26 = connector.AddPosition("Платёж казино", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.CasinoPayment, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line26.Price = 1m;
+        var line26 = connector.AddPosition("Платёж казино", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.CasinoPayment, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line26.TaxSum = 0m;
-        line26.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line27 = connector.AddPosition("Выдача денежных средств", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.CashWithdrawalByAgent, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line27.Price = 1m;
+        var line27 = connector.AddPosition("Выдача денежных средств", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.CashWithdrawalByAgent, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line27.TaxSum = 0m;
-        line27.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line28 = connector.AddPosition("АТНМ", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.АТНМ, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line28.Price = 1m;
+        var line28 = connector.AddPosition("АТНМ", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.ExcisableMarkedWithoutCode, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line28.TaxSum = 0m;
-        line28.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line29 = connector.AddPosition("АТМ", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.АТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line29.Price = 1m;
+        var line29 = connector.AddPosition("АТМ", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.ExcisableMarkedWithCode, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line29.TaxSum = 0m;
-        line29.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line30 = connector.AddPosition("ТНМ", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТНМ, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line30.Price = 1m;
+        var line30 = connector.AddPosition("ТНМ", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.MarkedWithoutCode, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line30.TaxSum = 0m;
-        line30.MeasureOfQuantity = MeasureOfQuantity.Piece;
-        var line31 = connector.AddPosition("ТМ", 1m, 1.0m, TaxRate.None, signCalculationObject: SignCalculationObject.ТМ, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line31.Price = 1m;
+        var line31 = connector.AddPosition("ТМ", 1m, 1m, 1.0m, TaxRate.None, SignCalculationObject.MarkedWithCode, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line31.TaxSum = 0m;
-        line31.MeasureOfQuantity = MeasureOfQuantity.Piece;
         connector.Cash = 31.0m;
-        await connector.PrintCheck();
+        if (await connector.PrintCheck())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
 
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек пробит.\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
-                $"Имя устройства: {connector.DeviceName}\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

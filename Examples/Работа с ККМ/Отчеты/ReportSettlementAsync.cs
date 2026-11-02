@@ -11,14 +11,15 @@ public class ReportSettlementAsync : Sample
     public async Task<SkkmConnector> PostReportSettlementAsync()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        await connector.ReportSettlementAsync();
-        if (connector.Ok)
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        if (await connector.ReportSettlementAsync())
         {
-            Console.WriteLine($"Отчёт о расчётах поставлен в очередь. docId={connector.DocumentId}");
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+
         }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -11,12 +11,15 @@ public class CloseShiftAsync : Sample
     public async Task<SkkmConnector> PostCloseShiftAsync()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        await connector.CloseShiftAsync();
-        if (connector.Ok)
-            Console.WriteLine($"Закрытие смены поставлено в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        if (await connector.CloseShiftAsync())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

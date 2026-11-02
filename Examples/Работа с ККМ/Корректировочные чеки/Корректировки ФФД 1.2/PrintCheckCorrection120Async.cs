@@ -9,21 +9,36 @@ public class PrintCheckCorrection120Async : Sample
 
     public async Task<SkkmConnector> PostPrintCheckCorrection120Async()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.CorrectionSale);
-        connector.CorrectionType = CorrectionTypes.Самостоятельно;
-        connector.CorrectionDescription = "Коррекция расчёта";
-        connector.CorrectionDate = DateTime.Today;
-        var line1 = connector.AddPosition("Товар по коррекции", 1, 100, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 100;
-        connector.Cash = 100;
-        await connector.PrintCheckCorrection120Async();
-        if (connector.Ok)
-            Console.WriteLine($"Чек коррекции поставлен в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        // ФИО и ИНН кассира (ИНН необязателен):
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+
+        // Новый чек: коррекция прихода, СНО — общая:
+        connector.NewCheck(CheckType.CorrectionSale, TaxSystem.Osn);
+
+        // Данные коррекции:
+        connector.CorrectionDataType = CorrectionTypes.OnOwn;
+        connector.CorrectionDataDate = new DateTime(2026, 10, 11);
+        connector.CorrectionDataNumber = "0";
+        connector.CorrectionDataDescription = "Коррекция выручки";
+
+        connector.AddPosition("Коррекция", 1, 120, 120, TaxRate.None,
+            SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
+
+        connector.Cash = 120;
+
+        // Ставим чек коррекции в очередь:
+        if (await connector.PrintCheckCorrection120Async())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
+
 
         return connector;
     }

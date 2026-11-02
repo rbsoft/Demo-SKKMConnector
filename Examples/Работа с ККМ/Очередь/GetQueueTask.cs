@@ -10,21 +10,23 @@ public class GetQueueTask : Sample
 
     public async Task<SkkmConnector> GetGetQueueTask()
     {
-        await connector.GetQueueTask(documentId);
-        if (connector.Ok)
-            Console.WriteLine(
-                "Задание очереди получено.\n" +
-                $"docId: {connector.QueueTaskDocId}\n" +
-                $"Имя кассы: {connector.QueueTaskDeviceName}\n" +
-                $"Состояние документа (код): {connector.QueueTaskDocState}\n" +
-                $"Состояние очереди (код): {connector.QueueTaskQueueState}\n" +
-                $"Позиция в очереди: {connector.QueueTaskNumberInQueue}\n" +
-                $"Этап обработки: {connector.QueueTaskPrintStatusDescription}\n" +
-                $"Фискальный признак: {connector.QueueTaskFiscalSign}\n" +
-                $"Код результата: {connector.QueueTaskResultCode}, {connector.QueueTaskResultDescription}\n" +
-                $"Дата изменения статуса: {connector.QueueTaskDate:dd.MM.yyyy HH:mm}");
+        // Идентификатор задания:
+        connector.DocId = documentId;
+
+        // Получаем задание очереди:
+        if (await connector.GetQueueTask())
+        {
+            Console.WriteLine($"Идентификатор: {connector.DocId}");
+            foreach (var report in connector.ReportValues)
+            {
+                Console.WriteLine($"{report.Key}: {report.Value}");
+            }
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
+
 
         return connector;
     }

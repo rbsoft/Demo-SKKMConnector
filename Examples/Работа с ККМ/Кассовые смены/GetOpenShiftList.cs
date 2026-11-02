@@ -10,17 +10,22 @@ public class GetOpenShiftList : Sample
 
     public async Task<SkkmConnector> GetOpenShiftListByPeriod()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        connector.FromTo(fromDate, toDate);
-        await connector.GetOpenShiftList();
-        if (connector.Ok)
+
+        // Период отбора:
+        connector.FromDate = fromDate;
+        connector.ToDate = toDate;
+
+        // Получаем список открытий смен:
+        if (await connector.GetOpenShiftList())
         {
-            Console.WriteLine($"Открытий смен: {connector.Shifts.Length}");
-            foreach (var s in connector.Shifts)
-                Console.WriteLine($"  смена {s.ShiftNumber}, docId={s.DocId}, дата={s.Date:dd.MM.yyyy HH:mm}, касса={s.DeviceName}, терминал={s.TerminalId}, код={s.ResultCode} {s.ResultDescription}");
+            foreach (var report in connector.ReportValues)
+                Console.WriteLine(report.Key + ": " + report.Value);
         }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

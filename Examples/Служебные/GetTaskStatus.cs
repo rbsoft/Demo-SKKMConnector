@@ -11,24 +11,37 @@ public class GetTaskStatus : Sample
 
     public async Task<SkkmConnector> GetGetTaskStatus()
     {
-        connector.DeviceName = deviceName;
-        await connector.GetTaskStatus(documentId);
-        if (connector.Ok)
-            Console.WriteLine(
-                "Статус задания получен.\n" +
-                $"docId: {connector.TaskStatusDocId}\n" +
-                $"Имя кассы: {connector.TaskStatusDeviceName}\n" +
-                $"Статус отправки: {connector.TaskStatusSentToPrint}\n" +
-                $"Позиция в очереди: {connector.TaskStatusNumberInQueue}\n" +
-                $"Размер очереди: {connector.TaskStatusQueueSize}\n" +
-                $"Номер смены: {connector.TaskStatusShiftNumber}\n" +
-                $"Номер ФД: {connector.TaskStatusDocNumber}\n" +
-                $"Тип задания: {connector.TaskStatusTaskType}\n" +
-                $"Фискальный признак: {connector.TaskStatusFiscalSign}\n" +
-                $"Код результата: {connector.TaskStatusResultCode}, {connector.TaskStatusResultDescription}\n" +
-                $"Дата постановки: {connector.TaskStatusDate:dd.MM.yyyy HH:mm}");
+        // Идентификатор документа:
+        connector.DocId = documentId;
+
+        // Узнаём статус задания (ИД документа передаётся параметром):
+        if (await connector.GetTaskStatus())
+        {
+            Console.WriteLine($"Имя устройства: {connector.DeviceName}");
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Дата и время постановки задания в обработку: {connector.DateTime}");
+            Console.WriteLine($"Статус отправки: {connector.SentToPrint}");
+            Console.WriteLine($"Позиция задания в очереди на момент запроса: {connector.NumberInQueue}");
+            Console.WriteLine($"Размер очереди: {connector.QueueSize}");
+            Console.WriteLine($"Идентификатор пула: {connector.PoolId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Тип чека: {connector.TaskType}");
+            Console.WriteLine($"Фискальный признак: {connector.FiscalSign}");
+            Console.WriteLine($"Название организации: {connector.OrganizationInfo}");
+            Console.WriteLine($"Заводской номер ККТ: {connector.DeviceSerialNumber}");
+            Console.WriteLine($"ИНН Организации: {connector.FnVatin}");
+            Console.WriteLine($"ФИО кассира: {connector.CashierName}");
+            Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
+            Console.WriteLine($"Фискальный накопитель: {connector.FnSerialNumber}");
+            Console.WriteLine($"Адрес сайта уполномоченного органа (ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
+            Console.WriteLine($"Наименование провайдера ОФД: {connector.FnOfdName}");
+            Console.WriteLine($"ИНН провайдера ОФД: {connector.FnOfdVatin}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

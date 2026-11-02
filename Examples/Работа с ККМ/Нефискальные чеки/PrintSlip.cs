@@ -10,37 +10,40 @@ public class PrintSlip : Sample
 
     public async Task<SkkmConnector> PostPrintSlip()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.TextForPrint =
-            "[center,bold]РБ-Софт: Сервер ККМ\n" +
-            "[center]Нефискальный документ\n" +
-            "[line]\n" +
-            "Обычная строка текста\n" +
-            "[QR,center]https://www.rbsoft.ru\n" +
-            "[center,small]Спасибо за покупку!";
-        await connector.PrintSlip();
 
-        if (connector.Ok)
+        // Новый документ: тип — приход, СНО — общая:
+        connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
+
+        // Многострочный текст. Префиксы строк (имеют приоритет перед Font и Alignment):
+        // [big], [small], [bold], [H1]–[H5], [left], [right], [center], [QR], [line]:
+        connector.Text = "[H2]Это заголовок H2\n" +
+                         "[left]Вторая строка слева\n" +
+                         "[center]Третья строка по центру\n" +
+                         "[right]Четвёртая строка справа";
+
+        // Добавляем текст (текст, шрифт, выравнивание):
+        connector.AddText("[big]Подпись к позиции", PrintFont.Normal, PrintAlignment.Left);
+
+        // Добавляем штрихкод (тип, значение, выравнивание):
+        connector.AddBarcode(BarcodeType.QR, "https://www.rbsoft.ru");
+
+        // Картинка по центру. Файл берётся из поля «Файл» и уходит в Base64.
+        // На Shtrih ширина не больше ширины ленты (320 px).
+        connector.AddPicture(Convert.ToBase64String(File.ReadAllBytes(filePath)), PictureAlignment.Center);
+
+        // Печатаем слип-чек:
+        if (await connector.PrintSlip())
         {
-            Console.WriteLine(
-                "Слип напечатан.\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Дата создания: {connector.CheckDate:dd.MM.yyyy HH:mm}\n" +
-                $"Тип документа: {connector.CheckTaskType}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Имя кассы: {connector.CheckDeviceName}, пул: {connector.CheckPoolId}, терминал: {connector.CheckTerminalId}\n" +
-                $"Обработан успешно: {connector.CheckIsProcessed}, код: {connector.CheckResultCode} {connector.CheckResultDescription}\n" +
-                $"Версия сервера ККМ: {connector.CheckServerVersion}\n" +
-                $"Напечатано строк: {connector.PrintForm.Count}");
-            foreach (var line in connector.PrintForm)
-            {
-                var text = string.IsNullOrEmpty(line.LineRight) ? line.Line : $"{line.Line} … {line.LineRight}";
-                Console.WriteLine($"  [{line.Type}] {text}");
-            }
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+
         }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

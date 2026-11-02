@@ -6,37 +6,52 @@ public class PrintCheckCorrection105 : Sample
 {
     public const string GroupPath = "Работа с ККМ|Корректировочные чеки|Корректировки ФФД 1.0.5";
     public const string Title = "Печать чека коррекции 1.0.5";
+    public const bool DocumentIdOptional = true;
 
     public async Task<SkkmConnector> PostPrintCheckCorrection105()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.CorrectionSale);
-        connector.CorrectionType = CorrectionTypes.Самостоятельно;
-        connector.CorrectionDescription = "Основание коррекции";
-        connector.CorrectionDate = DateTime.Today;
-        connector.CorrectionSumTax20 = 16.67m;
-        var line1 = connector.AddPosition("Товар по коррекции 1.05", 1, 100, TaxRate.Vat20);
-        line1.Price = 100;
-        line1.TaxSum = 16.67m;
+        // ФИО и ИНН кассира (ИНН необязателен):
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+
+        // Новый чек: коррекция прихода, СНО — общая:
+        connector.NewCheck(CheckType.CorrectionSale, TaxSystem.Osn);
+
+        // Id документа для повторной печати (необязательно, задаётся после NewCheck): если чек
+        // с таким DocId уже есть, сервер новый не создаст, а напечатает его повторно.
+        if (documentId.Length > 0)
+            connector.DocId = documentId;
+
+        // Данные коррекции:
+        connector.CorrectionDataType = CorrectionTypes.OnOwn;
+        connector.CorrectionDataDate = new DateTime(2026, 10, 11, 15, 30, 0);
+        connector.CorrectionDataNumber = "0";
+        // Дополнительный реквизит чека (ФП корректируемого чека):
+        connector.AdditionalAttribute = "2474536032";
+
         connector.Cash = 100;
-        await connector.PrintCheckCorrection105();
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек коррекции пробит.\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}\n" +
-                $"Время ККТ: {connector.DeviceDateTime}\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}");
+
+        // Сумма НДС по ставке 20%. Остальные ставки: SumTaxNone, SumTax0, SumTax5, SumTax105,
+        // SumTax7, SumTax107, SumTax10, SumTax110, SumTax18, SumTax118, SumTax120, SumTax22, SumTax122.
+        // Позиции в чек коррекции ФФД 1.0.5 не передаются.
+        connector.SumTax20 = 16.67m;
+
+        // Печатаем чек коррекции:
+        if (await connector.PrintCheckCorrection105())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
+
 
         return connector;
     }

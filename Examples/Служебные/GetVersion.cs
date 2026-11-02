@@ -10,11 +10,13 @@ public class GetVersion : Sample
 
     public async Task<SkkmConnector> GetGetVersion()
     {
-        await connector.GetVersion();
-        if (connector.Ok)
+        if (await connector.GetVersion())
+        {
             Console.WriteLine($"Версия сервера: {connector.ServerVersion}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

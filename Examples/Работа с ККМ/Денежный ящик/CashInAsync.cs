@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -11,13 +11,16 @@ public class CashInAsync : Sample
     public async Task<SkkmConnector> PostCashInAsync()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.CashAmount = 1000;
-        await connector.CashInAsync();
-        if (connector.Ok)
-            Console.WriteLine($"Внесение поставлено в очередь. Идентификатор документа (docId): {connector.DocumentId}");
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.CashAmount = cashAmount;
+        if (await connector.CashInAsync())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

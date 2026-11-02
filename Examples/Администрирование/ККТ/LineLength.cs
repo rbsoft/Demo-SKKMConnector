@@ -11,12 +11,14 @@ public class LineLength : Sample
     public async Task<SkkmConnector> GetLineLength()
     {
         connector.DeviceName = deviceName;
-        await connector.GetLineLength();
+        if (await connector.GetLineLength())
+        {
+            Console.WriteLine($"Ширина строки в символах: {connector.DeviceLineLength}");
+            Console.WriteLine($"Ширина строки в пикселях: {connector.DeviceLineLengthPixels}");
 
-        if (connector.Ok)
-            Console.WriteLine($"Ширина строки: {connector.LineLength}, пикселей: {connector.LineLengthPixels}");
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

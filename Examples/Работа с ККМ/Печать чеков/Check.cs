@@ -11,64 +11,61 @@ public class Check : Sample
 
     public async Task<SkkmConnector> GetCheck()
     {
-        connector.DeviceName = deviceName;
-        await connector.GetCheck(documentId);
+        // Идентификатор документа:
+        connector.DocId = documentId;
 
-        if (connector.Ok)
+        // Получаем данные чека:
+        if (await connector.GetCheck())
         {
-            Console.WriteLine(
-                "Чек получен.\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер чека за смену: {connector.CheckNumberInShift}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Сумма чека: {connector.CheckSum}\n" +
-                $"Сдача: {connector.CheckChange}\n" +
-                $"Дата по часам ФН: {connector.CheckFiscalDate:dd.MM.yyyy HH:mm}\n" +
-                $"Кассир: {connector.CheckCashierName}, ИНН: {connector.CheckCashierVatin}\n" +
-                $"СНО: {connector.CheckTaxType}\n" +
-                $"Версия ФФД: {connector.CheckFfdVersion}\n" +
-                $"Замена ставки НДС: {connector.CheckIsReplaceTax}\n" +
-                $"Позиций в чеке: {connector.CheckItemsCount}\n" +
-                $"Покупатель: {connector.CustomerDetailInfo}\n" +
-                $"ИНН покупателя: {connector.CustomerDetailInn}\n" +
-                $"Эл. почта покупателя: {connector.CustomerDetailEmail}\n" +
-                $"Оплата наличными: {connector.PaymentsCash}\n" +
-                $"Оплата безналичными: {connector.PaymentsElectronic}\n" +
-                $"Предоплата: {connector.PaymentsPrePaid}\n" +
-                $"Постоплата: {connector.PaymentsCredit}\n" +
-                $"Встречное предоставление: {connector.PaymentsBarter}\n" +
-                $"QR — сумма: {connector.QrDataAmount}, ФН: {connector.QrDataFn}, ФД: {connector.QrDataFd}, ФП: {connector.QrDataFp}\n" +
-                $"Организация: {connector.OrganizationInfo}\n" +
-                $"ИНН организации: {connector.OrganizationVatin}\n" +
-                $"Регистрационный номер ККТ: {connector.RnNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"ОФД: {connector.OfdName}\n" +
-                $"ИНН ОФД: {connector.OfdVatin}\n" +
-                $"Модель ККТ: {connector.DeviceModel}\n" +
-                $"Заводской номер: {connector.DeviceSerialNumber}\n" +
-                $"Версия прошивки: {connector.DeviceFirmwareVersion}");
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Тип документа: {connector.TaskType}");
+            Console.WriteLine($"Время на сервере ККМ: {connector.ServerTime}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Номер чека за смену: {connector.CheckNumberInShift}");
+            Console.WriteLine($"Фискальный признак чека: {connector.FiscalSign}");
+            Console.WriteLine($"Номер ФН: {connector.FnSerialNumber}");
+            Console.WriteLine($"Версия ФФД документа: {connector.FnFFDVersion}");
+            Console.WriteLine($"Адрес расчётов: {connector.FnSaleAddress}");
+            Console.WriteLine($"Место расчётов: {connector.FnSaleLocation}");
+            Console.WriteLine($"Организация: {connector.OrganizationInfo}");
+            Console.WriteLine($"ИНН организации: {connector.FnVatin}");
+            Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
+            Console.WriteLine($"Адрес сайта ФНС: {connector.FnFnsUrl}");
+            Console.WriteLine($"Наименование ОФД: {connector.FnOfdName}");
+            Console.WriteLine($"ИНН ОФД: {connector.FnOfdVatin}");
+            Console.WriteLine($"ФИО кассира: {connector.CashierName}");
+            Console.WriteLine($"ИНН кассира: {connector.CashierVatin}");
+            Console.WriteLine($"Имя устройства: {connector.DeviceName}");
+            Console.WriteLine($"Идентификатор рабочего места: {connector.TerminalId}");
+            Console.WriteLine($"Пул: {connector.PoolId}");
+            Console.WriteLine($"Код результата: {connector.ResultCode}");
+            Console.WriteLine($"Описание результата: {connector.ResultDescription}");
+            Console.WriteLine($"Признак успешного завершения операции: {connector.IsProcessed}");
+            Console.WriteLine($"Версия Сервера ККМ: {connector.ServerVersion}");
+            Console.WriteLine($"Электронный чек: {connector.IsElectronically}");
+            Console.WriteLine($"Система налогообложения: {connector.TaxVariant}");
+            Console.WriteLine($"Сумма наличными: {connector.Cash}");
+            Console.WriteLine($"Сумма безналичными: {connector.ElectronicPayment}");
+            Console.WriteLine($"Сумма авансом: {connector.AdvancePayment}");
+            Console.WriteLine($"Сумма в кредит: {connector.Credit}");
+            Console.WriteLine($"Сумма встречным предоставлением: {connector.CashProvision}");
+            Console.WriteLine($"Модель ККТ: {connector.DeviceModel}");
+            Console.WriteLine($"Заводской номер ККТ: {connector.DeviceSerialNumber}");
+            Console.WriteLine($"Версия прошивки ККТ: {connector.DeviceFirmwareVersion}");
+            Console.WriteLine($"Версия конфигурации прошивки: {connector.DeviceConfigurationVersion}");
+            Console.WriteLine($"Версия ФФД ККТ: {connector.DeviceFfdVersion}");
+            Console.WriteLine($"Версия ФФД ФН: {connector.DeviceFnFfdVersion}");
+            Console.WriteLine($"Тип устройства: {connector.DeviceClass}");
+            Console.WriteLine($"Часовая зона ККТ: {connector.DeviceTimeZone}");
+            Console.WriteLine($"Фискальный режим ККТ: {connector.DeviceIsFiscal}");
+            Console.WriteLine($"Ширина строки чека: {connector.DeviceLineLength}");
 
-            // Позиции чека — список, перебираем вручную
-            foreach (var item in connector.CheckItems)
-                {
-                    Console.WriteLine(
-                        $"  {item.Name}: кол-во={item.Quantity}, цена={item.Price}, сумма={item.Sum}\n" +
-                        $"    Ставка НДС: {item.TaxValue}, сумма НДС: {item.TaxSum}\n" +
-                        $"    Признак предмета расчёта: {item.SignCalculationObject}\n" +
-                        $"    Признак способа расчёта: {item.SignMethodCalculation}\n" +
-                        $"    Отдел: {item.Department}, мера количества: {item.MeasureOfQuantity}, акциз: {item.ExciseAmount}\n" +
-                        $"    Код маркировки: {item.MarkingCode}");
-                    if (item.ImcCheckFlag || !string.IsNullOrEmpty(item.IndustryAttributeValue))
-                        Console.WriteLine(
-                            $"    Проверка КМ: результат={item.ImcCheckResult}, статус ОК={item.ImcStatusInfo}, план. статус ОК={item.ImcEstimatedStatusCorrect}\n" +
-                            $"    Отраслевой реквизит: ФОИВ={item.IndustryIdentifierFoiv}, док={item.IndustryDocumentNumber} от {item.IndustryDocumentDate}, значение={item.IndustryAttributeValue}");
-                }
         }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

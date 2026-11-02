@@ -20,13 +20,33 @@ public partial class MainWindow : Window
 
     private TextBox _address = null!;
     private TextBox _token = null!;
-    private TextBox _device = null!;
+    private ComboBox _device = null!;
+    private Control _cashierPanel = null!;
+    private Control _periodPanel = null!;
+    private Control _filePanel = null!;
+    private TextBox _pool = null!;
+    private TextBox _checkNumber = null!;
+    private TextBox _cashAmount = null!;
+    private TextBox _guid = null!;
+    private ComboBox _confirmationType = null!;
+    private TextBox _codes = null!;
+    private TextBox _shiftNumber = null!;
+    private TextBox _markingCode = null!;
+    private Control _markingQuantityPanel = null!;
+    private TextBox _markingQuantity = null!;
+    private ComboBox _measureOfQuantity = null!;
+    private Control _fractionalQuantityPanel = null!;
+    private TextBox _fractionalNumerator = null!;
+    private TextBox _fractionalDenominator = null!;
+    private ComboBox _plannedStatus = null!;
+    private CheckBox _notSendToServer = null!;
+    private CheckBox _waitForResult = null!;
     private TextBox _cashier = null!;
     private TextBox _cashierVatin = null!;
     private TextBox _documentId = null!;
     private TextBox _filePath = null!;
-    private TextBox _from = null!;
-    private TextBox _to = null!;
+    private CalendarDatePicker _from = null!;
+    private CalendarDatePicker _to = null!;
     private TreeView _tree = null!;
     private Button _run = null!;
     private Button _cancel = null!;
@@ -42,6 +62,9 @@ public partial class MainWindow : Window
     private static readonly IBrush StatusIdleBrush = new ImmutableSolidColorBrush(Color.Parse("#7E7E86"));
 
     private ExampleItem? _selected;
+
+    // Последний ответ и статус каждого примера: при переходе между запросами ответ не теряется (до закрытия приложения).
+    private readonly Dictionary<ExampleItem, (string Response, string Status, IBrush Brush)> _results = new();
     private TreeViewItem? _selectedLeaf;
     private bool _syncingSelection;
     private string _currentSource = "";
@@ -56,13 +79,34 @@ public partial class MainWindow : Window
 
         _address = this.FindControl<TextBox>("AddressBox")!;
         _token = this.FindControl<TextBox>("TokenBox")!;
-        _device = this.FindControl<TextBox>("DeviceBox")!;
+        _device = this.FindControl<ComboBox>("DeviceBox")!;
+        _cashierPanel = this.FindControl<Control>("CashierPanel")!;
+        _periodPanel = this.FindControl<Control>("PeriodPanel")!;
+        _filePanel = this.FindControl<Control>("FilePanel")!;
+        _pool = this.FindControl<TextBox>("PoolBox")!;
+        _checkNumber = this.FindControl<TextBox>("CheckNumberBox")!;
+        _cashAmount = this.FindControl<TextBox>("CashAmountBox")!;
+        _guid = this.FindControl<TextBox>("GuidBox")!;
+        _confirmationType = this.FindControl<ComboBox>("ConfirmationTypeBox")!;
+        _codes = this.FindControl<TextBox>("CodesBox")!;
+        _shiftNumber = this.FindControl<TextBox>("ShiftNumberBox")!;
+        _markingCode = this.FindControl<TextBox>("MarkingCodeBox")!;
+        _markingQuantityPanel = this.FindControl<Control>("MarkingQuantityPanel")!;
+        _markingQuantity = this.FindControl<TextBox>("MarkingQuantityBox")!;
+        _measureOfQuantity = this.FindControl<ComboBox>("MeasureOfQuantityBox")!;
+        _fractionalQuantityPanel = this.FindControl<Control>("FractionalQuantityPanel")!;
+        _fractionalNumerator = this.FindControl<TextBox>("FractionalNumeratorBox")!;
+        _fractionalDenominator = this.FindControl<TextBox>("FractionalDenominatorBox")!;
+        _plannedStatus = this.FindControl<ComboBox>("PlannedStatusBox")!;
+        _notSendToServer = this.FindControl<CheckBox>("NotSendToServerBox")!;
+        _waitForResult = this.FindControl<CheckBox>("WaitForResultBox")!;
+        FillEnumChoices();
         _cashier = this.FindControl<TextBox>("CashierBox")!;
         _cashierVatin = this.FindControl<TextBox>("CashierVatinBox")!;
         _documentId = this.FindControl<TextBox>("DocumentIdBox")!;
         _filePath = this.FindControl<TextBox>("FilePathBox")!;
-        _from = this.FindControl<TextBox>("FromBox")!;
-        _to = this.FindControl<TextBox>("ToBox")!;
+        _from = this.FindControl<CalendarDatePicker>("FromBox")!;
+        _to = this.FindControl<CalendarDatePicker>("ToBox")!;
         _tree = this.FindControl<TreeView>("ExamplesTree")!;
         _run = this.FindControl<Button>("RunButton")!;
         _cancel = this.FindControl<Button>("CancelButton")!;
@@ -75,8 +119,13 @@ public partial class MainWindow : Window
         _docTip = this.FindControl<Border>("DocTip")!;
         _docText = this.FindControl<TextBlock>("DocText")!;
 
-        _from.Text = DateTime.Today.AddDays(-7).ToString(ConnectionSettings.DateFormat);
-        _to.Text = DateTime.Today.ToString(ConnectionSettings.DateFormat);
+        _from.SelectedDate = DateTime.Today.AddDays(-7);
+        _to.SelectedDate = DateTime.Today;
+        _from.SelectedDateChanged += (_, _) => LimitPeriod();
+        _to.SelectedDateChanged += (_, _) => LimitPeriod();
+        LimitPeriod();
+
+        _device.DropDownOpened += async (_, _) => await LoadDevicesAsync();
 
         LoadExamples();
         _tree.SelectionChanged += OnExampleSelected;
@@ -233,8 +282,36 @@ public partial class MainWindow : Window
         HideDocTip();
         ToolTip.SetTip(_copy, "Копировать");
         _requestTitle.Text = item.MethodName + "()";
-        SetResponse("");
-        SetStatus("", StatusIdleBrush);
+        // Адрес, токен и ККТ видны всегда, остальные поля — только если они нужны запросу.
+        _cashierPanel.IsVisible = item.NeedCashier;
+        _documentId.IsVisible = item.NeedDocumentId;
+        _documentId.Watermark = item.DocumentIdOptional
+            ? "Id документа для повторной печати (необязательно)"
+            : "Id документа (DocId / taskId)";
+        _periodPanel.IsVisible = item.NeedPeriod;
+        _filePanel.IsVisible = item.NeedFilePath;
+        _pool.IsVisible = item.NeedPool;
+        _checkNumber.IsVisible = item.NeedCheckNumber;
+        _cashAmount.IsVisible = item.NeedCashAmount;
+        _guid.IsVisible = item.NeedGuid;
+        _guid.Watermark = item.GuidOptional
+            ? "Guid (создаётся при RequestKM)"
+            : "Guid из проверки КМ (RequestKM)";
+        _confirmationType.IsVisible = item.NeedConfirmationType;
+        _codes.IsVisible = item.NeedCodes;
+        _shiftNumber.IsVisible = item.NeedShiftNumber;
+        _markingCode.IsVisible = item.NeedMarkingCode;
+        _markingQuantityPanel.IsVisible = item.NeedMarkingQuantity || item.NeedMeasureOfQuantity;
+        _markingQuantity.IsVisible = item.NeedMarkingQuantity;
+        _measureOfQuantity.IsVisible = item.NeedMeasureOfQuantity;
+        _fractionalQuantityPanel.IsVisible = item.NeedFractionalQuantity;
+        _plannedStatus.IsVisible = item.NeedPlannedStatus;
+        _notSendToServer.IsVisible = item.NeedNotSendToServer;
+        _waitForResult.IsVisible = item.NeedWaitForResult;
+
+        var (response, status, brush) = _results.GetValueOrDefault(item, ("", "", StatusIdleBrush));
+        SetResponse(response);
+        SetStatus(status, brush);
 
         var inlines = _source.Inlines;
         if (inlines != null)
@@ -288,27 +365,28 @@ public partial class MainWindow : Window
 
     private async void OnRunClick(object? sender, RoutedEventArgs e)
     {
-        if (_selected == null)
+        // Пример запоминаем: пока запрос выполняется, можно перейти на другой — ответ запишется своему примеру.
+        var item = _selected;
+        if (item == null)
         {
             SetStatus("Выберите пример", StatusIdleBrush);
             return;
         }
 
         ReadConnection();
-        if (!_connection.TryRead(_selected.NeedDocumentId, _selected.NeedFilePath, out string error))
+        if (!_connection.TryRead(item, out string error))
         {
-            SetResponse(error);
-            SetStatus("Проверьте подключение", StatusIdleBrush);
+            SetResult(item, error, "Проверьте подключение", StatusIdleBrush);
             return;
         }
 
         _run.IsEnabled = false;
         _cancel.IsEnabled = true;
-        SetStatus("Выполняется…", StatusIdleBrush);
+        SetResult(item, "", "Выполняется…", StatusIdleBrush);
 
         try
         {
-            ExampleRunner.ApplyConnection(_selected.Instance, _connection);
+            ExampleRunner.ApplyConnection(item.Instance, _connection);
 
             // Перехватываем вывод примера (Console.WriteLine), чтобы показать в панели
             // именно то, что напечатал код примера.
@@ -318,7 +396,7 @@ public partial class MainWindow : Window
             SkkmConnector kkm;
             try
             {
-                kkm = await ExampleRunner.Invoke(_selected);
+                kkm = await ExampleRunner.Invoke(item);
             }
             finally
             {
@@ -327,16 +405,20 @@ public partial class MainWindow : Window
 
             // Показываем только то, что напечатал сам пример (Console.WriteLine).
             // Если пример ничего не печатает — панель пустая.
-            SetResponse(printed.ToString().TrimEnd());
+            var response = printed.ToString().TrimEnd();
+
+            // Guid из ответа (RequestKM) сразу подставляется в поле — для ConfirmKM.
+            if (kkm.ErrorCode == 0 && !string.IsNullOrWhiteSpace(kkm.Guid))
+                _guid.Text = kkm.Guid;
+
             if (kkm.ErrorCode == -3)
-                SetStatus("Отменено", StatusIdleBrush);
+                SetResult(item, response, "Отменено", StatusIdleBrush);
             else
-                SetStatus(kkm.Ok ? "OK" : "Error", kkm.Ok ? StatusOkBrush : StatusErrorBrush);
+                SetResult(item, response, kkm.ErrorCode == 0 ? "OK" : "Error", kkm.ErrorCode == 0 ? StatusOkBrush : StatusErrorBrush);
         }
         catch (Exception ex)
         {
-            SetResponse(ex.ToString());
-            SetStatus("Error", StatusErrorBrush);
+            SetResult(item, ex.ToString(), "Error", StatusErrorBrush);
         }
         finally
         {
@@ -369,17 +451,165 @@ public partial class MainWindow : Window
             _filePath.Text = files[0].TryGetLocalPath() ?? files[0].Path.LocalPath;
     }
 
+    /// <summary>
+    /// Ограничивает календари: «с» — не позже «по», «по» — не раньше «с»; обе даты — не позже сегодняшнего дня.
+    /// </summary>
+    private void LimitPeriod()
+    {
+        var today = DateTime.Today;
+        var from = _from.SelectedDate;
+        var to = _to.SelectedDate;
+
+        _from.DisplayDateStart = null;
+        _from.DisplayDateEnd = to ?? today;
+        _to.DisplayDateStart = from;
+        _to.DisplayDateEnd = today;
+    }
+
+    /// <summary>Пункт выпадающего списка: значение перечисления и подпись «Русское название (Имя)».</summary>
+    private sealed record EnumChoice<T>(T Value, string Label) where T : struct, Enum
+    {
+        public override string ToString() => $"{Label} ({Value})";
+    }
+
+    private static readonly EnumChoice<MeasureOfQuantity>[] MeasureChoices =
+    [
+        new(MeasureOfQuantity.Piece, "Штука"),
+        new(MeasureOfQuantity.Gram, "Грамм"),
+        new(MeasureOfQuantity.Kilogram, "Килограмм"),
+        new(MeasureOfQuantity.Tonne, "Тонна"),
+        new(MeasureOfQuantity.Centimeter, "Сантиметр"),
+        new(MeasureOfQuantity.Decimeter, "Дециметр"),
+        new(MeasureOfQuantity.Meter, "Метр"),
+        new(MeasureOfQuantity.SquareCentimeter, "Кв. сантиметр"),
+        new(MeasureOfQuantity.SquareDecimeter, "Кв. дециметр"),
+        new(MeasureOfQuantity.SquareMeter, "Кв. метр"),
+        new(MeasureOfQuantity.Milliliter, "Миллилитр"),
+        new(MeasureOfQuantity.Liter, "Литр"),
+        new(MeasureOfQuantity.CubicMeter, "Куб. метр"),
+        new(MeasureOfQuantity.KilowattHour, "Киловатт-час"),
+        new(MeasureOfQuantity.Gigacalorie, "Гигакалория"),
+        new(MeasureOfQuantity.Day, "Сутки"),
+        new(MeasureOfQuantity.Hour, "Час"),
+        new(MeasureOfQuantity.Minute, "Минута"),
+        new(MeasureOfQuantity.Second, "Секунда"),
+        new(MeasureOfQuantity.Kilobyte, "Килобайт"),
+        new(MeasureOfQuantity.Megabyte, "Мегабайт"),
+        new(MeasureOfQuantity.Gigabyte, "Гигабайт"),
+        new(MeasureOfQuantity.Terabyte, "Терабайт"),
+        new(MeasureOfQuantity.Other, "Иная единица"),
+    ];
+
+    private static readonly EnumChoice<MarkingPlannedStatus>[] PlannedStatusChoices =
+    [
+        new(MarkingPlannedStatus.Sold, "Реализован"),
+        new(MarkingPlannedStatus.InSale, "Мерный товар в реализации"),
+        new(MarkingPlannedStatus.Returned, "Возвращён"),
+        new(MarkingPlannedStatus.PartiallyReturned, "Часть товара возвращена"),
+        new(MarkingPlannedStatus.Unchanged, "Статус не изменился"),
+        new(MarkingPlannedStatus.NotSpecified, "Не задан"),
+    ];
+
+    private void FillEnumChoices()
+    {
+        _measureOfQuantity.ItemsSource = MeasureChoices;
+        _measureOfQuantity.SelectedIndex = 0;
+        _plannedStatus.ItemsSource = PlannedStatusChoices;
+        _plannedStatus.SelectedIndex = 0;
+    }
+
+    private int _deviceLoadVersion;
+
+    /// <summary>
+    /// Запрашивает список ККТ (GetDeviceList) по текущему адресу и токену и заполняет выпадающий список.
+    /// Отдельный коннектор — чтобы не мешать запросу, который сейчас выполняется.
+    /// </summary>
+    private async Task LoadDevicesAsync()
+    {
+        int version = ++_deviceLoadVersion;
+        var selected = _device.SelectedItem as string;
+
+        using var kkm = new SkkmConnector
+        {
+            Address = (_address.Text ?? "").Trim(),
+            Token = (_token.Text ?? "").Trim()
+        };
+
+        string? error = null;
+        try
+        {
+            if (kkm.Address.Length == 0)
+                error = "Укажите адрес сервера ККМ.";
+            else if (!await kkm.GetDeviceList())
+                error = $"Код ошибки: {kkm.ErrorCode} {kkm.ErrorDescription}";
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+
+        // Пока ждали ответ, список могли открыть ещё раз — применяем только последний результат.
+        if (version != _deviceLoadVersion)
+            return;
+
+        if (error != null)
+        {
+            ToolTip.SetTip(_device, "Не удалось получить список ККТ: " + error);
+            _device.ItemsSource = selected == null ? Array.Empty<string>() : new[] { selected };
+            _device.SelectedItem = selected;
+            return;
+        }
+
+        ToolTip.SetTip(_device, "Нажмите, чтобы получить список ККТ с сервера");
+        var names = kkm.DeviceList.Select(d => d.DeviceName).ToArray();
+        _device.ItemsSource = names;
+        _device.SelectedItem = names.FirstOrDefault(n => n == selected);
+    }
+
     private void ReadConnection()
     {
         _connection.Address = _address.Text ?? "";
         _connection.Token = _token.Text ?? "";
-        _connection.Device = _device.Text ?? "";
+        _connection.Device = _device.SelectedItem as string ?? "";
         _connection.Cashier = _cashier.Text ?? "";
         _connection.CashierVatin = _cashierVatin.Text ?? "";
         _connection.DocumentId = _documentId.Text ?? "";
         _connection.FilePath = _filePath.Text ?? "";
-        _connection.FromText = _from.Text ?? "";
-        _connection.ToText = _to.Text ?? "";
+        _connection.Pool = _pool.Text ?? "";
+        _connection.CheckNumberText = _checkNumber.Text ?? "";
+        _connection.CashAmountText = _cashAmount.Text ?? "";
+        _connection.Guid = _guid.Text ?? "";
+        _connection.ConfirmationType = _confirmationType.SelectedIndex == 1
+            ? KmConfirmationType.NotIncluded
+            : KmConfirmationType.Included;
+        _connection.Codes = _codes.Text ?? "";
+        _connection.ShiftNumberText = _shiftNumber.Text ?? "";
+        _connection.MarkingCode = _markingCode.Text ?? "";
+        _connection.MarkingQuantityText = _markingQuantity.Text ?? "";
+        _connection.MeasureOfQuantity = (_measureOfQuantity.SelectedItem as EnumChoice<MeasureOfQuantity>)?.Value ?? MeasureOfQuantity.Piece;
+        _connection.FractionalNumeratorText = _fractionalNumerator.Text ?? "";
+        _connection.FractionalDenominatorText = _fractionalDenominator.Text ?? "";
+        _connection.PlannedStatus = (_plannedStatus.SelectedItem as EnumChoice<MarkingPlannedStatus>)?.Value ?? MarkingPlannedStatus.Sold;
+        _connection.NotSendToServer = _notSendToServer.IsChecked == true;
+        _connection.WaitForResult = _waitForResult.IsChecked == true;
+        _connection.FromText = DateText(_from);
+        _connection.ToText = DateText(_to);
+    }
+
+    // Дата из календаря, а если введённый текст не распознан — сам текст (его проверит ConnectionSettings).
+    private static string DateText(CalendarDatePicker picker) =>
+        picker.SelectedDate?.ToString(ConnectionSettings.DateFormat) ?? picker.Text ?? "";
+
+    /// <summary>
+    /// Запоминает ответ примера и показывает его, если этот пример сейчас открыт.
+    /// </summary>
+    private void SetResult(ExampleItem item, string response, string status, IBrush brush)
+    {
+        _results[item] = (response, status, brush);
+        if (item != _selected)
+            return;
+        SetResponse(response);
+        SetStatus(status, brush);
     }
 
     private void SetResponse(string text)

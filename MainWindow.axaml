@@ -8,7 +8,58 @@
         Title="Демо SkkmConnector"
         Icon="/Assets/skkmconnector-cs-icon.ico">
 
+  <!-- Выпадающий список и поле даты выглядят так же, как обычные поля ввода -->
+  <Window.Resources>
+    <SolidColorBrush x:Key="FieldBackground" Color="#1B1B1F"/>
+    <SolidColorBrush x:Key="FieldBorder" Color="#2C2C32"/>
+    <SolidColorBrush x:Key="FieldBorderHover" Color="#45454D"/>
+
+    <StaticResource x:Key="ComboBoxBackground" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="ComboBoxBackgroundPointerOver" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="ComboBoxBackgroundPressed" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="ComboBoxBorderBrush" ResourceKey="FieldBorder"/>
+    <StaticResource x:Key="ComboBoxBorderBrushPointerOver" ResourceKey="FieldBorderHover"/>
+    <StaticResource x:Key="ComboBoxBorderBrushPressed" ResourceKey="FieldBorderHover"/>
+
+    <StaticResource x:Key="CalendarDatePickerBackground" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="CalendarDatePickerBackgroundPointerOver" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="CalendarDatePickerBackgroundPressed" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="CalendarDatePickerBackgroundFocused" ResourceKey="FieldBackground"/>
+    <StaticResource x:Key="CalendarDatePickerBorderBrush" ResourceKey="FieldBorder"/>
+    <StaticResource x:Key="CalendarDatePickerBorderBrushPointerOver" ResourceKey="FieldBorderHover"/>
+    <StaticResource x:Key="CalendarDatePickerBorderBrushPressed" ResourceKey="FieldBorderHover"/>
+
+    <StaticResource x:Key="TextControlBorderBrushPointerOver" ResourceKey="FieldBorderHover"/>
+  </Window.Resources>
+
   <Window.Styles>
+    <Style Selector="ComboBox">
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="Padding" Value="10,5,0,6"/>
+    </Style>
+    <Style Selector="CalendarDatePicker">
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    <!-- Кнопка календаря: вместо стандартного значка с числом — обычная иконка -->
+    <Style Selector="CalendarDatePicker /template/ Button#PART_Button">
+      <Setter Property="Width" Value="28"/>
+      <Setter Property="Margin" Value="0,0,4,0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Foreground" Value="#7E7E86"/>
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="Transparent" CornerRadius="3">
+            <mi:MaterialIcon Kind="CalendarMonthOutline" Width="16" Height="16"
+                             Foreground="{TemplateBinding Foreground}" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="CalendarDatePicker /template/ Button#PART_Button:pointerover">
+      <Setter Property="Foreground" Value="#E6E6EA"/>
+    </Style>
+
     <!-- Заголовки секций -->
     <Style Selector="TextBlock.section">
       <Setter Property="Foreground" Value="#7E7E86"/>
@@ -69,24 +120,59 @@
       <DockPanel>
         <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,10">
           <TextBlock Text="ПОДКЛЮЧЕНИЕ" Classes="section" />
-          <TextBox x:Name="AddressBox" Watermark="Адрес сервера, напр. localhost:4398" />
+          <TextBox x:Name="AddressBox" Text="localhost" Watermark="Адрес сервера, напр. localhost:4398" />
           <TextBox x:Name="TokenBox" Watermark="Токен (api_key)" />
-          <TextBox x:Name="DeviceBox" Watermark="Имя ККМ, напр. Emu" />
-          <DockPanel>
+          <ComboBox x:Name="DeviceBox" HorizontalAlignment="Stretch" MaxDropDownHeight="320"
+                    PlaceholderText="Имя ККТ" ToolTip.Tip="Нажмите, чтобы получить список ККТ с сервера" />
+          <!-- Поля ниже показываются только для запросов, которым они нужны -->
+          <DockPanel x:Name="CashierPanel" IsVisible="False">
             <TextBox DockPanel.Dock="Right" x:Name="CashierVatinBox" Watermark="ИНН кассира" Width="140" Margin="6,0,0,0" />
             <TextBox x:Name="CashierBox" Watermark="Кассир, напр. Иванов А.И." />
           </DockPanel>
-          <TextBox x:Name="DocumentIdBox" Watermark="Id документа (DocId / taskId)" />
-          <DockPanel>
-            <TextBox DockPanel.Dock="Right" x:Name="ToBox" Watermark="По (yyyy-MM-dd)" Width="140" Margin="6,0,0,0" />
-            <TextBox x:Name="FromBox" Watermark="С (yyyy-MM-dd)" />
-          </DockPanel>
-          <DockPanel>
+          <TextBox x:Name="DocumentIdBox" IsVisible="False" Watermark="Id документа (DocId / taskId)" />
+          <!-- Дату можно ввести вручную или выбрать в календаре -->
+          <Grid x:Name="PeriodPanel" IsVisible="False" ColumnDefinitions="*,6,*">
+            <CalendarDatePicker Grid.Column="0" x:Name="FromBox" Watermark="С (дд.мм.гггг)"
+                                SelectedDateFormat="Custom" CustomDateFormatString="dd.MM.yyyy" />
+            <CalendarDatePicker Grid.Column="2" x:Name="ToBox" Watermark="По (дд.мм.гггг)"
+                                SelectedDateFormat="Custom" CustomDateFormatString="dd.MM.yyyy" />
+          </Grid>
+          <DockPanel x:Name="FilePanel" IsVisible="False">
             <Button DockPanel.Dock="Right" Content="Обзор…" Padding="10,0" Margin="6,0,0,0"
                     VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center" Click="OnBrowseFileClick" />
             <TextBox x:Name="FilePathBox" Watermark="Картинка (BMP/PNG)" IsReadOnly="True" />
           </DockPanel>
+          <TextBox x:Name="PoolBox" IsVisible="False" Watermark="Имя пула (Pool)" />
+          <TextBox x:Name="CheckNumberBox" IsVisible="False" Watermark="Номер ФД (CheckNumber), напр. 1" />
+          <TextBox x:Name="CashAmountBox" IsVisible="False" Watermark="Сумма (CashAmount), напр. 1000" />
+          <TextBox x:Name="GuidBox" IsVisible="False" Watermark="Guid из проверки КМ (RequestKM)" />
+          <ComboBox x:Name="ConfirmationTypeBox" IsVisible="False" HorizontalAlignment="Stretch" SelectedIndex="0"
+                    ToolTip.Tip="Признак подтверждения кода маркировки (ConfirmationType)">
+            <ComboBoxItem Content="Включён в документ (Included)" />
+            <ComboBoxItem Content="Не включён в документ (NotIncluded)" />
+          </ComboBox>
+          <TextBox x:Name="CodesBox" IsVisible="False" AcceptsReturn="True" TextWrapping="Wrap"
+                   MinHeight="64" MaxHeight="120"
+                   Watermark="Коды маркировки (Codes) — несколько через запятую" />
+          <TextBox x:Name="ShiftNumberBox" IsVisible="False" Watermark="Номер смены (ShiftNumber), напр. 1" />
+          <!-- Проверка кода маркировки (RequestKM) -->
+          <TextBox x:Name="MarkingCodeBox" IsVisible="False" Watermark="Код маркировки в Base64 (MarkingCode)" />
+          <Grid x:Name="MarkingQuantityPanel" IsVisible="False" ColumnDefinitions="*,6,*">
+            <TextBox Grid.Column="0" x:Name="MarkingQuantityBox" Text="1" Watermark="Количество (Quantity)" />
+            <ComboBox Grid.Column="2" x:Name="MeasureOfQuantityBox" HorizontalAlignment="Stretch" MaxDropDownHeight="320"
+                      ToolTip.Tip="Мера количества (MeasureOfQuantity), таблица 114 ФФД" />
+          </Grid>
+          <Grid x:Name="FractionalQuantityPanel" IsVisible="False" ColumnDefinitions="*,6,*">
+            <TextBox Grid.Column="0" x:Name="FractionalNumeratorBox" Watermark="Числитель дроби" />
+            <TextBox Grid.Column="2" x:Name="FractionalDenominatorBox" Watermark="Знаменатель дроби" />
+          </Grid>
+          <ComboBox x:Name="PlannedStatusBox" IsVisible="False" HorizontalAlignment="Stretch"
+                    ToolTip.Tip="Планируемый статус товара (PlannedStatus), таблица 105 ФФД" />
+          <CheckBox x:Name="NotSendToServerBox" IsVisible="False" Content="Не отправлять в ОИСМ (NotSendToServer)"
+                    ToolTip.Tip="Результат проверки не отправлять на сервер ОИСМ" />
+          <CheckBox x:Name="WaitForResultBox" IsVisible="False" Content="Ждать ответа ОИСМ (WaitForResult)" IsChecked="True"
+                    ToolTip.Tip="Признак ожидания ответа ОИСМ" />
           <TextBlock Text="КОЛЛЕКЦИЯ" Classes="section" Margin="0,8,0,0" />
         </StackPanel>
         <Border BorderBrush="#2C2C32" BorderThickness="1" CornerRadius="4" Background="#1B1B1F" ClipToBounds="True">

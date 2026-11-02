@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.RegularExpressions;
 using RBSoftSkkm;
 using SkkmNugetSample.Examples;
 
@@ -9,8 +10,28 @@ public class ExampleItem
     public string[] GroupPath { get; init; } = [];
     public string Title { get; init; } = "";
     public string MethodName { get; init; } = "";
+    public bool NeedCashier { get; init; }
     public bool NeedDocumentId { get; init; }
+    /// <summary>DocId показывается, но может быть пустым (повторная печать чека коррекции 1.0.5).</summary>
+    public bool DocumentIdOptional { get; init; }
+    public bool NeedPeriod { get; init; }
     public bool NeedFilePath { get; init; }
+    public bool NeedPool { get; init; }
+    public bool NeedCheckNumber { get; init; }
+    public bool NeedCashAmount { get; init; }
+    public bool NeedGuid { get; init; }
+    /// <summary>Guid показывается, но может быть пустым (RequestKM сам создаёт Guid).</summary>
+    public bool GuidOptional { get; init; }
+    public bool NeedConfirmationType { get; init; }
+    public bool NeedCodes { get; init; }
+    public bool NeedShiftNumber { get; init; }
+    public bool NeedMarkingCode { get; init; }
+    public bool NeedMarkingQuantity { get; init; }
+    public bool NeedMeasureOfQuantity { get; init; }
+    public bool NeedFractionalQuantity { get; init; }
+    public bool NeedPlannedStatus { get; init; }
+    public bool NeedNotSendToServer { get; init; }
+    public bool NeedWaitForResult { get; init; }
     public int SortOrder { get; init; }
     public Sample Instance { get; init; } = null!;
     public MethodInfo Method { get; init; } = null!;
@@ -54,13 +75,8 @@ public static class Examples
         ["Корректировки ФФД 1.2"] = 1,
         ["Денежный ящик"] = 4,
         ["Нефискальные чеки"] = 5,
-        ["Рекламные чеки"] = 0,
-        ["Работа с картинками"] = 1,
         ["Очередь"] = 6,
         ["Работа с маркировкой"] = 7,
-        ["Фискализация"] = 8,
-        ["Шаблоны чека"] = 9,
-        ["Операции"] = 10
     };
 
     public static IReadOnlyList<ExampleTreeNode> Tree { get; } = BuildTree();
@@ -151,13 +167,38 @@ public static class Examples
         if (string.IsNullOrWhiteSpace(groupPath))
             groupPath = Field(type, "Group") as string ?? "Прочее";
 
+        // Какие поля панели нужны запросу — смотрим, что использует код примера.
+        var source = ExampleSource.RawText(type.Name) ?? "";
+        // Только поля входа примера (cashierName, cashAmount…), без connector.CheckNumber из вывода.
+        bool Uses(string field) => Regex.IsMatch(source, $@"(?<![.\w]){field}\b");
+        var methodName = ExampleSource.ConnectorMethod(type.Name, type.Name);
+
         return new ExampleItem
         {
             GroupPath = groupPath.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries),
             Title = Field(type, "Title") as string ?? type.Name,
-            MethodName = ExampleSource.ConnectorMethod(type.Name, type.Name),
-            NeedDocumentId = Field(type, "NeedDocumentId") is true,
-            NeedFilePath = Field(type, "NeedFilePath") is true,
+            MethodName = methodName,
+            NeedCashier = Uses("cashierName") || Uses("cashierVatin"),
+            NeedDocumentId = Field(type, "NeedDocumentId") is true || Uses("documentId"),
+            DocumentIdOptional = Field(type, "DocumentIdOptional") is true,
+            // Даты — только там, где пример их передаёт (списки слипов и коррекций идут без периода).
+            NeedPeriod = Uses("fromDate") || Uses("toDate"),
+            NeedFilePath = Field(type, "NeedFilePath") is true || Uses("filePath"),
+            NeedPool = Uses("pool"),
+            NeedCheckNumber = Uses("checkNumber"),
+            NeedCashAmount = Uses("cashAmount"),
+            NeedGuid = Field(type, "NeedGuid") is true || Uses("guid"),
+            GuidOptional = Field(type, "GuidOptional") is true,
+            NeedConfirmationType = Uses("confirmationType"),
+            NeedCodes = Uses("codes"),
+            NeedShiftNumber = Uses("shiftNumber"),
+            NeedMarkingCode = Uses("markingCode"),
+            NeedMarkingQuantity = Uses("markingQuantity"),
+            NeedMeasureOfQuantity = Uses("measureOfQuantity"),
+            NeedFractionalQuantity = Uses("fractionalQuantityNumerator") || Uses("fractionalQuantityDenominator"),
+            NeedPlannedStatus = Uses("plannedStatus"),
+            NeedNotSendToServer = Uses("notSendToServer"),
+            NeedWaitForResult = Uses("waitForResult"),
             SortOrder = Field(type, "SortOrder") is int order ? order : int.MaxValue,
             Instance = (Sample)Activator.CreateInstance(type)!,
             Method = method
@@ -183,6 +224,8 @@ public static class ExampleRunner
 
     public static void ApplyConnection(Sample sample, ConnectionSettings connection)
     {
+        // Каждый пример — с чистого коннектора: строки чека, Guid и ответ прошлого запроса сбрасываются.
+        Session.Clear();
         Session.Address = connection.Address.Trim();
         Session.Token = connection.Token.Trim();
         sample.connector = Session;
@@ -191,10 +234,25 @@ public static class ExampleRunner
         sample.cashierVatin = connection.CashierVatin.Trim();
         sample.documentId = connection.DocumentId.Trim();
         sample.filePath = connection.FilePath.Trim();
+        sample.pool = connection.Pool.Trim();
+        sample.checkNumber = connection.CheckNumber;
+        sample.cashAmount = connection.CashAmount;
+        sample.guid = connection.Guid.Trim();
+        sample.confirmationType = connection.ConfirmationType;
+        sample.codes = connection.Codes.Trim();
+        sample.shiftNumber = connection.ShiftNumber;
+        sample.markingCode = connection.MarkingCode.Trim();
+        sample.markingQuantity = connection.MarkingQuantity;
+        sample.measureOfQuantity = connection.MeasureOfQuantity;
+        sample.fractionalQuantityNumerator = connection.FractionalQuantityNumerator;
+        sample.fractionalQuantityDenominator = connection.FractionalQuantityDenominator;
+        sample.plannedStatus = connection.PlannedStatus;
+        sample.notSendToServer = connection.NotSendToServer;
+        sample.waitForResult = connection.WaitForResult;
         sample.fromDate = connection.From;
         sample.toDate = connection.To;
-        Session.ShiftsFrom = connection.From;
-        Session.ShiftsTo = connection.To;
+        Session.FromDate = connection.From;
+        Session.ToDate = connection.To;
     }
 
     public static Task<SkkmConnector> Invoke(ExampleItem example)

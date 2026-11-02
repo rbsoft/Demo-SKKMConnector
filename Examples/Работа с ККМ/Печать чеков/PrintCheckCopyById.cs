@@ -12,23 +12,14 @@ public class PrintCheckCopyById : Sample
     public async Task<SkkmConnector> PostPrintCheckCopyById()
     {
         connector.DeviceName = deviceName;
-        connector.DocumentId = documentId;
-        await connector.PrintCheckCopy();
-        if (connector.Ok)
-            Console.WriteLine(
-                "Копия чека напечатана.\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
-                $"Имя устройства: {connector.DeviceName}\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        connector.DocId = documentId;
+        if (await connector.PrintCheckCopy())
+        {
+            foreach (var report in connector.ReportValues)
+                Console.WriteLine(report.Key + ": " + report.Value);
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

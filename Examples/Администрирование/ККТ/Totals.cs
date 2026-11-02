@@ -10,52 +10,40 @@ public class Totals : Sample
 
     public async Task<SkkmConnector> GetTotals()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        await connector.GetTotals();
 
-        if (connector.Ok)
-            Console.WriteLine(
-                "Итоги смены получены.\n" +
-                $"Номер смены: {connector.ShiftTotalShiftNumber}\n" +
-                $"Счётчики прочитаны из ФН: {connector.ShiftTotalIsCountersReaded}\n" +
-                $"Остаток в ящике: {connector.ShiftTotalCashDrawerSum} (операций: {connector.ShiftTotalCashDrawerCount})\n" +
-                $"Внесения: {connector.ShiftTotalIncomeSum} (кол-во: {connector.ShiftTotalIncomeCount})\n" +
-                $"Выемки: {connector.ShiftTotalOutcomeSum} (кол-во: {connector.ShiftTotalOutcomeCount})\n" +
-                $"Приход: {connector.ShiftTotalSalesSum} (чеков: {connector.ShiftTotalSalesCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalSalesPaymentsSum}, наличными {connector.ShiftTotalSalesPaymentsCash}, безналичными {connector.ShiftTotalSalesPaymentsElectronically}, аванс {connector.ShiftTotalSalesPaymentsPrepaid}, кредит {connector.ShiftTotalSalesPaymentsCredit}, встречное {connector.ShiftTotalSalesPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalSalesDiscountSum} (кол-во: {connector.ShiftTotalSalesDiscountCount}), надбавки: {connector.ShiftTotalSalesAddingSum} (кол-во: {connector.ShiftTotalSalesAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalSalesTaxVat0}, без НДС {connector.ShiftTotalSalesTaxVatNo}, 5% {connector.ShiftTotalSalesTaxVat5}, 5/105 {connector.ShiftTotalSalesTaxVat105}, 7% {connector.ShiftTotalSalesTaxVat7}, 7/107 {connector.ShiftTotalSalesTaxVat107}, 10% {connector.ShiftTotalSalesTaxVat10}, 10/110 {connector.ShiftTotalSalesTaxVat110}, 20% {connector.ShiftTotalSalesTaxVat20}, 20/120 {connector.ShiftTotalSalesTaxVat120}, 22% {connector.ShiftTotalSalesTaxVat22}, 22/122 {connector.ShiftTotalSalesTaxVat122}\n" +
-                $"Возврат прихода: {connector.ShiftTotalSalesReturnSum} (чеков: {connector.ShiftTotalSalesReturnCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalSalesReturnPaymentsSum}, наличными {connector.ShiftTotalSalesReturnPaymentsCash}, безналичными {connector.ShiftTotalSalesReturnPaymentsElectronically}, аванс {connector.ShiftTotalSalesReturnPaymentsPrepaid}, кредит {connector.ShiftTotalSalesReturnPaymentsCredit}, встречное {connector.ShiftTotalSalesReturnPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalSalesReturnDiscountSum} (кол-во: {connector.ShiftTotalSalesReturnDiscountCount}), надбавки: {connector.ShiftTotalSalesReturnAddingSum} (кол-во: {connector.ShiftTotalSalesReturnAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalSalesReturnTaxVat0}, без НДС {connector.ShiftTotalSalesReturnTaxVatNo}, 5% {connector.ShiftTotalSalesReturnTaxVat5}, 5/105 {connector.ShiftTotalSalesReturnTaxVat105}, 7% {connector.ShiftTotalSalesReturnTaxVat7}, 7/107 {connector.ShiftTotalSalesReturnTaxVat107}, 10% {connector.ShiftTotalSalesReturnTaxVat10}, 10/110 {connector.ShiftTotalSalesReturnTaxVat110}, 20% {connector.ShiftTotalSalesReturnTaxVat20}, 20/120 {connector.ShiftTotalSalesReturnTaxVat120}, 22% {connector.ShiftTotalSalesReturnTaxVat22}, 22/122 {connector.ShiftTotalSalesReturnTaxVat122}\n" +
-                $"Коррекция прихода: {connector.ShiftTotalSalesCorrectionSum} (чеков: {connector.ShiftTotalSalesCorrectionCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalSalesCorrectionPaymentsSum}, наличными {connector.ShiftTotalSalesCorrectionPaymentsCash}, безналичными {connector.ShiftTotalSalesCorrectionPaymentsElectronically}, аванс {connector.ShiftTotalSalesCorrectionPaymentsPrepaid}, кредит {connector.ShiftTotalSalesCorrectionPaymentsCredit}, встречное {connector.ShiftTotalSalesCorrectionPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalSalesCorrectionDiscountSum} (кол-во: {connector.ShiftTotalSalesCorrectionDiscountCount}), надбавки: {connector.ShiftTotalSalesCorrectionAddingSum} (кол-во: {connector.ShiftTotalSalesCorrectionAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalSalesCorrectionTaxVat0}, без НДС {connector.ShiftTotalSalesCorrectionTaxVatNo}, 5% {connector.ShiftTotalSalesCorrectionTaxVat5}, 5/105 {connector.ShiftTotalSalesCorrectionTaxVat105}, 7% {connector.ShiftTotalSalesCorrectionTaxVat7}, 7/107 {connector.ShiftTotalSalesCorrectionTaxVat107}, 10% {connector.ShiftTotalSalesCorrectionTaxVat10}, 10/110 {connector.ShiftTotalSalesCorrectionTaxVat110}, 20% {connector.ShiftTotalSalesCorrectionTaxVat20}, 20/120 {connector.ShiftTotalSalesCorrectionTaxVat120}, 22% {connector.ShiftTotalSalesCorrectionTaxVat22}, 22/122 {connector.ShiftTotalSalesCorrectionTaxVat122}\n" +
-                $"Коррекция возврата прихода: {connector.ShiftTotalSalesReturnCorrectionSum} (чеков: {connector.ShiftTotalSalesReturnCorrectionCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalSalesReturnCorrectionPaymentsSum}, наличными {connector.ShiftTotalSalesReturnCorrectionPaymentsCash}, безналичными {connector.ShiftTotalSalesReturnCorrectionPaymentsElectronically}, аванс {connector.ShiftTotalSalesReturnCorrectionPaymentsPrepaid}, кредит {connector.ShiftTotalSalesReturnCorrectionPaymentsCredit}, встречное {connector.ShiftTotalSalesReturnCorrectionPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalSalesReturnCorrectionDiscountSum} (кол-во: {connector.ShiftTotalSalesReturnCorrectionDiscountCount}), надбавки: {connector.ShiftTotalSalesReturnCorrectionAddingSum} (кол-во: {connector.ShiftTotalSalesReturnCorrectionAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalSalesReturnCorrectionTaxVat0}, без НДС {connector.ShiftTotalSalesReturnCorrectionTaxVatNo}, 5% {connector.ShiftTotalSalesReturnCorrectionTaxVat5}, 5/105 {connector.ShiftTotalSalesReturnCorrectionTaxVat105}, 7% {connector.ShiftTotalSalesReturnCorrectionTaxVat7}, 7/107 {connector.ShiftTotalSalesReturnCorrectionTaxVat107}, 10% {connector.ShiftTotalSalesReturnCorrectionTaxVat10}, 10/110 {connector.ShiftTotalSalesReturnCorrectionTaxVat110}, 20% {connector.ShiftTotalSalesReturnCorrectionTaxVat20}, 20/120 {connector.ShiftTotalSalesReturnCorrectionTaxVat120}, 22% {connector.ShiftTotalSalesReturnCorrectionTaxVat22}, 22/122 {connector.ShiftTotalSalesReturnCorrectionTaxVat122}\n" +
-                $"Расход: {connector.ShiftTotalPurchasesSum} (чеков: {connector.ShiftTotalPurchasesCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalPurchasesPaymentsSum}, наличными {connector.ShiftTotalPurchasesPaymentsCash}, безналичными {connector.ShiftTotalPurchasesPaymentsElectronically}, аванс {connector.ShiftTotalPurchasesPaymentsPrepaid}, кредит {connector.ShiftTotalPurchasesPaymentsCredit}, встречное {connector.ShiftTotalPurchasesPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalPurchasesDiscountSum} (кол-во: {connector.ShiftTotalPurchasesDiscountCount}), надбавки: {connector.ShiftTotalPurchasesAddingSum} (кол-во: {connector.ShiftTotalPurchasesAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalPurchasesTaxVat0}, без НДС {connector.ShiftTotalPurchasesTaxVatNo}, 5% {connector.ShiftTotalPurchasesTaxVat5}, 5/105 {connector.ShiftTotalPurchasesTaxVat105}, 7% {connector.ShiftTotalPurchasesTaxVat7}, 7/107 {connector.ShiftTotalPurchasesTaxVat107}, 10% {connector.ShiftTotalPurchasesTaxVat10}, 10/110 {connector.ShiftTotalPurchasesTaxVat110}, 20% {connector.ShiftTotalPurchasesTaxVat20}, 20/120 {connector.ShiftTotalPurchasesTaxVat120}, 22% {connector.ShiftTotalPurchasesTaxVat22}, 22/122 {connector.ShiftTotalPurchasesTaxVat122}\n" +
-                $"Возврат расхода: {connector.ShiftTotalPurchasesReturnSum} (чеков: {connector.ShiftTotalPurchasesReturnCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalPurchasesReturnPaymentsSum}, наличными {connector.ShiftTotalPurchasesReturnPaymentsCash}, безналичными {connector.ShiftTotalPurchasesReturnPaymentsElectronically}, аванс {connector.ShiftTotalPurchasesReturnPaymentsPrepaid}, кредит {connector.ShiftTotalPurchasesReturnPaymentsCredit}, встречное {connector.ShiftTotalPurchasesReturnPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalPurchasesReturnDiscountSum} (кол-во: {connector.ShiftTotalPurchasesReturnDiscountCount}), надбавки: {connector.ShiftTotalPurchasesReturnAddingSum} (кол-во: {connector.ShiftTotalPurchasesReturnAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalPurchasesReturnTaxVat0}, без НДС {connector.ShiftTotalPurchasesReturnTaxVatNo}, 5% {connector.ShiftTotalPurchasesReturnTaxVat5}, 5/105 {connector.ShiftTotalPurchasesReturnTaxVat105}, 7% {connector.ShiftTotalPurchasesReturnTaxVat7}, 7/107 {connector.ShiftTotalPurchasesReturnTaxVat107}, 10% {connector.ShiftTotalPurchasesReturnTaxVat10}, 10/110 {connector.ShiftTotalPurchasesReturnTaxVat110}, 20% {connector.ShiftTotalPurchasesReturnTaxVat20}, 20/120 {connector.ShiftTotalPurchasesReturnTaxVat120}, 22% {connector.ShiftTotalPurchasesReturnTaxVat22}, 22/122 {connector.ShiftTotalPurchasesReturnTaxVat122}\n" +
-                $"Коррекция расхода: {connector.ShiftTotalPurchasesCorrectionSum} (чеков: {connector.ShiftTotalPurchasesCorrectionCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalPurchasesCorrectionPaymentsSum}, наличными {connector.ShiftTotalPurchasesCorrectionPaymentsCash}, безналичными {connector.ShiftTotalPurchasesCorrectionPaymentsElectronically}, аванс {connector.ShiftTotalPurchasesCorrectionPaymentsPrepaid}, кредит {connector.ShiftTotalPurchasesCorrectionPaymentsCredit}, встречное {connector.ShiftTotalPurchasesCorrectionPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalPurchasesCorrectionDiscountSum} (кол-во: {connector.ShiftTotalPurchasesCorrectionDiscountCount}), надбавки: {connector.ShiftTotalPurchasesCorrectionAddingSum} (кол-во: {connector.ShiftTotalPurchasesCorrectionAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalPurchasesCorrectionTaxVat0}, без НДС {connector.ShiftTotalPurchasesCorrectionTaxVatNo}, 5% {connector.ShiftTotalPurchasesCorrectionTaxVat5}, 5/105 {connector.ShiftTotalPurchasesCorrectionTaxVat105}, 7% {connector.ShiftTotalPurchasesCorrectionTaxVat7}, 7/107 {connector.ShiftTotalPurchasesCorrectionTaxVat107}, 10% {connector.ShiftTotalPurchasesCorrectionTaxVat10}, 10/110 {connector.ShiftTotalPurchasesCorrectionTaxVat110}, 20% {connector.ShiftTotalPurchasesCorrectionTaxVat20}, 20/120 {connector.ShiftTotalPurchasesCorrectionTaxVat120}, 22% {connector.ShiftTotalPurchasesCorrectionTaxVat22}, 22/122 {connector.ShiftTotalPurchasesCorrectionTaxVat122}\n" +
-                $"Коррекция возврата расхода: {connector.ShiftTotalPurchasesReturnCorrectionSum} (чеков: {connector.ShiftTotalPurchasesReturnCorrectionCount})\n" +
-                $"  Оплаты: всего {connector.ShiftTotalPurchasesReturnCorrectionPaymentsSum}, наличными {connector.ShiftTotalPurchasesReturnCorrectionPaymentsCash}, безналичными {connector.ShiftTotalPurchasesReturnCorrectionPaymentsElectronically}, аванс {connector.ShiftTotalPurchasesReturnCorrectionPaymentsPrepaid}, кредит {connector.ShiftTotalPurchasesReturnCorrectionPaymentsCredit}, встречное {connector.ShiftTotalPurchasesReturnCorrectionPaymentsBarter}\n" +
-                $"  Скидки: {connector.ShiftTotalPurchasesReturnCorrectionDiscountSum} (кол-во: {connector.ShiftTotalPurchasesReturnCorrectionDiscountCount}), надбавки: {connector.ShiftTotalPurchasesReturnCorrectionAddingSum} (кол-во: {connector.ShiftTotalPurchasesReturnCorrectionAddingCount})\n" +
-                $"  НДС: 0% {connector.ShiftTotalPurchasesReturnCorrectionTaxVat0}, без НДС {connector.ShiftTotalPurchasesReturnCorrectionTaxVatNo}, 5% {connector.ShiftTotalPurchasesReturnCorrectionTaxVat5}, 5/105 {connector.ShiftTotalPurchasesReturnCorrectionTaxVat105}, 7% {connector.ShiftTotalPurchasesReturnCorrectionTaxVat7}, 7/107 {connector.ShiftTotalPurchasesReturnCorrectionTaxVat107}, 10% {connector.ShiftTotalPurchasesReturnCorrectionTaxVat10}, 10/110 {connector.ShiftTotalPurchasesReturnCorrectionTaxVat110}, 20% {connector.ShiftTotalPurchasesReturnCorrectionTaxVat20}, 20/120 {connector.ShiftTotalPurchasesReturnCorrectionTaxVat120}, 22% {connector.ShiftTotalPurchasesReturnCorrectionTaxVat22}, 22/122 {connector.ShiftTotalPurchasesReturnCorrectionTaxVat122}\n" +
-                $"Коррекции: {connector.ShiftTotalCorrectionSum} (кол-во: {connector.ShiftTotalCorrectionsNumber})");
+        // Получаем счётчики смены:
+        if (await connector.GetTotals())
+        {
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Сумма наличных в денежном ящике: {connector.CashBalance}");
+            Console.WriteLine($"Сумма внесений: {connector.ShiftIncomeSum}");
+            Console.WriteLine($"Кол-во внесений: {connector.ShiftIncomeCount}");
+            Console.WriteLine($"Сумма выемок: {connector.ShiftOutcomeSum}");
+            Console.WriteLine($"Кол-во выемок: {connector.ShiftOutcomeCount}");
+            foreach (var row in connector.Counter)
+            {
+                Console.WriteLine($"Тип операции: {row.Operation}");
+                Console.WriteLine($"Количество операций: {row.Count}");
+                Console.WriteLine($"Сумма операций: {row.Sum}");
+                Console.WriteLine($"Кол-во коррекций: {row.SalesCorrectionCount}");
+                Console.WriteLine($"Сумма коррекций: {row.SalesCorrectionSum}");
+                Console.WriteLine($"Сумма оплат наличными: {row.Cash}");
+                Console.WriteLine($"Сумма оплат безналичными: {row.Electronically}");
+                Console.WriteLine($"Сумма оплат авансом: {row.Prepaid}");
+                Console.WriteLine($"Сумма оплат в кредит: {row.Credit}");
+                Console.WriteLine($"Сумма оплат встречным предоставлением / бартером: {row.Barter}");
+                Console.WriteLine($"Сумма предоставленных скидок: {row.DiscountSum}");
+                Console.WriteLine($"Кол-во предоставленных скидок: {row.DiscountCount}");
+                Console.WriteLine($"Сумма надбавок: {row.AddingSum}");
+                Console.WriteLine($"Кол-во надбавок: {row.AddingCount}");
+            }
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

@@ -10,36 +10,25 @@ public class GetCheckList : Sample
 
     public async Task<SkkmConnector> GetGetCheckList()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        connector.FromTo(fromDate, toDate);
 
-        await connector.GetCheckList(54);
+        // Период отбора:
+        connector.FromDate = fromDate;
+        connector.ToDate = toDate;
 
-        if (connector.Ok)
+        // Номер смены:
+        connector.ShiftNumber = shiftNumber;
+
+        // Получаем список чеков смены:
+        if (await connector.GetCheckList())
         {
-            Console.WriteLine($"Найдено чеков: {connector.Checks.Count}");
-            foreach (var check in connector.Checks)
-            {
-                Console.WriteLine(
-                    $"ФД={check.DocNumber}, ФП={check.FiscalSign}, смена={check.ShiftNumber}, " +
-                    $"№ за смену={check.DocNumberInShift}, сумма={check.Sum}, дата={check.FiscalDate:dd.MM.yyyy HH:mm}, " +
-                    $"СНО={check.TaxType}, кассир={check.CashierName}, docId={check.DocId}\n" +
-                    $"  Организация: {check.OrganizationInfo}, ИНН: {check.OrganizationVatin}, ОФД: {check.OfdName}\n" +
-                    $"  QR: сумма={check.QrDataAmount}, ФН={check.QrDataFn}, ФД={check.QrDataFd}, ФП={check.QrDataFp}\n" +
-                    $"  Оплата: наличными={check.PaymentsCash}, безнал={check.PaymentsElectronic}, позиций={check.ItemsCount}");
-
-                foreach (var item in check.Items)
-                {
-                    Console.WriteLine($"    {item.Name}: {item.Quantity} × {item.Price} = {item.Sum}, НДС={item.TaxValue}, сумма НДС={item.TaxSum}");
-                    if (!string.IsNullOrEmpty(item.MarkingCode) || item.ImcCheckFlag)
-                        Console.WriteLine($"      КМ={item.MarkingCode}, проверка={item.ImcCheckResult}, отрасл.реквизит={item.IndustryAttributeValue}");
-                }
-            }
+            foreach (var report in connector.ReportValues)
+                Console.WriteLine(report.Key + ": " + report.Value);
         }
         else
-        {
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
-        }
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
+
 
         return connector;
     }

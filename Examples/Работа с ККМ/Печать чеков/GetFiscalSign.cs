@@ -11,11 +11,16 @@ public class GetFiscalSign : Sample
     public async Task<SkkmConnector> GetFiscalSignByDocNumber()
     {
         connector.DeviceName = deviceName;
-        await connector.GetFiscalSign(1);
-        if (connector.Ok)
-            Console.WriteLine($"ФП: {connector.FiscalSign}");
+        // Номер фискального документа (ФД):
+        connector.CheckNumber = checkNumber;
+
+        if (await connector.GetFiscalSign())
+        {
+            Console.WriteLine($"Фискальный признак документа: {connector.FiscalSign}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

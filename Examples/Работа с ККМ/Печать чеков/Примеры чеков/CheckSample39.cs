@@ -10,9 +10,9 @@ public class CheckSample39 : Sample
     public async Task<SkkmConnector> PostCheckSample39()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.Sale);
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
         connector.TimeZone = CheckTimeZone.Msk;
         connector.IsElectronically = true;
         connector.IsOperationOnline = true;
@@ -31,36 +31,29 @@ public class CheckSample39 : Sample
         connector.CustomerDocumentTypeCode = "21";
         connector.CustomerDocumentData = "4509 123456";
         connector.CustomerAddress = "г. Москва, ул. Ленина, д. 1";
-        connector.IndustryIdentifierFoiv = "030";
+        connector.IndustryAttributeIdentifierFoiv = "030";
         connector.IndustryAttributeDocumentDate = "21.11.2023";
         connector.IndustryAttributeDocumentNumber = "1944";
-        connector.IndustryAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
+        connector.IndustryAttributeAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
         connector.UserAttributeName = "НомерЗаказа";
         connector.UserAttributeValue = "42";
         connector.OperationalAttributeDateTime = "03.07.2026";
-        connector.OperationalAttributeOperationId = 1;
-        connector.OperationalAttributeData = "Оплата по договору";
-        var line1 = connector.AddPosition("Услуга", 1m, 250.0m, TaxRate.Vat20, signCalculationObject: SignCalculationObject.Service, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 250m;
+        connector.OperationalAttributeOperationID = 1;
+        connector.OperationalAttributeOperationData = "Оплата по договору";
+        var line1 = connector.AddPosition("Услуга", 1m, 250m, 250.0m, TaxRate.Vat20, SignCalculationObject.Service, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line1.TaxSum = 41.67m;
-        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
         connector.Cash = 250.0m;
-        await connector.PrintCheck();
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек пробит.\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
-                $"Имя устройства: {connector.DeviceName}\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        if (await connector.PrintCheck())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }

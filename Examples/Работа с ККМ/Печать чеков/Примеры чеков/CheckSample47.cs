@@ -10,39 +10,32 @@ public class CheckSample47 : Sample
     public async Task<SkkmConnector> PostCheckSample47()
     {
         connector.DeviceName = deviceName;
-        connector.SetCashier(cashierName, cashierVatin);
-        connector.SetTaxType(TaxSystem.Osn);
-        connector.NewCheck(CheckType.Sale);
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.FullPrepayment, "M=0", "Способ 0");
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.PartialPrepayment, "M=1", "Способ 1");
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.Advance, "M=2", "Способ 2");
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.FullPayment, "M=3", "Способ 3");
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.PartialPaymentAndCredit, "M=4", "Способ 4");
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.CreditTransfer, "M=5", "Способ 5");
-        connector.AddElectronicPayment(10m, ElectronicPaymentMethod.CreditPayment, "M=6", "Способ 6");
+        connector.CashierName = cashierName;
+        connector.CashierVatin = cashierVatin;
+        connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
+        // По одной оплате на каждый способ безналичной оплаты:
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.FullPrepayment, "M=0", "Способ 0");
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.PartialPrepayment, "M=1", "Способ 1");
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.Advance, "M=2", "Способ 2");
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.FullPayment, "M=3", "Способ 3");
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.PartialPaymentAndCredit, "M=4", "Способ 4");
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.CreditTransfer, "M=5", "Способ 5");
+        connector.AddElectronicPaymentInfo(10m, ElectronicPaymentMethod.CreditPayment, "M=6", "Способ 6");
 
-        var line1 = connector.AddPosition("Вода 1л.", 1m, 70.0m, TaxRate.None, signCalculationObject: SignCalculationObject.Goods, signMethodCalculation: SignMethodCalculation.FullPayment);
-        line1.Price = 70m;
+        var line1 = connector.AddPosition("Вода 1л.", 1m, 70m, 70.0m, TaxRate.None, SignCalculationObject.Goods, SignMethodCalculation.FullPayment, MeasureOfQuantity.Piece);
         line1.TaxSum = 0m;
-        line1.MeasureOfQuantity = MeasureOfQuantity.Piece;
         connector.ElectronicPayment = 70m;
-        await connector.PrintCheck();
+        if (await connector.PrintCheck())
+        {
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
+            Console.WriteLine($"Номер чека: {connector.CheckNumber}");
+            Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
+            Console.WriteLine($"ФП чека: {connector.FiscalSign}");
 
-        if (connector.Ok)
-            Console.WriteLine(
-                "Чек пробит.\n" +
-                $"Время на сервере ККМ: {connector.ServerDateTime}\n" +
-                $"Имя устройства: {connector.DeviceName}\n" +
-                $"Идентификатор документа (docId): {connector.DocumentId}\n" +
-                $"Фискальный признак документа: {connector.FiscalSign}\n" +
-                $"Номер фискального документа (ФД): {connector.CheckNumber}\n" +
-                $"Номер смены: {connector.ShiftNumber}\n" +
-                $"Номер ФН: {connector.FnNumber}\n" +
-                $"Регистрационный номер ККТ (РНМ): {connector.RnNumber}\n" +
-                $"Адрес сайта ФНС: {connector.FnsUrl}\n" +
-                $"Дата и время документа по часам ФН: {connector.FiscalDateTime}");
+        }
         else
-            Console.WriteLine($"Ошибка [{connector.ErrorCode}]: {connector.ErrorDescription}");
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
         return connector;
     }
