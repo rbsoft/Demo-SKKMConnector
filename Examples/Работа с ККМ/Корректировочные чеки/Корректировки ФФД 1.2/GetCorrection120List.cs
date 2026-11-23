@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -12,7 +12,13 @@ public class GetCorrection120List : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Получаем список чеков коррекции:
+        // Период необязателен (пусто в панели — from/to не уходят):
+        connector.FromDate = fromDate;
+        connector.ToDate = toDate;
+        // Смена и признак обработки необязательны:
+        connector.ShiftNumber = shiftNumber;
+        connector.ListIsProcessed = isProcessed;
+
         if (await connector.GetCorrection120List())
         {
             foreach (var report in connector.ReportValues)
@@ -20,7 +26,6 @@ public class GetCorrection120List : Sample
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

@@ -18,11 +18,12 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
-    <PackageReference Include="SkkmConnector" Version="1.34.13" />
+    <PackageReference Include="SkkmConnector" Version="1.34.28" />
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Assets\**" Exclude="Assets\*.pdf" />
+    <Content Include="Assets\SkkmConnector.pdf" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Examples\**\*.cs" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

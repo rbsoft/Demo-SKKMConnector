@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,9 +10,13 @@ public class CashOutAsync : Sample
 
     public async Task<SkkmConnector> PostCashOutAsync()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
+        // ФИО кассира:
         connector.CashierName = cashierName;
+        // ИНН кассира:
         connector.CashierVatin = cashierVatin;
+        // Сумма выемки наличных из денежного ящика (руб.):
         connector.CashAmount = cashAmount;
         if (await connector.CashOutAsync())
         {

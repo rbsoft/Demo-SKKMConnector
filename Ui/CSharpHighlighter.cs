@@ -386,6 +386,24 @@ public static class CSharpHighlighter
             target.Add(new Run(buffer.ToString()) { Foreground = brush });
     }
 
+    // Вывод примера: строки «Ключ: значение».
+    public static void ApplyResponse(string text, InlineCollection target)
+    {
+        target.Clear();
+        foreach (var line in Regex.Split(text, "(?<=\n)"))
+        {
+            int colon = line.IndexOf(": ", StringComparison.Ordinal) is var i and >= 0 ? i + 2 : 0;
+            var value = line[colon..].TrimEnd();
+            target.Add(new Run(line[..colon]) { Foreground = Key });
+            target.Add(new Run(line[colon..])
+            {
+                Foreground = value is "True" or "False" ? Keyword
+                    : decimal.TryParse(value, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out _) ? Number
+                    : Str
+            });
+        }
+    }
+
     // Пропускает строку "...", дословную @"...""..." или символ '\''; возвращает индекс за закрывающей кавычкой.
     private static int SkipQuoted(string code, int i, int n)
     {
@@ -404,68 +422,5 @@ public static class CSharpHighlighter
             i++;
         }
         return i;
-    }
-
-    // Подсветка JSON ответа теми же кистями, что и C#.
-    public static void ApplyJson(string json, InlineCollection target)
-    {
-        target.Clear();
-        if (string.IsNullOrEmpty(json))
-            return;
-
-        var buffer = new StringBuilder();
-        var brush = Default;
-
-        void Emit(int start, int end, IBrush color)
-        {
-            if (!ReferenceEquals(color, brush) && buffer.Length > 0)
-            {
-                target.Add(new Run(buffer.ToString()) { Foreground = brush });
-                buffer.Clear();
-            }
-            brush = color;
-            buffer.Append(json, start, end - start);
-        }
-
-        int i = 0, n = json.Length;
-        while (i < n)
-        {
-            char c = json[i];
-            int start = i;
-
-            if (c == '"')
-            {
-                i = SkipQuoted(json, i, n);
-                Emit(start, i, IsJsonPropertyName(json, i, n) ? Key : Str);
-            }
-            else if (char.IsDigit(c) || (c == '-' && i + 1 < n && char.IsDigit(json[i + 1])))
-            {
-                if (c == '-') i++;
-                while (i < n && (char.IsDigit(json[i]) || json[i] is '.' or 'e' or 'E' or '+' or '-'))
-                    i++;
-                Emit(start, i, Number);
-            }
-            else if (char.IsLetter(c))
-            {
-                while (i < n && char.IsLetter(json[i])) i++;
-                string word = json.Substring(start, i - start);
-                Emit(start, i, word is "true" or "false" or "null" ? Keyword : Default);
-            }
-            else
-            {
-                i++;
-                Emit(start, i, Default);
-            }
-        }
-
-        if (buffer.Length > 0)
-            target.Add(new Run(buffer.ToString()) { Foreground = brush });
-    }
-
-    // После строки — двоеточие (с пробелами) значит, что это имя свойства.
-    private static bool IsJsonPropertyName(string json, int i, int n)
-    {
-        while (i < n && char.IsWhiteSpace(json[i])) i++;
-        return i < n && json[i] == ':';
     }
 }

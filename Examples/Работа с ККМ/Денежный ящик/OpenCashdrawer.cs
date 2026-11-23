@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -12,18 +12,25 @@ public class OpenCashdrawer : Sample
     {
         // Имя ККТ:
         connector.DeviceName = deviceName;
-        // ФИО и ИНН кассира (ИНН необязателен):
+        // ФИО кассира:
         connector.CashierName = cashierName;
+        // ИНН кассира:
         connector.CashierVatin = cashierVatin;
-
-        // Открываем денежный ящик:
         if (await connector.OpenCashdrawer())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
+            Console.WriteLine($"Тип документа: {connector.TaskType}");
+            Console.WriteLine($"Время на сервере ККМ: {connector.ServerTime}");
+            Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Номер чека за смену: {connector.CheckNumberInShift}");
             Console.WriteLine($"Номер денежного ящика: {connector.DrawerNumber}");
+            Console.WriteLine($"Имя устройства: {connector.DeviceName}");
+            Console.WriteLine($"Код результата: {connector.ResultCode}");
+            Console.WriteLine($"Описание результата: {connector.ResultDescription}");
             Console.WriteLine($"Признак успешного завершения операции: {connector.IsProcessed}");
+            Console.WriteLine($"Модель ККТ: {connector.DeviceModel}");
+            Console.WriteLine($"Заводской номер ККТ: {connector.DeviceSerialNumber}");
 
         }
         else

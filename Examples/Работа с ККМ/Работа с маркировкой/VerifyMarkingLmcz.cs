@@ -13,10 +13,8 @@ public class VerifyMarkingLmcz : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Коды маркировки для проверки, можно указать несколько через запятую:
+        // Список КМ для офлайн-проверки в локальном модуле ЧЗ:
         connector.Codes = codes;
-
-        // Проверяем КМ через локальный модуль:
         if (await connector.VerifyMarkingLmcz())
             RequestKM.PrintVerify(connector);
         else

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,10 +10,9 @@ public class GetQueueTask : Sample
 
     public async Task<SkkmConnector> GetGetQueueTask()
     {
-        // Идентификатор задания:
+        // Идентификатор документа
         connector.DocId = documentId;
 
-        // Получаем задание очереди:
         if (await connector.GetQueueTask())
         {
             Console.WriteLine($"Идентификатор: {connector.DocId}");

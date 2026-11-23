@@ -10,7 +10,10 @@ public class PrintSlipAsync : Sample
 
     public async Task<SkkmConnector> PostPrintSlipAsync()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
+
+        // Текст слипа целиком — строки нефискальной ленты с разметкой [center], [bold], [QR], [line]:
         connector.Text =
             "[center,bold]РБ-Софт: Сервер ККМ\n" +
             "[center]Нефискальный документ\n" +

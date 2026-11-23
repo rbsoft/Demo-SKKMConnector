@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,6 +10,7 @@ public class ShiftStatus : Sample
 
     public async Task<SkkmConnector> GetShiftStatus()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.GetShiftStatus())
         {

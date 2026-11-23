@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,6 +10,7 @@ public class OpenSessionRegistrationKM : Sample
 
     public async Task<SkkmConnector> PostOpenSessionRegistrationKM()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.OpenSessionRegistrationKM())
             Console.WriteLine("Выполнено успешно.");

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -26,6 +26,7 @@ public class GetKktInfo : Sample
             Console.WriteLine($"Заводской номер ККТ: {connector.DeviceSerialNumber}");
             Console.WriteLine($"Версия прошивки: {connector.DeviceFirmwareVersion}");
             Console.WriteLine($"Версия конфигурации прошивки устройства: {connector.DeviceConfigurationVersion}");
+            Console.WriteLine($"Название модели ККТ: {connector.DeviceModel}");
             foreach (var license in connector.KktLicenses)
             {
                 Console.WriteLine($"Наименование лицензии: {license.Name}");
@@ -39,6 +40,17 @@ public class GetKktInfo : Sample
             Console.WriteLine($"Тип драйвера: {connector.DriverType}");
             Console.WriteLine($"Данные поставщика: {connector.DriverVendor}");
             Console.WriteLine($"Версия драйвера: {connector.DriverVersion}");
+            Console.WriteLine($"Версия Сервера ККМ: {connector.ServerVersion}");
+            Console.WriteLine($"Серийный номер фискального накопителя: {connector.FnSerialNumber}");
+            Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
+            Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
+            Console.WriteLine($"Срок действия ФН: {connector.FnValidityDate}");
+            Console.WriteLine($"Наименование организации: {connector.OrganizationInfo}");
+            Console.WriteLine($"ИНН: {connector.FnVatin}");
+            Console.WriteLine($"Название ОФД: {connector.FnOfdName}");
+            Console.WriteLine($"ИНН ОФД: {connector.FnOfdVatin}");
+            Console.WriteLine($"Адрес расчётов: {connector.FnSaleAddress}");
+            Console.WriteLine($"Место расчётов: {connector.FnSaleLocation}");
 
         }
         else

@@ -13,10 +13,8 @@ public class VerifyMarkingTsPiot : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Коды маркировки для проверки, можно указать несколько через запятую:
+        // Список КМ для проверки через транспортный слой ПИоТ:
         connector.Codes = codes;
-
-        // Проверяем КМ через ТС ПИоТ:
         if (await connector.VerifyMarkingTsPiot())
             RequestKM.PrintVerify(connector);
         else

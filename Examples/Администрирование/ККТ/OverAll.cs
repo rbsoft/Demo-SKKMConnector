@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -12,8 +12,6 @@ public class OverAll : Sample
     {
         // Имя ККТ:
         connector.DeviceName = deviceName;
-
-        // Получаем необнуляемые итоги:
         if (await connector.GetOverAll())
         {
             Console.WriteLine($"Не обнуляемая сумма: {connector.NonZeroSum}");

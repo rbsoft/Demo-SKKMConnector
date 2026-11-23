@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -11,10 +11,8 @@ public class GetReportXResult : Sample
 
     public async Task<SkkmConnector> GetGetReportX()
     {
-        // Идентификатор документа:
+        // Идентификатор документа X-отчёта:
         connector.DocId = documentId;
-
-        // Получаем результат X-отчёта по ИД документа:
         if (await connector.GetReportXResult())
         {
             Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
@@ -30,7 +28,7 @@ public class GetReportXResult : Sample
             Console.WriteLine($"Версия ФФД: {connector.FnFFDVersion}");
             Console.WriteLine($"Тип чека: {connector.TaskType}");
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-            Console.WriteLine($"Дата создания документа: {connector.DateTime}");
+            Console.WriteLine($"Дата создания документа: {connector.ServerTime}");
             Console.WriteLine($"Идентификатор терминала, с которго пришел документ: {connector.TerminalId}");
             Console.WriteLine($"Имя устройства: {connector.DeviceName}");
             Console.WriteLine($"Пул, который назначен чеку: {connector.PoolId}");
@@ -41,16 +39,6 @@ public class GetReportXResult : Sample
             Console.WriteLine($"Версия ФФД: {connector.DeviceFfdVersion}");
             Console.WriteLine($"Версия ФФД ФН: {connector.DeviceFnFfdVersion}");
             Console.WriteLine($"Часовая зона: {connector.DeviceTimeZone}");
-            foreach (var license in connector.KktLicenses)
-            {
-                Console.WriteLine($"Наименование лицензии: {license.Name}");
-                Console.WriteLine($"Номер лицензии: {license.Number}");
-                Console.WriteLine($"Дата начала действия лицензии: {license.ValidFrom}");
-                Console.WriteLine($"Дата окончания действия лицензии: {license.ValidUntil}");
-                Console.WriteLine($"Максимально поддерживаемая конфигурация: {license.UnitVersion}");
-                Console.WriteLine($"Описание последствий окончания лицензии: {license.Description}");
-                Console.WriteLine($"Лицензия действует для текущей прошивки: {license.IsActive}");
-            }
             Console.WriteLine($"Фискальный режим: {connector.DeviceIsFiscal}");
             Console.WriteLine($"Ширина чековой ленты: {connector.DeviceLineLength}");
             Console.WriteLine($"Ширина чековой ленты в пикселях: {connector.DeviceLineLengthPixels}");
@@ -60,7 +48,6 @@ public class GetReportXResult : Sample
             Console.WriteLine($"Версия прошивки: {connector.DeviceFirmwareVersion}");
             Console.WriteLine($"Версия конфигурации прошивки устройства: {connector.DeviceConfigurationVersion}");
             Console.WriteLine($"Организация: {connector.OrganizationInfo}");
-            Console.WriteLine($"Серийний номер ККТ: {connector.DeviceSerialNumber}");
             Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
             Console.WriteLine($"Адрес ФНС: {connector.FnFnsUrl}");
             Console.WriteLine($"Имя ОФД: {connector.FnOfdName}");
@@ -76,7 +63,6 @@ public class GetReportXResult : Sample
             Console.WriteLine($"Превышено время ожидания ответа от ОФД: {connector.FnWarningsIsOfdTimeout}");
             Console.WriteLine($"Исчерпан ресурс ФН: {connector.FnWarningsIsResourceExhausted}");
             Console.WriteLine($"Срок действия ключей фискального признака в днях: {connector.ResourcesFn}");
-            Console.WriteLine($"Номер открытой смены/Номер закрытой смены: {connector.ShiftNumber}");
             Console.WriteLine($"Номер последнего фискального документа: {connector.LastCheckNumber}");
             Console.WriteLine($"Номер последнего чека за смену: {connector.ShiftClosingCheckNumber}");
             Console.WriteLine($"Дата и время формирования фискального документа: {connector.DateTime}");

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,6 +10,7 @@ public class PrintCheckCopyLast : Sample
 
     public async Task<SkkmConnector> PostPrintCheckCopyLast()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.PrintCheckCopyLast())
             Console.WriteLine(

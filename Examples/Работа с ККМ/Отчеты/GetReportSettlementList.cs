@@ -13,11 +13,13 @@ public class GetReportSettlementList : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Период отбора:
+        // Период необязателен (пусто в панели — from/to не уходят):
         connector.FromDate = fromDate;
         connector.ToDate = toDate;
+        // Смена и признак обработки необязательны:
+        connector.ShiftNumber = shiftNumber;
+        connector.ListIsProcessed = isProcessed;
 
-        // Получаем список отчётов:
         if (await connector.GetReportSettlementList())
         {
             foreach (var report in connector.ReportValues)
@@ -25,7 +27,6 @@ public class GetReportSettlementList : Sample
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

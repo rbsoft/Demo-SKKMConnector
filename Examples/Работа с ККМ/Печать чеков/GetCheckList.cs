@@ -1,11 +1,11 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
 public class GetCheckList : Sample
 {
     public const string GroupPath = "Работа с ККМ|Печать чеков";
-    public const string Title = "Список чеков за смену";
+    public const string Title = "Список чеков";
     public const int SortOrder = 5;
 
     public async Task<SkkmConnector> GetGetCheckList()
@@ -13,14 +13,13 @@ public class GetCheckList : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Период отбора:
+        // Период необязателен (пусто в панели — from/to не уходят):
         connector.FromDate = fromDate;
         connector.ToDate = toDate;
-
-        // Номер смены:
+        // Смена и признак обработки необязательны:
         connector.ShiftNumber = shiftNumber;
+        connector.ListIsProcessed = isProcessed;
 
-        // Получаем список чеков смены:
         if (await connector.GetCheckList())
         {
             foreach (var report in connector.ReportValues)
@@ -28,7 +27,6 @@ public class GetCheckList : Sample
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,10 +10,11 @@ public class ConfirmKM : Sample
 
     public async Task<SkkmConnector> PostConfirmKM()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
-        // Guid из ответа проверки КМ (RequestKM):
+        // Guid запроса
         connector.Guid = guid;
-        // Включён ли код маркировки в документ реализации:
+        // Тип подтверждения
         connector.ConfirmationType = confirmationType;
         if (await connector.ConfirmKM())
             Console.WriteLine("Выполнено успешно.");

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -12,8 +12,6 @@ public class GetProcessingKMResult : Sample
     {
         // Имя ККТ:
         connector.DeviceName = deviceName;
-
-        // Получаем результат проверки:
         if (await connector.GetProcessingKMResult())
         {
             Console.WriteLine($"Уникальный код запроса: {connector.Guid}");

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,6 +10,7 @@ public class LineLength : Sample
 
     public async Task<SkkmConnector> GetLineLength()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.GetLineLength())
         {

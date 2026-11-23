@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,10 +10,8 @@ public class GetCorrection105 : Sample
 
     public async Task<SkkmConnector> GetCheckCorrection105ById()
     {
-        // Идентификатор документа:
+        // DocId чека коррекции:
         connector.DocId = documentId;
-
-        // Получаем чек коррекции:
         if (await connector.GetCorrection105())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");

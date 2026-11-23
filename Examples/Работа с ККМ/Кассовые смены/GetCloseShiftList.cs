@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -13,11 +13,13 @@ public class GetCloseShiftList : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Период отбора:
+        // Период необязателен (пусто в панели — from/to не уходят):
         connector.FromDate = fromDate;
         connector.ToDate = toDate;
+        // Смена и признак обработки необязательны:
+        connector.ShiftNumber = shiftNumber;
+        connector.ListIsProcessed = isProcessed;
 
-        // Получаем список закрытий смен:
         if (await connector.GetCloseShiftList())
         {
             foreach (var report in connector.ReportValues)
@@ -25,7 +27,6 @@ public class GetCloseShiftList : Sample
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

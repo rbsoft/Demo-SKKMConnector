@@ -21,10 +21,10 @@ public class Sample
     /// <summary>Id документа (DocId). Тот же идентификатор в очереди называется taskId.</summary>
     public string documentId = "";
 
-    /// <summary>Начало периода (from) из панели подключения.</summary>
+    /// <summary>Начало периода (from) из панели. default — from в запрос не уходит.</summary>
     public DateTime fromDate;
 
-    /// <summary>Конец периода (to) из панели подключения.</summary>
+    /// <summary>Конец периода (to) из панели. default — to в запрос не уходит.</summary>
     public DateTime toDate;
 
     /// <summary>Путь к файлу картинки (BMP/PNG) из панели подключения. Проверку формата делает коннектор.</summary>
@@ -48,8 +48,11 @@ public class Sample
     /// <summary>Коды маркировки через запятую.</summary>
     public string codes = "";
 
-    /// <summary>Номер смены из панели подключения.</summary>
+    /// <summary>Номер смены из панели. 0 — shift в запрос не уходит.</summary>
     public int shiftNumber;
+
+    /// <summary>Фильтр isProcessed из панели. null — параметр не уходит.</summary>
+    public bool? isProcessed;
 
     /// <summary>Код маркировки в Base64 для проверки (RequestKM).</summary>
     public string markingCode = "";

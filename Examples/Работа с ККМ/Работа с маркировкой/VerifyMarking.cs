@@ -13,10 +13,8 @@ public class VerifyMarking : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Коды маркировки для проверки, можно указать несколько через запятую:
+        // Список КМ (Cis/DataMatrix), несколько КМ перечисляем через запятую:
         connector.Codes = codes;
-
-        // Проверяем КМ через API Честного знака:
         if (await connector.VerifyMarking())
             RequestKM.PrintVerify(connector);
         else

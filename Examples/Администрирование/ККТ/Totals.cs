@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -12,8 +12,6 @@ public class Totals : Sample
     {
         // Имя ККТ:
         connector.DeviceName = deviceName;
-
-        // Получаем счётчики смены:
         if (await connector.GetTotals())
         {
             Console.WriteLine($"Номер смены: {connector.ShiftNumber}");

@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -11,10 +11,8 @@ public class Check : Sample
 
     public async Task<SkkmConnector> GetCheck()
     {
-        // Идентификатор документа:
+        // DocId чека на сервере (из PrintCheck/PrintCheckAsync или списка GetCheckList):
         connector.DocId = documentId;
-
-        // Получаем данные чека:
         if (await connector.GetCheck())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");

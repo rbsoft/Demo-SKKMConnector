@@ -15,18 +15,23 @@ public class RequestKM : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Уникальный код запроса (Guid) коннектор генерирует сам и возвращает в connector.Guid —
+        // Уникальный код запроса (Guid) коннектор генерирует сам
         // он понадобится для ConfirmKM. Заданный в поле Guid не используется.
-        connector.NotSendToServer = notSendToServer;     // Результат проверки не отправлять в ОИСМ
-        connector.WaitForResult = waitForResult;         // Ждать ответа ОИСМ
-        connector.MarkingCode = markingCode;             // КМ в Base64
-        connector.PlannedStatus = plannedStatus;         // Планируемый статус (таблица 105 ФФД)
-        connector.Quantity = markingQuantity;            // Количество товара
-        connector.MeasureOfQuantity = measureOfQuantity; // Мера количества (таблица 114 ФФД)
-        connector.FractionalQuantityNumerator = fractionalQuantityNumerator;     // Числитель дробного количества
-        connector.FractionalQuantityDenominator = fractionalQuantityDenominator; // Знаменатель дробного количества
-
-        // Проверяем КМ:
+        connector.NotSendToServer = notSendToServer;
+        // Ждать ответ ОИСМ в этом же вызове:
+        connector.WaitForResult = waitForResult;
+        // КМ в Base64 (как в DataMatrix) для RequestKM:
+        connector.MarkingCode = markingCode;
+        // Планируемый статус товара (таблица 105 ФФД) при продаже/возврате:
+        connector.PlannedStatus = plannedStatus;
+        // Количество маркированного товара:
+        connector.Quantity = markingQuantity;
+        // Единица измерения количества:
+        connector.MeasureOfQuantity = measureOfQuantity;
+        // Числитель дробного количества (весовой товар):
+        connector.FractionalQuantityNumerator = fractionalQuantityNumerator;
+        // Знаменатель дробного количества:
+        connector.FractionalQuantityDenominator = fractionalQuantityDenominator;
         if (await connector.RequestKM())
         {
             Console.WriteLine($"Связь с ОИСМ: {connector.IsmConnected}");
@@ -43,6 +48,7 @@ public class RequestKM : Sample
         return connector;
     }
 
+    // Вывод ответа VerifyMarking* (не RequestKM): сводка модуля ЧЗ и список MarkingCodes.
     internal static void PrintVerify(SkkmConnector connector)
     {
         Console.WriteLine($"Код результата: {connector.MarkingAnswerCode}");
@@ -57,10 +63,12 @@ public class RequestKM : Sample
         Console.WriteLine($"Версия модуля: {connector.MarkingModuleVersion}");
         Console.WriteLine($"Экземпляр модуля: {connector.MarkingModuleId}");
         Console.WriteLine($"Адрес модуля: {connector.MarkingServiceUrl}");
+        // Каждый элемент — разобранный КМ (Cis — код идентификации без криптоподписи):
         foreach (var mark in connector.MarkingCodes)
             PrintCodeMark(mark);
     }
 
+    // Расшифровка одного КМ: Cis (КИ), DataMatrix, статусы оборота и блокировок.
     internal static void PrintCodeMark(CodeMarkInfo? mark)
     {
         if (mark == null)

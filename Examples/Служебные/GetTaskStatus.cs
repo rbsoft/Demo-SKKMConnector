@@ -11,10 +11,9 @@ public class GetTaskStatus : Sample
 
     public async Task<SkkmConnector> GetGetTaskStatus()
     {
-        // Идентификатор документа:
+        // DocId задания
         connector.DocId = documentId;
 
-        // Узнаём статус задания (ИД документа передаётся параметром):
         if (await connector.GetTaskStatus())
         {
             Console.WriteLine($"Имя устройства: {connector.DeviceName}");

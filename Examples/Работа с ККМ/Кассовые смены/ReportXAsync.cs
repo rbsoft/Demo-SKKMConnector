@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,13 +10,15 @@ public class ReportXAsync : Sample
 
     public async Task<SkkmConnector> PostReportXAsync()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
+        // ФИО кассира:
         connector.CashierName = cashierName;
+        // ИНН кассира:
         connector.CashierVatin = cashierVatin;
         if (await connector.ReportXAsync())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

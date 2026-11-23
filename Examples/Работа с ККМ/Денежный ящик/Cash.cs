@@ -10,6 +10,7 @@ public class Cash : Sample
 
     public async Task<SkkmConnector> GetCash()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.GetCash())
         {

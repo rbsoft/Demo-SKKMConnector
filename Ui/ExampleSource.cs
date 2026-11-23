@@ -5,43 +5,20 @@ namespace SkkmNugetSample.Ui;
 
 public static class ExampleSource
 {
+    // Индекс файлов примеров строится один раз.
+    private static readonly Lazy<IReadOnlyDictionary<string, string>> FileIndex = new(BuildFileIndex);
+
     public static string Read(ExampleItem example)
     {
         var raw = RawText(example.Instance.GetType().Name);
         return raw == null ? "" : FormatForDisplay(raw);
     }
 
-    // Индекс файлов примеров (имя файла -> полный путь) строится один раз:
-    // папка Examples сканируется единожды, а не на каждый пример.
-    private static readonly Lazy<IReadOnlyDictionary<string, string>> FileIndex = new(BuildFileIndex);
-
-    private static IReadOnlyDictionary<string, string> BuildFileIndex()
-    {
-        var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var root in Roots())
-        {
-            string examplesDir = Path.Combine(root, "Examples");
-            if (!Directory.Exists(examplesDir))
-                continue;
-
-            foreach (var file in Directory.EnumerateFiles(examplesDir, "*.cs", SearchOption.AllDirectories))
-            {
-                string name = Path.GetFileName(file);
-                // Первый корень (папка вывода) имеет приоритет — как и раньше.
-                map.TryAdd(name, file);
-            }
-        }
-        return map;
-    }
-
-    /// <summary>
-    /// Сырой текст файла примера по имени класса (или null, если файл не найден).
-    /// </summary>
     public static string? RawText(string className)
         => FileIndex.Value.TryGetValue(className + ".cs", out var path) ? File.ReadAllText(path) : null;
 
     /// <summary>
-    /// Имя вызываемого метода коннектора (последний <c>await kkm.X(</c>) — для показа в дереве и заголовке.
+    /// Имя вызываемого метода коннектора (последний <c>await connector.X(</c>) — для дерева и заголовка.
     /// </summary>
     public static string ConnectorMethod(string className, string fallback)
     {
@@ -52,7 +29,22 @@ public static class ExampleSource
         return matches.Count > 0 ? matches[^1].Groups[1].Value : fallback;
     }
 
-    // Как в реальном клиентском коде: using + создание коннектора + тело запроса.
+    private static IReadOnlyDictionary<string, string> BuildFileIndex()
+    {
+        var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var root in Roots())
+        {
+            var examplesDir = Path.Combine(root, "Examples");
+            if (!Directory.Exists(examplesDir))
+                continue;
+
+            foreach (var file in Directory.EnumerateFiles(examplesDir, "*.cs", SearchOption.AllDirectories))
+                map.TryAdd(Path.GetFileName(file), file);
+        }
+        return map;
+    }
+
+    // Тело метода примера + создание коннектора в начале, как в клиентском коде.
     private static string FormatForDisplay(string text)
     {
         int start = text.IndexOf("    public async Task", StringComparison.Ordinal);
@@ -67,9 +59,8 @@ public static class ExampleSource
         int end = -1;
         for (int i = brace; i < text.Length; i++)
         {
-            char c = text[i];
-            if (c == '{') depth++;
-            else if (c == '}')
+            if (text[i] == '{') depth++;
+            else if (text[i] == '}')
             {
                 depth--;
                 if (depth == 0)
@@ -82,10 +73,8 @@ public static class ExampleSource
         if (end < 0)
             return text.Trim();
 
-        string body = Unindent(text[(brace + 1)..end].TrimEnd());
-        body = Regex.Replace(body, @"\r?\nreturn connector;\s*$", "", RegexOptions.Multiline);
-        body = body.TrimEnd();
-
+        var body = Unindent(text[(brace + 1)..end].TrimEnd());
+        body = Regex.Replace(body, @"\r?\nreturn connector;\s*$", "", RegexOptions.Multiline).TrimEnd();
         return "using RBSoftSkkm;\n\nusing var connector = new SkkmConnector();\n" + body + "\n";
     }
 

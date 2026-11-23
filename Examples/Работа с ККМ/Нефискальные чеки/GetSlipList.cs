@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -13,7 +13,13 @@ public class GetSlipList : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Получаем список слип-чеков:
+        // Период необязателен (пусто в панели — from/to не уходят):
+        connector.FromDate = fromDate;
+        connector.ToDate = toDate;
+        // Смена и признак обработки необязательны:
+        connector.ShiftNumber = shiftNumber;
+        connector.ListIsProcessed = isProcessed;
+
         if (await connector.GetSlipList())
         {
             foreach (var report in connector.ReportValues)
@@ -21,7 +27,6 @@ public class GetSlipList : Sample
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

@@ -115,8 +115,20 @@
       <ColumnDefinition Width="*" MinWidth="480"/>
     </Grid.ColumnDefinitions>
 
-    <!-- Левая панель: подключение + коллекция -->
-    <Border Grid.Column="0" Background="#1E1E22" BorderBrush="#2C2C32" BorderThickness="1" CornerRadius="6" Padding="12">
+    <!-- Левая панель: о программе + подключение + коллекция -->
+    <Grid Grid.Column="0" RowDefinitions="Auto,6,*">
+      <Border Grid.Row="0" Background="#1E1E22" BorderBrush="#2C2C32" BorderThickness="1"
+              CornerRadius="6" Padding="12,8" MinHeight="38">
+        <DockPanel VerticalAlignment="Center">
+          <Button DockPanel.Dock="Right" x:Name="AboutButton" Padding="6" MinWidth="0"
+                  VerticalAlignment="Center" ToolTip.Tip="Открыть справку (PDF)" Click="OnAboutClick">
+            <mi:MaterialIcon Kind="AlertCircleOutline" Width="16" Height="16" />
+          </Button>
+          <TextBlock Text="О ПРОГРАММЕ" Classes="section" VerticalAlignment="Center" />
+        </DockPanel>
+      </Border>
+
+      <Border Grid.Row="2" Background="#1E1E22" BorderBrush="#2C2C32" BorderThickness="1" CornerRadius="6" Padding="12">
       <DockPanel>
         <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,10">
           <TextBlock Text="ПОДКЛЮЧЕНИЕ" Classes="section" />
@@ -132,10 +144,12 @@
           <TextBox x:Name="DocumentIdBox" IsVisible="False" Watermark="Id документа (DocId / taskId)" />
           <!-- Дату можно ввести вручную или выбрать в календаре -->
           <Grid x:Name="PeriodPanel" IsVisible="False" ColumnDefinitions="*,6,*">
-            <CalendarDatePicker Grid.Column="0" x:Name="FromBox" Watermark="С (дд.мм.гггг)"
-                                SelectedDateFormat="Custom" CustomDateFormatString="dd.MM.yyyy" />
-            <CalendarDatePicker Grid.Column="2" x:Name="ToBox" Watermark="По (дд.мм.гггг)"
-                                SelectedDateFormat="Custom" CustomDateFormatString="dd.MM.yyyy" />
+            <CalendarDatePicker Grid.Column="0" x:Name="FromBox" Watermark="С (необяз.)"
+                                SelectedDateFormat="Custom" CustomDateFormatString="dd.MM.yyyy"
+                                ToolTip.Tip="from — пусто: параметр не отправляется" />
+            <CalendarDatePicker Grid.Column="2" x:Name="ToBox" Watermark="По (необяз.)"
+                                SelectedDateFormat="Custom" CustomDateFormatString="dd.MM.yyyy"
+                                ToolTip.Tip="to — пусто: параметр не отправляется" />
           </Grid>
           <DockPanel x:Name="FilePanel" IsVisible="False">
             <Button DockPanel.Dock="Right" Content="Обзор…" Padding="10,0" Margin="6,0,0,0"
@@ -155,7 +169,14 @@
           <TextBox x:Name="CodesBox" IsVisible="False" AcceptsReturn="True" TextWrapping="Wrap"
                    MinHeight="64" MaxHeight="120"
                    Watermark="Коды маркировки (Codes) — несколько через запятую" />
-          <TextBox x:Name="ShiftNumberBox" IsVisible="False" Watermark="Номер смены (ShiftNumber), напр. 1" />
+          <TextBox x:Name="ShiftNumberBox" IsVisible="False" Watermark="Смена (необяз.), напр. 1"
+                   ToolTip.Tip="shift — пусто: параметр не отправляется" />
+          <ComboBox x:Name="IsProcessedBox" IsVisible="False" HorizontalAlignment="Stretch" SelectedIndex="0"
+                    ToolTip.Tip="isProcessed — «не задано»: параметр не отправляется">
+            <ComboBoxItem Content="Обработка: не задано" />
+            <ComboBoxItem Content="Обработка: успешные (true)" />
+            <ComboBoxItem Content="Обработка: неуспешные (false)" />
+          </ComboBox>
           <!-- Проверка кода маркировки (RequestKM) -->
           <TextBox x:Name="MarkingCodeBox" IsVisible="False" Watermark="Код маркировки в Base64 (MarkingCode)" />
           <Grid x:Name="MarkingQuantityPanel" IsVisible="False" ColumnDefinitions="*,6,*">
@@ -184,6 +205,7 @@
         </Border>
       </DockPanel>
     </Border>
+    </Grid>
 
     <GridSplitter Grid.Column="1"
                   Width="6"

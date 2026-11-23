@@ -1,4 +1,4 @@
-using RBSoftSkkm;
+﻿using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -10,10 +10,10 @@ public class GetFiscalSign : Sample
 
     public async Task<SkkmConnector> GetFiscalSignByDocNumber()
     {
+        // Имя ККТ:
         connector.DeviceName = deviceName;
         // Номер фискального документа (ФД):
         connector.CheckNumber = checkNumber;
-
         if (await connector.GetFiscalSign())
         {
             Console.WriteLine($"Фискальный признак документа: {connector.FiscalSign}");
