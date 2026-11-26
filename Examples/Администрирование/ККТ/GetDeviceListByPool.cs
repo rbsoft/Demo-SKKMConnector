@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -14,14 +14,8 @@ public class GetDeviceListByPool : Sample
         connector.Pool = pool;
         if (await connector.GetDeviceListByPool())
         {
-            // По каждой кассе пула — имя, драйвер и текст статуса:
             foreach (var kkt in connector.DeviceList)
-            {
-                Console.WriteLine($"Имя ККМ: {kkt.DeviceName}");
-                Console.WriteLine($"Тип драйвера: {kkt.Driver}");
-                Console.WriteLine($"Описание статуса: {kkt.DeviceStatusDescription}");
-            }
-
+                Console.WriteLine($"Имя ККТ: {kkt.DeviceName} Драйвер: {kkt.Driver} Статус: {kkt.DeviceStatusDescription}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

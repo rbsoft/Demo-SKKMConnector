@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -18,12 +18,12 @@ public class GetReportXList : Sample
         connector.ToDate = toDate;
         // Смена и признак обработки необязательны:
         connector.ShiftNumber = shiftNumber;
-        connector.ListIsProcessed = isProcessed;
+        connector.IsProcessed = isProcessed;
 
         if (await connector.GetReportXList())
         {
             foreach (var report in connector.ReportValues)
-                Console.WriteLine(report.Key + ": " + report.Value);
+                Console.WriteLine($"{report.Key}: {report.Value} — {report.Description}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

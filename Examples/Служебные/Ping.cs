@@ -13,8 +13,7 @@ public class Ping : Sample
         if (await connector.Ping())
         {
             Console.WriteLine($"Название продукта: {connector.Product}");
-            Console.WriteLine($"Версия сервера: {connector.ServerVersion}");
-
+            Console.WriteLine($"Версия Сервера ККМ: {connector.ServerVersion}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

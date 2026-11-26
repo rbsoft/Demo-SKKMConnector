@@ -17,7 +17,7 @@ public class ConfirmKM : Sample
         // Тип подтверждения
         connector.ConfirmationType = confirmationType;
         if (await connector.ConfirmKM())
-            Console.WriteLine("Выполнено успешно.");
+            Console.WriteLine("КМ подтвержден");
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 

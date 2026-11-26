@@ -1,11 +1,11 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
 public class VerifyMarkingTsPiot : Sample
 {
     public const string GroupPath = "Работа с ККМ|Работа с маркировкой";
-    public const string Title = "Проверка КМ через ТС ПИоТ";
+    public const string Title = "Проверка КМ ТС ПИоТ";
     public const int SortOrder = 7;
 
     public async Task<SkkmConnector> PostVerifyMarkingTsPiot()
@@ -13,13 +13,19 @@ public class VerifyMarkingTsPiot : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
 
-        // Список КМ для проверки через транспортный слой ПИоТ:
+        // Список КМ (Cis/DataMatrix), несколько КМ перечисляем через запятую:
         connector.Codes = codes;
         if (await connector.VerifyMarkingTsPiot())
-            RequestKM.PrintVerify(connector);
+        {
+            foreach (var report in connector.ReportValues)
+            {
+                Console.WriteLine(string.IsNullOrEmpty(report.Description)
+                    ? $"{report.Key}: {report.Value}"
+                    : $"{report.Key}: {report.Value} — {report.Description}");
+            }
+        }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

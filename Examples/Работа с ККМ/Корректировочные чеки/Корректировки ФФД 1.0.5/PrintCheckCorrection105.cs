@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -50,7 +50,6 @@ public class PrintCheckCorrection105 : Sample
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
             Console.WriteLine($"ФП чека: {connector.FiscalSign}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

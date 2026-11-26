@@ -15,7 +15,6 @@ public class Cash : Sample
         if (await connector.GetCash())
         {
             Console.WriteLine($"Остаток наличных в денежном ящике: {connector.CashBalance}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

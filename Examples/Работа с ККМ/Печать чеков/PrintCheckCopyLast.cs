@@ -13,9 +13,7 @@ public class PrintCheckCopyLast : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.PrintCheckCopyLast())
-            Console.WriteLine(
-                "Копия последнего чека напечатана.\n" +
-                $"Идентификатор документа (docId): {connector.DocId}");
+            Console.WriteLine("Копия последнего чека распечатана!");
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 

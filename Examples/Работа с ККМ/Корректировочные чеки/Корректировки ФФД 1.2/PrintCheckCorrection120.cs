@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -39,13 +39,14 @@ public class PrintCheckCorrection120 : Sample
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
             Console.WriteLine($"Время операции: {connector.ServerTime}");
-            Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
+            Console.WriteLine($"Адрес сайта уполномоченного органа (ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
             Console.WriteLine($"Серийный номер фискального накопителя: {connector.FnSerialNumber}");
             Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
             Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
             Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
 
         }
         else

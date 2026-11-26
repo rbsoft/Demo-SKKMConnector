@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -16,10 +16,9 @@ public class Status : Sample
         {
             Console.WriteLine($"Фискальный режим: {connector.DeviceIsFiscal}");
             Console.WriteLine($"Не доступна информационная система маркировки: {connector.IsIsmDisconnected}");
-            Console.WriteLine($"Не доступен оператор информационной системы маркировки, оператор фискальных данных (ОФД): {connector.IsOfdDisconnected}");
+            Console.WriteLine($"Не доступен оператор информационной системы маркировки, оператор фискальных данн: {connector.IsOfdDisconnected}");
             Console.WriteLine($"Находится ли фискальный накопитель в состоянии ошибки: {connector.IsFnError}");
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
-            Console.WriteLine($"Номер чека за смену: {connector.CheckNumberInShift}");
             Console.WriteLine($"Сумма выручки: {connector.TotalSum}");
             Console.WriteLine($"Время открытия кассовой смены: {connector.OpenShiftDate}");
             Console.WriteLine($"Смена открыта: {connector.IsShiftOpened}");
@@ -27,7 +26,6 @@ public class Status : Sample
             Console.WriteLine($"Код ошибки: {connector.ErrorCode}");
             Console.WriteLine($"Описание ошибки устройства по данным драйвера: {connector.ErrorCodeDescription}");
             Console.WriteLine($"Ширина чековой ленты в символах: {connector.DeviceLineLength}");
-            Console.WriteLine($"Ширина чековой ленты в пикселях: {connector.DeviceLineLengthPixels}");
             Console.WriteLine($"Статус лицензии Сервера ККМ: {connector.LicenseStatus}");
             Console.WriteLine($"Состояние смены: {connector.ShiftState}");
             Console.WriteLine($"Сумма наличных в денежном ящике: {connector.CashBalance}");
@@ -43,11 +41,9 @@ public class Status : Sample
             Console.WriteLine($"Превышено время ожидания ответа от ОФД: {connector.FnWarningsIsOfdTimeout}");
             Console.WriteLine($"Время получения данных, время на Сервере ККМ: {connector.ServerTime}");
             Console.WriteLine($"Время в часах устройства: {connector.DeviceTime}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
-
 
         return connector;
     }

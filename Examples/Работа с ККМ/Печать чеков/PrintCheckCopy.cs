@@ -21,8 +21,11 @@ public class PrintCheckCopy : Sample
         connector.DocId = documentId;
         if (await connector.PrintCheckCopy())
         {
-            foreach (var report in connector.ReportValues)
-                Console.WriteLine(report.Key + ": " + report.Value);
+            Console.WriteLine("Копия распечатана!");
+
+
+
+
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

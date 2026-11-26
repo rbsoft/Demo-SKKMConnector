@@ -40,6 +40,7 @@ public class CheckSampleAllVat : Sample
 
         if (await connector.PrintCheck())
         {
+
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
             Console.WriteLine($"Время операции: {connector.ServerTime}");
             Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
@@ -49,6 +50,8 @@ public class CheckSampleAllVat : Sample
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
             Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

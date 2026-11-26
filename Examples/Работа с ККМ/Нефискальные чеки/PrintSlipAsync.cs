@@ -24,7 +24,6 @@ public class PrintSlipAsync : Sample
         if (await connector.PrintSlipAsync())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

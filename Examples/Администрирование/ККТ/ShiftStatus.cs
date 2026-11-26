@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -18,9 +18,6 @@ public class ShiftStatus : Sample
             Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
             Console.WriteLine($"Состояние смены: {connector.ShiftState}");
             Console.WriteLine($"Количество непереданных документов: {connector.BacklogDocumentsCounter}");
-            Console.WriteLine($"Номер первого непереданного чека: {connector.BacklogDocumentFirstNumber}");
-            Console.WriteLine($"Дата первого непереданного чека: {connector.BacklogDocumentFirstDateTime}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

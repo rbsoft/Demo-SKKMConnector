@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -15,12 +15,9 @@ public class GetQueueTask : Sample
 
         if (await connector.GetQueueTask())
         {
-            Console.WriteLine($"Идентификатор: {connector.DocId}");
+            Console.WriteLine($"Идентификатор документа: {connector.DocId}");
             foreach (var report in connector.ReportValues)
-            {
-                Console.WriteLine($"{report.Key}: {report.Value}");
-            }
-
+                Console.WriteLine($"{report.Key}: {report.Value} — {report.Description}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

@@ -25,20 +25,20 @@ public class CheckSampleMarkedPiece : Sample
         connector.NewCheck(CheckType.Sale, TaxSystem.Osn);
 
         var row = connector.AddPosition(
-            "Молоко 1л.",
+            "Пачка сигарет",
             1m,
-            101m,
-            101m,
+            150m,
+            150m,
             TaxRate.Vat0, // ставка НДС 0%
             SignCalculationObject.MarkedWithCode, // товар с маркировкой с кодом (33)
             SignMethodCalculation.FullPayment, // полный расчёт
             MeasureOfQuantity.Piece); // штуки
         // Код марки в формате Base64
-        row.Cis_Base64 = "MDEwNDY3MDU0MDE3NjA5OTIxNSdXOVVtHTkzZEdWeg==";
-        row.GTIN = "04670540176099"; // GTIN
+        row.Cis_Base64 = "MDEwNDYyOTMwODg3NzA0NDIxRHprY1dxUx04MDA1MTc3MDAwHTkzZEdWeg==";
+        row.GTIN = "04629308877044"; // GTIN
         row.StampType = "05"; // тип маркировки
 
-        connector.Cash = 101m; // сумма наличными
+        connector.Cash = 150m; // сумма наличными
 
         if (await connector.PrintCheck())
         {

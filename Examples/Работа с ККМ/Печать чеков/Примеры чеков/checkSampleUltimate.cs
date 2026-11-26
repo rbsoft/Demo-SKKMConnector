@@ -258,9 +258,9 @@ public class checkSampleUltimate : Sample
         line29.CustomsDeclaration = "10009100/140923/0001122"; // номер таможенной декларации
         line29.AdditionalAttribute = "Импорт АТМ"; // доп. реквизит предмета расчёта (тег 1191)
         // Код марки в формате Base64
-        line29.Cis_Base64 = "MDEwNDYwMTkwNzAwMjgwNTIxNUR0RDJReUlCSjVrYR05MUYwMTMdOTJnajR4alVwdzlCZHVLUXZhT3pNYmFyeGhkVFRqWmp1cFR0RkFZOTl0WmhVPQ==";
+        line29.Cis_Base64 = "MDQ2MDE2NTMwMzU4MjlIO2RWKWJGQUJWVWRHVno=";
         // GTIN
-        line29.GTIN = "04601907002805";
+        line29.GTIN = "04601653035829";
         line29.IndustryAttributeIdentifierFoiv = "030";
         line29.IndustryAttributeDocumentDate = "21.11.2023";
         line29.IndustryAttributeDocumentNumber = "1944";
@@ -276,7 +276,7 @@ public class checkSampleUltimate : Sample
         line31.TaxSum = 0.91m; // сумма НДС по строке
         line31.SignSubjectCalculationAgent = AgentType.Agent; // признак агента по строке
         // Код марки в формате Base64
-        line31.Cis_Base64 = "MDEwNDYwNzAxMDM1MDI0NjIxNURzPkpSak5FIWpaIR05M2RHVno=";
+        line31.Cis_Base64 = "MDEwNDY4MDc0ODU5MDE4NDIxNW1xdV9lHTkzZEdWeg==";
         // Дробное количество штучного ТМ (тег 1291): Quantity=1, дробь 1/4 из упаковки
         line31.FractionalQuantityNumerator = 1;
         line31.FractionalQuantityDenominator = 4;
@@ -286,11 +286,11 @@ public class checkSampleUltimate : Sample
         line31.IndustryAttributeAttributeValue = "UUID=8f3a9d1c-7e2b-4a5f-9c8d-1e2f3a4b5c6d&Time=1746530733410";
 
         // Предмет расчёта — маркированный товар с КИ, продажа по весу
-        var line32 = connector.AddPosition("Сыр", 0.5m, 20, 10.0m, TaxRate.Vat10, SignCalculationObject.MarkedWithCode, SignMethodCalculation.FullPayment, MeasureOfQuantity.Kilogram); // НДС 10% · ТМ · полный расчёт · кг
-        line32.TaxSum = 0.91m; // сумма НДС по строке
+        var line32 = connector.AddPosition("Сыр", 0.5m, 300, 150.0m, TaxRate.Vat10, SignCalculationObject.MarkedWithCode, SignMethodCalculation.FullPayment, MeasureOfQuantity.Kilogram); // НДС 10% · ТМ · полный расчёт · кг
+        line32.TaxSum = 13.64m; // сумма НДС по строке
         line32.SignSubjectCalculationAgent = AgentType.Agent; // признак агента по строке
         // Код марки в формате Base64
-        line32.Cis_Base64 = "MDEwNDYwMjIyMDAwNjU0OTIxNW9wRmNtSx05M2RHVno=";
+        line32.Cis_Base64 = "MDEwNDYxMDEzNjI4MDU3MTIxJTAwOGlWax04MDA1MTgwMDAwHTkzZEdWeg==";
         line32.IndustryAttributeIdentifierFoiv = "030";
         line32.IndustryAttributeDocumentDate = "21.11.2023";
         line32.IndustryAttributeDocumentNumber = "1944";
@@ -304,7 +304,7 @@ public class checkSampleUltimate : Sample
         connector.AddSeparatorLine(LineStyle.Dotted); // линия-разделитель
 
         // Несколько видов оплаты (суммы должны сходиться с итогом чека):
-        connector.Cash = 50; // оплата наличными
+        connector.Cash = 190; // оплата наличными
         connector.ElectronicPayment = 70; // оплата безналичными (карта, СБП и т.д.)
         connector.AdvancePayment = 70; // зачёт выданного аванса
         connector.Credit = 70; // постоплата (в кредит)
@@ -312,6 +312,7 @@ public class checkSampleUltimate : Sample
 
         if (await connector.PrintCheck())
         {
+
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
             Console.WriteLine($"Время операции: {connector.ServerTime}");
             Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
@@ -321,6 +322,8 @@ public class checkSampleUltimate : Sample
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
             Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+
 
         }
         else

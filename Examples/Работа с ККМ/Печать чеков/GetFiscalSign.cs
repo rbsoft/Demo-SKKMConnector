@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -16,8 +16,7 @@ public class GetFiscalSign : Sample
         connector.CheckNumber = checkNumber;
         if (await connector.GetFiscalSign())
         {
-            Console.WriteLine($"Фискальный признак документа: {connector.FiscalSign}");
-
+            Console.WriteLine($"Фискальный признак чека: {connector.FiscalSign}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

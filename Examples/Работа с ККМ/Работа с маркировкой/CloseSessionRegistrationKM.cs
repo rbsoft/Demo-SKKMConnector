@@ -13,7 +13,7 @@ public class CloseSessionRegistrationKM : Sample
         // Имя ККТ:
         connector.DeviceName = deviceName;
         if (await connector.CloseSessionRegistrationKM())
-            Console.WriteLine("Выполнено успешно.");
+            Console.WriteLine("Сессия регистрации КМ открыта");
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 

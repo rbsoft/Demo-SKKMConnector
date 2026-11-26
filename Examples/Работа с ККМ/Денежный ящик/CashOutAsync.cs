@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -21,7 +21,6 @@ public class CashOutAsync : Sample
         if (await connector.CashOutAsync())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

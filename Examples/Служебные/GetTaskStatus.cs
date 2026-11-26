@@ -26,17 +26,16 @@ public class GetTaskStatus : Sample
             Console.WriteLine($"Номер смены: {connector.ShiftNumber}");
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Тип чека: {connector.TaskType}");
-            Console.WriteLine($"Фискальный признак: {connector.FiscalSign}");
+            Console.WriteLine($"Фискальный признак чека: {connector.FiscalSign}");
             Console.WriteLine($"Название организации: {connector.OrganizationInfo}");
             Console.WriteLine($"Заводской номер ККТ: {connector.DeviceSerialNumber}");
-            Console.WriteLine($"ИНН Организации: {connector.FnVatin}");
+            Console.WriteLine($"ИНН организации: {connector.FnVatin}");
             Console.WriteLine($"ФИО кассира: {connector.CashierName}");
             Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
             Console.WriteLine($"Фискальный накопитель: {connector.FnSerialNumber}");
             Console.WriteLine($"Адрес сайта уполномоченного органа (ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
             Console.WriteLine($"Наименование провайдера ОФД: {connector.FnOfdName}");
             Console.WriteLine($"ИНН провайдера ОФД: {connector.FnOfdVatin}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

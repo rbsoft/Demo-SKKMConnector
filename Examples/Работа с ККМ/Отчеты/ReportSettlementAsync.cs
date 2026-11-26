@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -19,7 +19,6 @@ public class ReportSettlementAsync : Sample
         if (await connector.ReportSettlementAsync())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

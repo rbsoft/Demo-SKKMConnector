@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -19,7 +19,7 @@ public class ReportSettlement : Sample
         if (await connector.ReportSettlement())
         {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-            Console.WriteLine($"Время операции: {connector.ServerTime}");
+            Console.WriteLine($"Время на сервере ККМ: {connector.ServerTime}");
             Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
             Console.WriteLine($"Серийный номер фискального накопителя: {connector.FnSerialNumber}");
             Console.WriteLine($"Регистрационный номер ККТ: {connector.RnNumber}");
@@ -42,7 +42,6 @@ public class ReportSettlement : Sample
             Console.WriteLine($"Требуется срочная замена ФН: {connector.FnWarningsIsNeedReplacement}");
             Console.WriteLine($"Превышено время ожидания ответа от ОФД: {connector.FnWarningsIsOfdTimeout}");
             Console.WriteLine($"Исчерпан ресурс ФН: {connector.FnWarningsIsResourceExhausted}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

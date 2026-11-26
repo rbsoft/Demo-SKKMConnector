@@ -44,6 +44,7 @@ public class CheckSample13 : Sample
         connector.Cash = 65m; // сумма наличными
         if (await connector.PrintCheck())
         {
+
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
             Console.WriteLine($"Время операции: {connector.ServerTime}");
             Console.WriteLine($"Адрес сайта уполномоченного органа(ФНС) в сети «Интернет»: {connector.FnFnsUrl}");
@@ -53,6 +54,8 @@ public class CheckSample13 : Sample
             Console.WriteLine($"Номер чека: {connector.CheckNumber}");
             Console.WriteLine($"Дата и время документа по часам ФН: {connector.FiscalDatetime}");
             Console.WriteLine($"ФП чека: {connector.FiscalSign}");
+
+
 
         }
         else

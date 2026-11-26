@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -17,12 +17,12 @@ public class GetCorrection120List : Sample
         connector.ToDate = toDate;
         // Смена и признак обработки необязательны:
         connector.ShiftNumber = shiftNumber;
-        connector.ListIsProcessed = isProcessed;
+        connector.IsProcessed = isProcessed;
 
         if (await connector.GetCorrection120List())
         {
             foreach (var report in connector.ReportValues)
-                Console.WriteLine(report.Key + ": " + report.Value);
+                Console.WriteLine($"{report.Key}: {report.Value} — {report.Description}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

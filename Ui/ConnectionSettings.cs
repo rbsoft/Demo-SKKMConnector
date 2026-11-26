@@ -181,7 +181,7 @@ public class ConnectionSettings
         connector.Token = Token.Trim();
         connector.FromDate = From ?? default;
         connector.ToDate = To ?? default;
-        connector.ListIsProcessed = IsProcessed;
+        connector.IsProcessed = IsProcessed;
 
         sample.connector = connector;
         sample.deviceName = Device.Trim();

@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -20,9 +20,7 @@ public class CashInAsync : Sample
         connector.CashAmount = cashAmount;
         if (await connector.CashInAsync())
         {
-                        // DocId задания в очереди — им по нему смотрят GetTaskStatus / GetQueueTask:
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

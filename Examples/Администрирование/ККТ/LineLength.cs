@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -16,7 +16,6 @@ public class LineLength : Sample
         {
             Console.WriteLine($"Ширина строки в символах: {connector.DeviceLineLength}");
             Console.WriteLine($"Ширина строки в пикселях: {connector.DeviceLineLengthPixels}");
-
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

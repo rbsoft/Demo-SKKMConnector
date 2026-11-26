@@ -12,8 +12,7 @@ public class GetVersion : Sample
     {
         if (await connector.GetVersion())
         {
-            Console.WriteLine($"Версия сервера: {connector.ServerVersion}");
-
+            Console.WriteLine($"Версия Сервера ККМ: {connector.ServerVersion}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

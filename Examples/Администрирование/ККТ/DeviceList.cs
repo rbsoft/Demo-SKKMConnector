@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -12,14 +12,8 @@ public class DeviceList : Sample
     {
         if (await connector.GetDeviceList())
         {
-            // По каждой кассе на сервере — имя, драйвер и описание статуса:
             foreach (var kkt in connector.DeviceList)
-            {
-                Console.WriteLine($"Имя ККМ: {kkt.DeviceName}");
-                Console.WriteLine($"Тип драйвера: {kkt.Driver}");
-                Console.WriteLine($"Описание статуса: {kkt.DeviceStatusDescription}");
-            }
-
+                Console.WriteLine($"Имя ККТ: {kkt.DeviceName} Драйвер: {kkt.Driver} Статус: {kkt.DeviceStatusDescription}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");

@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -17,10 +17,7 @@ public class CloseShiftAsync : Sample
         // ИНН кассира:
         connector.CashierVatin = cashierVatin;
         if (await connector.CloseShiftAsync())
-        {
             Console.WriteLine($"Идентификатор документа: {connector.DocId}");
-
-        }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 

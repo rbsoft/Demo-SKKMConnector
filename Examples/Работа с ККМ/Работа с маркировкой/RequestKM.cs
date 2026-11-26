@@ -1,4 +1,4 @@
-﻿using RBSoftSkkm;
+using RBSoftSkkm;
 
 namespace SkkmNugetSample.Examples;
 
@@ -38,77 +38,11 @@ public class RequestKM : Sample
             Console.WriteLine($"Проверка формата кода: {connector.FormatChecking}");
             Console.WriteLine($"Проверка кода маркировки: {connector.Checking}");
             Console.WriteLine($"Результат проверки: {connector.CheckingResult}");
-            Console.WriteLine($"Штрихкод: {connector.MarkingBarcode}");
-            PrintCodeMark(connector.CodeMarkInfo);
+            Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
         }
         else
             Console.WriteLine($"Код ошибки: {connector.ErrorCode} {connector.ErrorDescription}");
 
-
         return connector;
-    }
-
-    // Вывод ответа VerifyMarking* (не RequestKM): сводка модуля ЧЗ и список MarkingCodes.
-    internal static void PrintVerify(SkkmConnector connector)
-    {
-        Console.WriteLine($"Код результата: {connector.MarkingAnswerCode}");
-        Console.WriteLine($"Описание: {connector.MarkingDescription}");
-        Console.WriteLine($"Идентификатор запроса: {connector.ReqId}");
-        Console.WriteLine($"Время проверки: {connector.ReqTimestamp}");
-        Console.WriteLine($"Статус модуля: {connector.MarkingModuleStatus}");
-        Console.WriteLine($"Нужно обновить базу: {connector.RequiresDownload}");
-        Console.WriteLine($"Обновление базы: {connector.MarkingLastUpdate}");
-        Console.WriteLine($"Синхронизация: {connector.MarkingLastSync}");
-        Console.WriteLine($"Офлайн-проверка: {connector.IsCheckedOffline}");
-        Console.WriteLine($"Версия модуля: {connector.MarkingModuleVersion}");
-        Console.WriteLine($"Экземпляр модуля: {connector.MarkingModuleId}");
-        Console.WriteLine($"Адрес модуля: {connector.MarkingServiceUrl}");
-        // Каждый элемент — разобранный КМ (Cis — код идентификации без криптоподписи):
-        foreach (var mark in connector.MarkingCodes)
-            PrintCodeMark(mark);
-    }
-
-    // Расшифровка одного КМ: Cis (КИ), DataMatrix, статусы оборота и блокировок.
-    internal static void PrintCodeMark(CodeMarkInfo? mark)
-    {
-        if (mark == null)
-            return;
-        Console.WriteLine($"КИ: {mark.Cis}");
-        Console.WriteLine($"DataMatrix: {mark.DataMatrix}");
-        Console.WriteLine($"Структура валидна: {mark.Valid}");
-        Console.WriteLine($"КИ без криптоподписи: {mark.PrintView}");
-        Console.WriteLine($"Товарные группы: {string.Join(", ", mark.GroupIds)}");
-        Console.WriteLine($"Криптопроверка: {mark.Verified}");
-        Console.WriteLine($"В обороте: {mark.Realizable}");
-        Console.WriteLine($"Нанесён: {mark.Utilised}");
-        Console.WriteLine($"Найден: {mark.Found}");
-        Console.WriteLine($"Срок годности: {mark.ExpireDate}");
-        Console.WriteLine($"Вариативные сроки: {mark.VariableExpirations}");
-        Console.WriteLine($"Дата производства: {mark.ProductionDate}");
-        Console.WriteLine($"Вес: {mark.ProductWeight}");
-        Console.WriteLine($"Ветеринарный документ: {mark.PrVetDocument}");
-        Console.WriteLine($"Принадлежит ИНН: {mark.IsOwner}");
-        Console.WriteLine($"Код ошибки КМ: {mark.ErrorCode}");
-        Console.WriteLine($"Сервисный код: {mark.ServiceCode}");
-        Console.WriteLine($"Сообщение: {mark.Message}");
-        Console.WriteLine($"Прослеживаемость: {mark.IsTracking}");
-        Console.WriteLine($"Продан: {mark.Sold}");
-        Console.WriteLine($"GTIN: {mark.Gtin}");
-        Console.WriteLine($"Тип упаковки: {mark.PackageType}");
-        Console.WriteLine($"Агрегат: {mark.Parent}");
-        Console.WriteLine($"ИНН производителя: {mark.ProducerInn}");
-        Console.WriteLine($"МРЦ: {mark.Mrp}");
-        Console.WriteLine($"Серая зона: {mark.GrayZone}");
-        Console.WriteLine($"ЕМЦ: {mark.Smp}");
-        Console.WriteLine($"Заблокирован: {mark.IsBlocked}");
-        Console.WriteLine($"Некорректный GTIN: {mark.IsGreyGtin}");
-        Console.WriteLine($"Органы блокировки: {string.Join(", ", mark.Ogvs)}");
-        Console.WriteLine($"Вложение: {mark.InnerUnitCount}");
-        Console.WriteLine($"Продано или возвращено: {mark.SoldUnitCount}");
-        Console.WriteLine($"Серия: {mark.ProductionSerialNumber}");
-        Console.WriteLine($"Партия: {mark.ProductionBatchNumber}");
-        Console.WriteLine($"Заводской номер: {mark.FactorySerialNumber}");
-        Console.WriteLine($"Ёмкость упаковки: {mark.PackageQuantity}");
-        Console.WriteLine($"Выбытие: {mark.EliminationState}");
     }
 }
